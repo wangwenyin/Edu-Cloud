@@ -1,0 +1,34 @@
+<div class="bind-page">
+  
+  <div class="title">
+    <span>已有教育云账号，请绑定</span><span>无教育云账号，请<a (click)="goRegister()">注册</a></span>
+  </div>
+
+  <form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+    <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="userName">账号</nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input nz-input formControlName="userName" placeholder="请输入用户名/邮箱/手机号">
+        </nz-input-group>
+        <nz-form-explain *ngIf="userName.dirty && userName.errors">请输入账户名且至少五个字符！</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="password">密码</nz-form-label>
+      <nz-form-control [nzSm]="20" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="anticon anticon-lock">
+          <input nz-input type="password" formControlName="password" placeholder="请输入密码">
+        </nz-input-group>
+        <nz-form-explain *ngIf="password.dirty && password.errors">
+          请输入密码！
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="btn-item">
+      <button nz-button type="submit" nzType="primary" [nzLoading]="loading" class="ant-btn__block">确定</button>
+    </nz-form-item>
+  </form>
+
+</div>

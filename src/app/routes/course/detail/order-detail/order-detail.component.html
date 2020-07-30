@@ -1,0 +1,68 @@
+<div class="modal-header">
+  <div class="modal-title">订单详情</div>
+</div>
+<div class="modal-content">
+  <h2>购买课程</h2>
+  <div class="course-info-box">
+    <div class="course-info">
+      <div class="label">课程信息</div>
+      <div class="value">
+        <!-- <img class="course-img" src="/assets/images/u131.png" /> -->
+        <img  class="course-img" *ngIf="courseInfo.remark && courseInfo.remark !== null && courseInfo.remark !=='';else errorImg" [src]="imgPrefix + courseInfo.remark"/>
+      <ng-template #errorImg>
+        <img class="course-img" src="/assets/images/u131.png">
+      </ng-template>
+        <div class="course-detail-info">
+          <div class="name">{{ courseInfo.courseName }}</div>
+          <div class="teacher">{{ courseInfo.teacherName }}</div>
+          <div class="class-hour">课时：{{courseInfo.totalHours}}节</div>
+        </div>
+      </div>
+    </div>
+    <div class="price">
+      <div class="label">原价</div>
+      <div class="value">{{ courseInfo.price }}</div>
+    </div>
+    <div class="vip-price">
+      <div class="label">VIP价格</div>
+      <div class="value">{{ courseInfo.vipPrice }}</div>
+    </div>
+    <div class="need-pay">
+      <div class="label">实付价格</div>
+      <div class="value">{{order.totalPrice}}</div>
+    </div>
+  </div>
+  <h2>支付方式</h2>
+  <div class="pay-mode-box">
+    <nz-radio-group [(ngModel)]="radioValue" style="width: 100%;">
+      <div class="pay-mode">
+        <label nz-radio nzValue="1"></label><div class="wx mode-name">微信支付</div>
+      </div>
+      <div class="pay-mode">
+        <label nz-radio nzValue="2"></label><div class="ali mode-name">支付宝</div>
+      </div>
+    </nz-radio-group>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="need-pay">实付：<span class="total-amount">{{ order.totalPrice }}</span></div>
+ 
+  <button *ngIf="radioValue=== '1'"  nz-button nzType="primary" type="submit" class="pay-now" [nzLoading]="loading" (click)="payNow()" >立即支付</button>
+  <a *ngIf="radioValue=== '2'" target="_blank" [href] = "zfbPayUrl" style="line-height: 45px;margin-right: 12px;"  nz-button nzType="primary" type="submit"  class="pay-now" [nzLoading]="loading" (click)="payNow()" >立即支付</a>
+</div>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>
+    立即支付
+  </ng-template>
+
+  <ng-template #modalContent>
+    <qr style="display: block;margin: 0 auto;" [value]="wxQr"></qr>
+    </ng-template>
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">暂不支付</button>
+    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">支付成功</button>
+  </ng-template>
+</nz-modal>

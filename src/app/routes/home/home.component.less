@@ -1,0 +1,91 @@
+.page-content {
+  .section {
+    padding: 20px 0;
+    color: #333;
+    &:last-child {
+      padding-bottom: 0;
+    }
+    &.diff {
+      padding: 20px 0;
+      background: #FAFAFA;
+    }
+    .section-title {
+      margin-bottom: 15px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .courses-box {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 35px;
+      text-align: center;
+      .course {
+        width: 232px;
+        .img-box {
+          height: 138px;
+          img {
+            margin: 0 auto;
+          }
+        }
+        .course-title {
+          font-size: 20px;
+          margin: 22px 0;
+        }
+        p {
+          color: #666;
+        }
+      }
+    }
+    .common-courses-box {
+      overflow: hidden;
+      .common-course {
+        position: relative;
+        float: left;
+        width: calc(~"(100% - 20px) / 2");
+        height: 342px;
+        margin-bottom: 20px;
+        border-radius:8px;
+        &:nth-child(even) {
+          margin-left: 20px;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+        }
+        .desc {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate3d(-50%, -50%, 0);
+          width:386px;
+          height:175px;
+          padding: 5px;
+          border:3px solid rgba(255,255,255,1);
+          border-radius:2px;
+          .desc-inner {
+            height: 100%;
+            background:rgba(255,255,255,0.66);
+            border-radius:2px;
+            padding: 14px;
+            .title {
+              font-size: 28px;
+              text-align: center;
+              transform: translateY(100%);
+            }
+            p {
+              margin-top: 10px;
+              line-height:24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .ant-table-tbody > tr:hover > td {
+    background: transparent;
+  }
+}

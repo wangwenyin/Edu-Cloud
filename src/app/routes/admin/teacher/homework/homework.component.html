@@ -1,0 +1,35 @@
+<div class="toolbar">
+  <button class="add" nz-button nzType="default" (click)="openAddWorkModal()" >添加</button>
+  <button class="edit" nz-button nzType="default" (click)="editWorkModal()" >编辑</button>
+  <button class="del" nz-button nzType="default" (click)='deleteHomework()'>删除</button>
+  <button class="preview" nz-button nzType="default" (click)='priviewWorkModal()'>预览</button>
+</div>
+<nz-table #rowSelectionTable [nzData]="dataSet" nzShowPagination="false">
+  <thead>
+    <tr>
+      <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="checkAll($event)"></th>
+      <th>作业名称</th>
+      <th>所属课程</th>
+      <th>所属课时</th>
+      <th>作业时间</th>
+      <th>作业分数值</th>
+      <th>题目数量</th>
+      <th>是否有效</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of rowSelectionTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+      <td>{{data.homework_name}}</td>
+      <td>{{data.course_name}}</td>
+      <td>{{data.name}}</td>
+      <td>{{data.homework_hours}}分钟</td>
+      <td>{{data.total_score}}</td>
+      <td>{{data.subject_count}}</td>
+      <td>{{data.is_ok=='1' ? '有效' : '关闭'}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+<br>
+<nz-pagination [(nzPageIndex)]="page" [nzTotal]="total" (nzPageIndexChange)="pageIndexChange()" [nzPageSize]= "size" nzShowQuickJumper></nz-pagination>

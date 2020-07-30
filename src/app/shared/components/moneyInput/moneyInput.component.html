@@ -1,0 +1,19 @@
+<!-- <nz-input-group [nzSuffix]="" [nzAddOnAfter]="amount">
+    <input type="text"  nz-input [placeholder]="placeholder" [readOnly]="readOnly" [(ngModel)]="money" (keyup)="formatMoney()">
+</nz-input-group>
+<ng-template #suffixTemplate>
+    <i class="anticon anticon-close-circle" (click)="money=null" *ngIf="money"></i>
+</ng-template> -->
+
+
+<nz-input-group nzCompact>
+    <input type="text"  nz-input [placeholder]="placeholder" [readOnly]="readOnly" [(ngModel)]="money" 
+    (keyup)="formatMoney()" (blur)="updateMoney()" style="width: 40%;">
+    <span class="ant-input-group-addon ng-star-inserted"  
+    style="width: 60%;
+    height: 32px;
+    line-height: 32px;
+    border-left: 1px solid #ddd;">{{amount}}</span>
+    <!-- <input type="text" [readOnly]="true"  nz-input [ngModel]="amount" style="width: 50%;"> -->
+</nz-input-group>
+

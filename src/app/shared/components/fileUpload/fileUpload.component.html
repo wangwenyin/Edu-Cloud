@@ -1,0 +1,216 @@
+<div  *ngIf="display=='table'"  style="margin-top: 10px;margin-bottom: 10px;">
+<ng-template #fileTableHeader>
+  <span style="justify-content: flex-start;">
+    {{fileListTitle}}
+  </span>
+  
+  <ng-container *ngIf="uploadable === true" >
+  <span>
+  <nz-upload style="margin-right:20px;" 
+    [(nzFileList)]="fileList" (nzChange)="fileChange($event)" 
+    [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload"
+    [nzWithCredentials]="true"
+  >
+    <button nz-button   [disabled]="fileCountLimit !=-1 &&dataSet.length >= fileCountLimit">
+      <i class="anticon anticon-upload"></i>
+      <span>添加文件({{dataSet.length}}/{{fileCountLimit == -1 ? '∞':fileCountLimit}})</span>
+    </button>
+  </nz-upload>
+  <button nz-button [nzType]="'primary'" [nzLoading]="uploading"  
+          [disabled]="uploadLength == 0" (click)="handleUpload()">
+    {{ uploading ? '上传中' : '开始上传' }}
+  </button>
+  </span>
+</ng-container>
+</ng-template>
+<nz-table #editRowTable nzBordered 
+  [nzTitle]="fileListTitle === ''  && uploadable === false  ? undefined:fileTableHeader" 
+  [nzShowPagination]="false" [nzFrontPagination]="false"
+  [nzData]="dataSet">
+  <thead>
+    <tr>
+      <ng-container *ngIf="firstColumnName === ''" >
+        <th style="text-align: center" nzWidth="5%">序号</th>
+        <th style="text-align: center"  nzWidth="30%">文件名</th>
+        <th style="text-align: center"  nzWidth="10%">大小</th>
+        <th style="text-align: center"  nzWidth="8%">上传人</th>
+        <th style="text-align: center"  nzWidth="12%">上传时间</th>
+        <th style="text-align: center"  nzWidth="15%">操作</th>
+      </ng-container>
+      <ng-container *ngIf="firstColumnName !== ''" >
+        <th style="text-align: center" nzWidth="5%">序号</th>
+        <th style="text-align: center"  nzWidth="20%">{{firstColumnName}}</th>
+        <th style="text-align: center"  nzWidth="30%">文件名</th>
+        <th style="text-align: center"  nzWidth="10%">大小</th>
+        <th style="text-align: center"  nzWidth="8%">上传人</th>
+        <th style="text-align: center"  nzWidth="12%">上传时间</th>
+        <th style="text-align: center"  nzWidth="15%">操作</th>
+      </ng-container>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of editRowTable.data; let idx = index">
+      <td>
+        <div class="editable-cell">
+          <div style="text-align: center" class="editable-cell-text-wrapper">
+            {{idx + 1}}
+          </div>
+        </div>
+      </td>
+      <ng-container *ngIf="firstColumnName !== ''" >
+      <td>
+        <div class="editable-cell">
+          <div class="editable-cell-text-wrapper">
+            <ng-container *ngIf="firstColumn === 'fileDesc' ? editIndex!=idx : true">
+              {{data[firstColumn]}}
+            </ng-container>
+            <ng-container *ngIf="editIndex==idx && firstColumn === 'fileDesc'">
+              <input type="text" nz-input [(ngModel)]="tempEditData[firstColumn]">
+            </ng-container>
+          </div>
+        </div>
+      </td>
+      </ng-container>
+      <td>
+        <ng-container *ngIf="changeFileName === true ? editIndex!=idx : true">
+          {{data.fileName}}
+        </ng-container>
+        <ng-container *ngIf="editIndex==idx && changeFileName === true">
+          <input type="text" nz-input [(ngModel)]="tempEditData.fileName">
+        </ng-container>
+      </td>
+      <td>
+        {{data.fileSizeForRead || '0B'}}
+      </td>
+      <td style="text-align: center">
+        {{data.uploader}}
+      </td>
+      <td style="text-align: center">
+        <ng-container *ngIf="data.id">
+          {{data.createdDate}}
+        </ng-container>
+        <ng-container *ngIf="!data.id">
+          <nz-progress [nzPercent]="data.percent || 0" nzSize="small"></nz-progress>
+        </ng-container>
+      </td>
+      <td>
+        <div class="editable-row-operations">
+            <ng-container  *ngIf="editIndex!=idx">   
+                  <ng-container *ngIf="data.id">
+                    <a (click)="downFile(idx)">下载</a>
+                  </ng-container>             
+                  <ng-container *ngIf="editable === true && (selfOnly === false || (selfOnly === true && accountName ==  data.createdBy)) ">
+                    <ng-container *ngIf="firstColumn === 'fileDesc' || changeFileName === true">
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <a (click)="startEdit(idx)">修改</a>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngIf="deleteable === true && (selfOnly === false || (selfOnly === true && accountName ==  data.createdBy)) ">
+                      <nz-popconfirm (nzOnConfirm)="delEdit(idx)" [nzTitle]="'是否要删除此文件？'">
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <a nz-popconfirm>删除</a>
+                      </nz-popconfirm>
+                    </ng-container>
+          </ng-container>
+          <ng-container *ngIf="editIndex==idx">
+              <a (click)="saveEdit(idx)">保存</a>
+              <nz-popconfirm [nzTitle]="'确定保存？'" (nzOnConfirm)="cancelEdit(idx)">
+                <a nz-popconfirm (click)="cancelEdit(idx)">取消</a>
+              </nz-popconfirm>
+            </ng-container>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+</div>
+<div *ngIf="display=='list'" style="margin-top: -10px;margin-bottom: 10px;">
+<ng-template #fileListHeader>
+    <span style="justify-content: flex-start;">
+        {{fileListTitle}}
+    </span>
+    <ng-container *ngIf="uploadable === true" >
+    <span>
+    <nz-upload style="margin-right:20px;" 
+      [(nzFileList)]="fileList" (nzChange)="fileChange($event)" 
+      [nzShowUploadList]="false"
+      [nzBeforeUpload]="beforeUpload"
+      [nzWithCredentials]="true"
+    >
+      <button nz-button   [disabled]="fileCountLimit !=-1 &&dataSet.length >= fileCountLimit">
+        <i class="anticon anticon-upload"></i>
+        <span>添加文件({{dataSet.length}}/{{fileCountLimit == -1 ? '∞':fileCountLimit}})</span>
+      </button>
+    </nz-upload>
+    <button nz-button [nzType]="'primary'" [nzLoading]="uploading"  
+            [disabled]="uploadLength == 0" (click)="handleUpload()">
+      {{ uploading ? '上传中' : '开始上传' }}
+    </button>
+    </span>
+  </ng-container>
+</ng-template>
+<nz-list  
+    [nzHeader]="fileListTitle === '' && uploadable === false ? undefined:fileListHeader" 
+    [nzDataSource]="dataSet"
+    [nzItemLayout]="'horizontal'"
+    [nzRenderItem]="item"
+    [nzSize]="small">
+    
+  <ng-container *ngIf="dataSet.length == 0">
+      <span>未上传文件</span>
+    </ng-container>
+    <ng-template #item let-item let-idx="index" >
+      <nz-list-item [nzActions]="editIndex==idx? [saveAction, cancleAction] : item.id ? [downloadAction,deleteAction]: [editAction,deleteAction]" [nzContent]="itemPercent">
+        <ng-template #downloadAction><a (click)="downFile(idx)">下载</a></ng-template>
+        <ng-template #deleteAction ><a (click)="delEdit(idx)" *ngIf="deleteable === true && (selfOnly === false || (selfOnly === true && accountName ==  data.createdBy)) ">删除</a></ng-template>
+        <ng-template #saveAction ><a (click)="saveEdit(idx)">保存</a></ng-template>
+        <ng-template #cancleAction ><nz-popconfirm [nzTitle]="'确定保存？'" (nzOnConfirm)="cancelEdit(idx)"><a nz-popconfirm (click)="cancelEdit(idx)">取消</a></nz-popconfirm></ng-template>
+        <ng-template #itemPercent>
+              <ng-container *ngIf="editIndex!=idx">
+              <nz-tooltip [nzPlacement]="'right'">
+                  <span nz-tooltip>{{item.fileName}}</span>
+                  <ng-template #nzTemplate>
+                    大小：{{item.fileSizeForRead}} <br>
+                    上传时间：{{item.id ? item.createdDate:'未上传'}} <br>
+                    上传人：{{item.uploader}} 
+                  </ng-template>
+              </nz-tooltip>
+              <div *ngIf="!item.id">
+                  上传进度：
+                  <nz-progress [nzPercent]="item.percent || 0" nzSize="small" nzType="circle" [nzWidth]="26"></nz-progress>
+              </div>
+            </ng-container>    
+              <ng-container *ngIf="editIndex==idx">
+                <input type="text" nz-input [(ngModel)]="tempEditData.fileName">
+              </ng-container>    
+        </ng-template>
+
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</div>
+
+<div  *ngIf="display=='preview'"  style="">
+
+  <div class="clearfix">
+    <nz-upload
+      [nzAction]="uploadAddress"
+      (nzChange)="handleUploadChange($event)" 
+      nzListType="picture-card"
+      [(nzFileList)]="pFileList"
+      [nzData]	= "fileParam"
+      [nzShowButton]="pFileList.length < 1"
+      [nzPreview]="handlePreview">
+      <i class="anticon anticon-plus"></i>
+        <div class="ant-upload-text">{{fileListTitle}}</div>
+    </nz-upload>
+    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+      <ng-template #modalContent>
+        <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+      </ng-template>
+    </nz-modal>
+  </div>
+
+  </div>

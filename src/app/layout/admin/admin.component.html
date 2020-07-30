@@ -1,0 +1,60 @@
+<nz-layout class="admin-layout">
+  <layout-header [isVisiteAdmin]="isVisiteAdmin"></layout-header>
+  <!-- 返回顶部按钮 -->
+  <!-- <nz-back-top></nz-back-top> -->
+  <nz-content class="outer-content">
+    <nz-layout class="inner-layout">
+      <nz-sider [nzWidth]="135" [ngStyle]="{ 'top': isTeacher ? '185px' : '325px' }">
+        <ul nz-menu [nzMode]="'vertical'">
+          <li nz-menu-item [nzSelected]="index === '1'" *ngIf="isTeacher">
+            <a [routerLink]="['teacher/my-course']">我的课程</a>
+          </li>
+
+          <li nz-menu-item [nzSelected]="index === '1'" *ngIf="isStudent">
+            <a [routerLink]="['student/my-course']">我的课程</a>
+          </li>
+
+          <li nz-menu-item [nzSelected]="index === '8'" *ngIf="isStudent">
+            <a [routerLink]="['student/special-course']">专题课程</a>
+          </li>
+
+          <li nz-menu-item [nzSelected]="index === '2'"  *ngIf="isStudent">
+            <a (click)="expression" [routerLink]="['student/courseFavorite']">我的收藏</a>
+          </li>
+          <li nz-menu-item [nzSelected]="index === '2'" *ngIf="isTeacher">
+            <a [routerLink]="['teacher/question-bank']">题库</a>
+          </li>
+          <li nz-menu-item [nzSelected]="index === '5'"  *ngIf="isTeacher">
+            <a [routerLink]="['teacher/homework']">作业</a>
+          </li>
+          <li nz-menu-item [nzSelected]="index === '6'" *ngIf="isTeacher">
+            <a [routerLink]="['teacher/examine']">考试</a>
+          </li>
+          <li nz-menu-item [nzSelected]="index === '3'" *ngIf="isStudent">
+            <a [routerLink]="['student/account']">账户信息</a>
+          </li>
+          <li nz-menu-item [nzSelected]="index === '3'" *ngIf="isTeacher">
+            <a [routerLink]="['teacher/account']">账户信息</a>
+          </li>
+          <li [nzSelected]="index === '4'" nz-menu-item *ngIf="isStudent">
+            <a [routerLink]="['student/news']">我的消息</a>
+          </li>
+          <li [nzSelected]="index === '4'" nz-menu-item *ngIf="isTeacher">
+            <a id="my-msg" [routerLink]="['teacher/news']">我的消息</a>
+          </li>
+          <li [nzSelected]="index === '5'" nz-menu-item *ngIf="isStudent">
+            <a [routerLink]="['student/studyHistory']">学习历史</a>
+          </li>
+          <li nz-menu-item [nzSelected]="index === '7'" *ngIf="isTeacher">
+            <a [routerLink]="['teacher/recovery']">回收站</a>
+          </li>
+        </ul>
+      </nz-sider>
+      <nz-content class="inner-content">
+        <router-outlet>
+        </router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-content>
+  <layout-footer></layout-footer>
+</nz-layout>

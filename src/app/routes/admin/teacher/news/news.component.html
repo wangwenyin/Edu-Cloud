@@ -1,0 +1,95 @@
+<nz-tabset>
+  <nz-tab nzTitle="互动消息" (nzSelect)= "selectTab(0)" >
+    <app-teacher-news-list [index] = 0></app-teacher-news-list>
+    <!-- <nz-list
+    *ngIf="interactionData.list.length;else nodata" 
+    [nzDataSource]="interactionData.list"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item"
+    [nzLoading]	 = "loading"
+    [nzPagination]="pagination0"
+    >
+    <ng-template #item let-item>
+      <nz-list-item [nzExtra]="extra">
+        <img *ngIf="item.headImg !== null && item.headImg !=='';else defaultHeadImg" style="width: 60px;height: 60px;border-radius: 50%;float: left;margin-right:15px;margin-top: 8px;" [src]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)">
+        <nz-list-item-meta style="margin-left: 50px;"
+          [nzTitle]="nzTitle0" 
+        >
+          <ng-template #nzTitle0>
+            <a href="{{item.href}}" style="font-size: 14px;font-weight: bold;float: left;margin-top: 8px;">{{(item.name)}}</a>
+            <div style="float: left;font-size: 12px;color: #999;margin-left: 20px;width: 90%;margin-top: 8px;">{{item.title}}  {{item.sendTime}}</div>
+            <a *ngIf="item.isRead === '0'" (click)="updateIsRead(item.id)" style="font-size: 14px;width: 90%;display:block;color: #666;margin-top: 8px;">{{item.content}}</a>
+            <div *ngIf="item.isRead === '1'" style="font-size: 14px;width: 90%;color: #666;margin-top: 8px;">{{item.content}}</div>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+    <ng-template #pagination0>
+      <nz-pagination  [(nzPageIndex)]="page[0]" [nzTotal]="interactionData.total" [nzPageSize] = "size"	(nzPageIndexChange)="initList(0)"></nz-pagination>
+    </ng-template>
+    </nz-list> -->
+  
+  </nz-tab>
+  <nz-tab nzTitle="课程评价" >
+    <app-teacher-news-list [index] = 1></app-teacher-news-list>
+    <!-- <nz-list
+    *ngIf="evaluateData.list.length;else nodata" 
+    [nzDataSource]="evaluateData.list"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item1"
+    [nzLoading]	 = "false"
+    [nzPagination]="pagination1"
+    >
+    <ng-template #item1 let-item1>
+      <nz-list-item [nzExtra]="extra">
+        <nz-avatar *ngIf="item1.headImg !== null && item1.headImg !=='';else defaultHeadImg" nzIcon="anticon anticon-user" [nzSize]="'large'" [nzSrc]="this.sanitizer.bypassSecurityTrustResourceUrl(item1.headImg)" onerror="'/assets/images/avatar.png'" style="float: left;">
+        </nz-avatar>
+        <nz-list-item-meta style="margin-left: 50px;"
+          [nzTitle]="nzTitle1"> 
+          <ng-template #nzTitle1>
+            <a href="{{item1.href}}" style="font-size: 14px;font-weight: bold;float: left;">{{(item1.name)}}</a>
+            <div style="float: left;font-size: 12px;color: #999;margin-left: 20px;width: 90%;">{{item1.title}}  {{item1.sendTime}}</div>
+            <a *ngIf="item1.isRead === '0'" (click)="updateIsRead(item1.id)" style="font-size:14px;width: 90%;display:block;color: #666;">{{item1.content}}</a>
+            <div *ngIf="item1.isRead === '1'" style="font-size: 14px;width: 90%;color: #666;">{{item1.content}}</div>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+    <ng-template #pagination1>
+      <nz-pagination  [(nzPageIndex)]="page" [nzTotal]="evaluateData.total" [nzPageSize] = "size"	(nzPageIndexChange)="initList(1)"></nz-pagination>
+    </ng-template>
+    </nz-list> -->
+  </nz-tab>
+  <nz-tab nzTitle="客服通知" (nzSelect)= "selectTab(2)"  >
+    <app-teacher-news-list [index] = 2></app-teacher-news-list>
+    <!-- <nz-list
+    *ngIf="customerData.list.length;else nodata" 
+    [nzDataSource]="customerData.list"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item2"
+    [nzLoading]	 = "false"
+    [nzPagination]="pagination2"
+    >
+    <ng-template #item2 let-item2>
+      <nz-list-item [nzExtra]="extra">
+        <nz-avatar *ngIf="item2.headImg && item2.headImg !=='';else defaultHeadImg" nzIcon="anticon anticon-user" [nzSize]="'large'" [nzSrc]="this.sanitizer.bypassSecurityTrustResourceUrl(item2.headImg)" onerror="'/assets/images/avatar.png'" style="float: left;">
+        </nz-avatar>
+        <nz-list-item-meta style="margin-left: 50px;"
+          [nzTitle]="nzTitle2"
+        > 
+          <ng-template #nzTitle2>
+            <a href="{{item2.href}}" style="font-size: 14px;font-weight: bold;float: left;">{{(item2.name)}}</a>
+            <div style="float: left;font-size: 12px;color: #999;margin-left: 20px;width: 90%;">{{item2.title}}  {{item2.sendTime}}</div>
+            <div *ngIf="item2.isRead === '0'" (click)="updateIsRead(item2.id)" style="font-size: 14px;width: 90%;color: #666;">{{item2.content}}</div>
+            <div *ngIf="item2.isRead === '1'"  style="font-size: 14px;width: 90%;color: #666;">{{item2.content}}</div>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+    <ng-template #pagination2>
+      <nz-pagination  [(nzPageIndex)]="page" [nzTotal]="customerData.total" [nzPageSize] = "size"	(nzPageIndexChange)="initList(2)"></nz-pagination>
+    </ng-template>
+    </nz-list> -->
+  
+  </nz-tab>
+</nz-tabset>

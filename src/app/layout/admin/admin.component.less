@@ -1,0 +1,44 @@
+:host ::ng-deep .ant-layout {
+  background: #fff;
+  .outer-content {
+    width: 1200px;
+    min-height: calc(~"100vh - 198px");
+    margin: 0 auto;
+    .inner-layout {
+      position: relative;
+      .ant-layout-sider {
+        position: absolute;
+        left: 0px;
+        background: #fff;
+        border:1px solid rgba(238,238,238,1);
+        .ant-menu-vertical {
+          border-right: none;
+          .ant-menu-item {
+            margin: 0;
+            padding-right: 0;
+            a {
+              height: 100%;
+              color: #333;
+              border-bottom:1px solid rgba(238,238,238,1);
+            }
+            &:last-child {
+              a {
+                border-bottom: none;
+              }
+            }
+            &.ant-menu-item-selected {
+              background:rgba(2,75,210,1);
+              a {
+                color: #fff;
+                border-bottom: none;
+              }
+            }
+          }
+        }
+      }
+      .inner-content {
+        overflow-x: inherit;
+      }
+    }
+  }
+}

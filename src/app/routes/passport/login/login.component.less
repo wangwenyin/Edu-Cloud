@@ -1,0 +1,144 @@
+:host ::ng-deep .login-box {
+  width: 362px;
+  margin: 0 auto;
+  .ant-tabs {
+    .ant-tabs-bar {
+      border-bottom: 2px solid #EEEEEE;
+      .ant-tabs-nav {
+        .ant-tabs-tab {
+          color: #999;
+          font-size: 16px;
+          margin-right: 16px;
+          &.ant-tabs-tab-active {
+            color: #024BD2;
+            font-weight: bold;
+          }
+        }
+        .ant-tabs-ink-bar {
+          background-color: #024BD2;
+        }
+      }
+    }
+  }
+  .ant-form-item {
+    &.ant-form-item-with-help {
+      margin-bottom: 10px;
+    }
+    &.btn-item {
+      margin-bottom: 10px;
+    }
+    .ant-input-prefix {
+      .anticon {
+        background-repeat: no-repeat;
+        background-position: center;
+        &::before {
+          display: none;
+        }
+        &.anticon-user {
+          width: 24px;
+          height: 24px;
+          background-image: url('/assets/icons/username.png');
+        }
+        &.anticon-mobile {
+          width: 20px;
+          height: 24px;
+          background-image: url('/assets/icons/phone.png');
+        }
+        &.anticon-lock {
+          width: 22px;
+          height: 25px;
+          background-image: url('/assets/icons/password.png');
+        }
+      }
+    }
+    .ant-input-affix-wrapper {
+      .ant-input {
+        height: 45px;
+        padding-left: 45px;
+        border-color: #EEEEEE;
+        &::placeholder {
+          font-size: 12px;
+          color: #CACACA;
+        }
+      }
+      &.password-wrapper {
+        .forget-pwd {
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: inline-block;
+          height: 100%;
+          line-height: 45px;
+          padding: 0 10px;
+          color: #999;
+          &::before {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            content: '';
+            width:1px;
+            height:20px;
+            background: #eee;
+          }
+        }
+      }
+      &.auth-code-box {
+        display: flex;
+        .ant-input {
+          flex: 1;
+        }
+        .ant-btn.getCode {
+          height: 100%;
+          line-height: 45px;
+          margin-left: 10px;
+          padding: 0 15px;
+          font-size: 14px;
+          color: #fff;
+          background: #024BD2;
+          border-radius: 4px;
+          &.disabledBg {
+            background: #72A3FF;
+          }
+        }
+      }
+    }
+    .ant-btn {
+      height:45px;
+      font-size: 18px;
+      color: #fff;
+      background:rgba(2,75,210,1);
+      letter-spacing: 2px;
+    }
+    .ant-checkbox-wrapper {
+      color: #999;
+      .ant-checkbox-checked .ant-checkbox-inner {
+        background-color: #024BD2;
+        border-color: #024BD2;
+      }
+    }
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+      border-color: #024BD2;
+    }
+    .text-right {
+      color: #999;
+      .register {
+        color: #024BD2;
+      }
+    }
+  }
+  .third-party-login {
+    .title {
+      color: #999;
+      font-size: 12px;
+    }
+    .icons-box {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 12px;
+      img {
+        cursor: pointer;
+      }
+    }
+  }
+}

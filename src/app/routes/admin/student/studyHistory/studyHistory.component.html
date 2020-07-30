@@ -1,0 +1,25 @@
+<nz-tabset>
+  <nz-tab nzTitle="学习历史">
+    <div *ngIf="dataList.length;else nodata" class="feature-course">
+        <ul class="course-list clearfix">
+            <li *ngFor="let item of dataList" >
+              <a href="#/course/detail?courseId={{item.edu_course_id}}">
+                <img [src]="this.imgPrefix+item.fileid" /> 
+                <div class="bottom">
+                  <div class="course-name">{{ item.course_name }}</div>
+                  <div class="course-date">
+                    <span>{{ item.start_date }} 至 {{ item.end_date }}</span>
+                    <span class="update-section">{{ item.updateSection }}</span>
+                  </div>
+                  <div class="teacher-name">{{ item.teacher_name }}</div>
+                </div>
+              </a>
+            </li>
+        </ul>
+        <nz-pagination [nzPageIndex]="page" [nzTotal]="total" nzShowQuickJumper></nz-pagination>
+    </div>
+    <ng-template #nodata >
+      <app-no-data></app-no-data>
+    </ng-template>
+ </nz-tab>
+</nz-tabset>

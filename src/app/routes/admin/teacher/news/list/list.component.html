@@ -1,0 +1,42 @@
+    <nz-list
+    *ngIf="dataList.length;else nodata" 
+    [nzDataSource]="dataList"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item"
+    [nzLoading]	 = "loading"
+    [nzPagination]="pagination"
+    >
+    <ng-template #item let-item>
+      <nz-list-item [nzExtra]="extra">
+       <ths-head-img [value] = "item.headImg" [top] = "8" [sex]="item.sex" [type]='item.entityType'></ths-head-img>
+        <!-- <img *ngIf="item.headImg !== null && item.headImg !=='';else defaultHeadImg" style="width: 60px;height: 60px;border-radius: 50%;float: left;margin-right:15px;margin-top: 8px;" [src]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)"> -->
+        <nz-list-item-meta style="margin-left: 50px;"
+          [nzTitle]="nzTitle" 
+        >
+          <ng-template #nzTitle>
+          
+            <a href="{{item.href}}" style="font-size: 14px;font-weight: bold;width: 7%;float: left;margin-top: 8px;">{{(item.name)}}</a>
+            <div style="float: left;font-size: 12px;color: #999;width: 93%;margin-top: 8px;">{{item.title}}  {{item.sendTime}}</div>
+            <!-- <a *ngIf="item.isRead === '0'" (click)="updateIsRead(item.id)" style="font-size: 14px;width: 90%;display:block;color: #666;margin-top: 8px;">{{item.content}}</a> -->
+           
+            <nz-badge nzDot *ngIf="item.isRead === '0'" >
+              <a  (click)="updateIsRead(item.id)" style="font-size: 14px;display:block;color: #666;margin-top: 8px;">{{item.content}}</a>
+            </nz-badge>
+
+            <div *ngIf="item.isRead === '1'" style="font-size: 14px;width: 90%;color: #666;margin-top: 8px;">{{item.content}}</div>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+    <ng-template #pagination>
+      <nz-pagination  [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize] = "size"	(nzPageIndexChange)="initList()"></nz-pagination>
+    </ng-template>
+    </nz-list>
+
+    <ng-template #nodata>
+      <app-no-data isMessage=true></app-no-data>
+    </ng-template>
+
+    <ng-template #defaultHeadImg>
+      <img  style="width: 60px;height: 60px;border-radius: 50%;float: left;margin-right:15px;margin-top: 8px;" src="/assets/images/avatar.png">
+    </ng-template>

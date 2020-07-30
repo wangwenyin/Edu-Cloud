@@ -1,0 +1,26 @@
+<div></div>
+<div >
+  <button nzType="primary" nz-button  (click)="confirm()" >确定</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 需选择{{subjectQuantity}}题， 已选择<span style="color:red;font-size: 20px; ">&nbsp;&nbsp;{{selTotal}}&nbsp;&nbsp; </span>题
+</div>
+<nz-table #rowSelectionTable [nzData]="dataSet" [nzShowPagination]=true >
+  <thead>
+    <tr>
+      <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="checkAll($event)"></th>
+      <th>题目编号</th>
+      <th style="width: 40%;">题目名称</th>
+      <th style="width: 30%;">题目描述</th>
+      <th>题目难度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of rowSelectionTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
+      <td>{{data.subject_no}}</td>
+      <td>{{data.subject_title}}</td>
+      <td>{{data.subject_description}}</td>
+      <td>{{data.subject_difficulty=='0' ? '简单' : ''}}</td>
+    </tr>
+  </tbody>
+</nz-table>

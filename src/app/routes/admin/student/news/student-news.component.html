@@ -1,0 +1,67 @@
+<nz-tabset>
+  <nz-tab nzTitle="互动消息" (nzSelect)= "selectTab(0)" >
+    <nz-list
+    *ngIf="interactionData.list.length;else nodata" 
+    [nzDataSource]="interactionData.list"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item"
+    [nzLoading]	 = "loading"
+    [nzPagination]="pagination0"
+    >
+    <ng-template #item let-item>
+      <nz-list-item [nzExtra]="extra">
+        <nz-avatar *ngIf="item.headImg !== null && item.headImg !=='' " nzIcon="anticon anticon-user" [nzSize]="'large'" [nzSrc]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)" onerror="'/assets/images/avatar.png'" style="float: left;">
+        </nz-avatar>
+        <nz-avatar *ngIf="item.headImg === null" nzIcon="anticon anticon-user" [nzSize]="'large'" [nzSrc]="'/assets/images/avatar.png'"  style="float: left;">
+        </nz-avatar>
+        <nz-list-item-meta style="margin-left: 50px;"
+          [nzTitle]="nzTitle0" 
+        >
+          <ng-template #nzTitle0>
+            <a href="{{item.href}}" style="font-size: 14px;font-weight: bold;float: left;">{{(item.name)}}</a>
+            <div style="float: left;font-size: 12px;color: #999;margin-left: 20px;width: 90%;">{{item.title}}  {{item.sendTime}}</div>
+            <!-- <a href="{{item.href}}" style="font-size: 14px;width: 90%;color: #666;">{{item.content}}</a> -->
+            <a *ngIf="item.isRead === '0'" (click)="updateIsRead(item.id)" style="font-size: 14px;width: 90%;display:block;color: #666;">{{item.content}}</a>
+            <div *ngIf="item.isRead === '1'" style="font-size: 14px;width: 90%;color: #666;">{{item.content}}</div>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+    <ng-template #pagination0>
+      <nz-pagination  [(nzPageIndex)]="page" [nzTotal]="interactionData.total" [nzPageSize] = "size"	(nzPageIndexChange)="initList(0)"></nz-pagination>
+    </ng-template>
+    </nz-list>
+    <ng-template #nodata>
+      <app-no-data isMessage=true></app-no-data>
+    </ng-template>
+  </nz-tab>
+  <nz-tab nzTitle="客服通知" (nzSelect)="selectTab(1)">
+    <nz-list *ngIf="customerData;else nodata" [nzDataSource]="customerDataList" [nzItemLayout]="'vertical'" [nzRenderItem]="item" [nzLoading]="false"
+      [nzPagination]="pagination">
+      <ng-template #item let-item>
+        <nz-list-item [nzExtra]="extra">
+          <nz-avatar nzIcon="anticon anticon-user" [nzSize]="'large'"
+            [nzSrc]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)" style="float: left;">
+          </nz-avatar>
+          <nz-list-item-meta style="margin-left: 50px;" [nzTitle]="nzTitle">
+            <ng-template #nzTitle>
+              <a href="{{item.href}}" style="font-size: 14px;font-weight: bold;float: left;">{{(item.name)}}</a>
+              <div style="float: left;font-size: 12px;color: # 999;margin-left: 20px;width: 90%;">{{item.title}}
+                {{item.sendTime}}</div>
+              <a *ngIf="item.isRead === '0'" (click)="updateIsRead(item.id)"
+                style="font-size: 14px;color: #666;">{{item.content}}</a>
+              <div *ngIf="item.isRead === '1'" style="font-size: 14px;color: #666;">{{item.content}}</div>
+            </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </ng-template>
+      <ng-template #pagination>
+        <nz-pagination [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize]="size" (nzPageIndexChange)="loadData()">
+        </nz-pagination>
+      </ng-template>
+    </nz-list>
+    <ng-template #nodata>
+      <app-no-data isMessage=true></app-no-data>
+    </ng-template>
+  </nz-tab>
+</nz-tabset>

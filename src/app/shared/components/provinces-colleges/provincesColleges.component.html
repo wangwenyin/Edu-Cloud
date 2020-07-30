@@ -1,0 +1,9 @@
+<form  nz-form [formGroup]="validateForm">
+    <nz-form-item style="margin-bottom: 0px;" >
+        <nz-form-label *ngIf="!isRequired && isShowLable"[nzSpan]="nzLabelSpan"  nzFor="">省市院校</nz-form-label>
+        <nz-form-label *ngIf="isRequired && isShowLable"[nzSpan]="nzLabelSpan" nzRequired nzFor="">省市院校</nz-form-label>
+        <nz-form-control  [nzSpan]="nzInputSpan" nzErrorTip="必填">
+            <nz-cascader style="width:100%" formControlName="schoolId" [nzPlaceHolder]='nzPlaceHolder' id="schoolId"   [(ngModel)]="values"  [nzOptions]="options" (nzSelect)="onSelect($event)" (ngModelChange)="onChanges($event)"> </nz-cascader>
+        </nz-form-control>
+    </nz-form-item>
+</form>

@@ -1,0 +1,54 @@
+<div class="my-class">
+  <div class="tab-header">
+    <div class="goback"(click)="backPage()" >返回</div>
+    <div class="tab-btns clearfix">
+      <button nz-button (click)="changePage(3)" nzType="default"
+        [ngClass]="{'active': currentPageIndex === 3}">课程信息</button>
+      <button nz-button (click)="changePage(4)" nzType="default"
+        [ngClass]="{'active': currentPageIndex === 4}">课时编辑</button>
+       <button nz-button (click)="changePage(5)" nzType="default"
+        [ngClass]="{'active': currentPageIndex === 5}">课程答疑</button>
+      <button nz-button (click)="changePage(1)" nzType="default"
+        [ngClass]="{'active': currentPageIndex === 1}">班级成员</button>
+      <button nz-button (click)="changePage(2)" nzType="default"
+        [ngClass]="{'active': currentPageIndex === 2}">课程评价</button>
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <div *ngIf="currentPageIndex === 1">
+      <nz-table #borderedTable nzBordered [nzTotal]="total" [nzShowQuickJumper]="true"
+        (nzPageIndexChange)="changePageIndex($event)" [nzData]="dataList">
+        <thead>
+          <tr>
+            <th  nzLeft="0px">学生姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>专业</th>
+            <th>手机号</th>
+            <th>作业平均成绩</th>
+            <th>考试平均成绩</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of borderedTable.data"> 
+            <td nzLeft="0px">{{data.name}}</td>
+            <td>{{data.sex === '1' ? '男' : '女'}}</td>
+            <td>{{data.age}}</td>
+            <td>{{data.profession}}</td>
+            <td>{{data.mobile}}</td>
+            <td>{{data.hmScore}}</td>
+            <td>{{data.emScore}}</td>
+            <td><a style="color: blue;" href="#/admin/teacher/hmandemview?courseId={{this.courseId}}&studentId={{data.student_id}}&courseTypeId={{this.courseTypeId}}&classifyId={{this.classifyId}}">详情 </a></td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <app-course-evaluate [courseId]='courseId' *ngIf="currentPageIndex === 2"></app-course-evaluate>
+    <app-course-info [courseId]='courseId' [courseTypeId] = "courseTypeId" [classifyId] = "classifyId" *ngIf="currentPageIndex === 3"></app-course-info>
+    <app-course-edit [courseId]='courseId' *ngIf="currentPageIndex === 4"></app-course-edit>
+    <app-course-answer [courseId]='courseId' *ngIf="currentPageIndex === 5"></app-course-answer>
+  </div>
+
+</div>

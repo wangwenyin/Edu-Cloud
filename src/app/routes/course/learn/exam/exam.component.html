@@ -1,0 +1,44 @@
+<div class="examine">
+    <nz-tabset>
+      <ng-container *ngFor="let item of examMsgList">
+        <nz-tab [nzTitle]="item.examTitle">
+          <div class="test-questions">
+            <div *ngIf="item.isSubmit !== '1'" class="explain-box">
+              <div class="explain">
+                <div class="title">考试说明</div>
+                <div class="explain-item">
+                  <span>题型：</span><span>{{item.subjectTypes}}</span>
+                </div>
+                <div class="explain-item">
+                  <span>答题说明：</span><span>填空题：题目中所有天空都答对得分；<br>选择题：单选题中，多选或者不选不得分，多选提中，选错少选不得分；<br>判断题：判断对错，判断正确得分；</span>
+                </div>
+                <div class="explain-item">
+                  <span>分数：</span><span>提交系统自动评分。</span>
+                </div>
+              </div>
+              <div class="questions">
+                <div class="title">题目</div>
+                <div class="score-box">
+                  <div class="score" *ngIf="item.type && item.type.length > 0">
+                    <span *ngFor="let childItem of item.type">
+                      <span
+                        *ngIf="childItem.quantity> 0">{{childItem.subjectType === '0' ? '单选' : (childItem.subjectType === '1' ? '多选' : '判断')}}题{{childItem.quantity}}道，总共{{childItem.score}}分；<br></span>
+                    </span>
+                    考试总分{{item.totalScore}}分；<br>
+                  </div>
+                </div>
+                <div class="tip" *ngIf="item.isStartTimelimit === '1'">注意：点击开始测试，即开始测试时间倒计时，倒计时停止，做题时间结束。</div>
+              </div>
+            </div>
+            <div *ngIf="item.isSubmit === '1'" class="score-box_view">
+              <div class="my-score">我的得分：<span><i class="value">{{item.totalGetScore ? item.totalGetScore : '' }}</i>分</span></div>
+            </div>
+          </div>
+          <div *ngIf="item.isOpenExam === false" class="bigin" (click)="openExam(item)">
+            {{item.isSubmit === '2' ? '开始考试' : (item.isSubmit === '1' ? '查看考试' : '继续考试')}}
+          </div>
+          <app-learn-exam-paper [examId] = "item.id" (submitFinish) = "updateExam($event)" *ngIf="item.isOpenExam === true"></app-learn-exam-paper>
+        </nz-tab>
+      </ng-container>
+    </nz-tabset>
+  </div>

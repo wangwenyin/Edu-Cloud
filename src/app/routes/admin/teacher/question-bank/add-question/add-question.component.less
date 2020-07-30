@@ -1,0 +1,49 @@
+:host ::ng-deep .modal-content {
+    padding: 0 15%;
+    .ant-form {
+        .ant-form-item {
+            .ant-form-item-control {
+                .ant-input, .ant-btn {
+                    height: 45px;
+                }
+                .ant-select-selection--single {
+                    min-height: 40px;
+                }
+                .ant-input {
+                    padding-right: 50px;
+                }
+                .add-option{
+                    height: 40px;
+                }
+                .dynamic-delete-button {
+                    cursor: pointer;
+                    position: relative;
+                    top: 4px;
+                    font-size: 24px;
+                    color:	#999;
+                    transition: all .3s;
+                  }
+            
+                .dynamic-delete-button:hover {
+                    color:#777;
+                }
+            }
+        }
+    }
+}
+
+:host ::ng-deep .modal-footer {
+    padding-bottom: 20px;
+    border-top: none;
+    .ant-btn {
+        display: block;
+        width: 180px;
+        height: 40px;
+        margin: 0 auto;
+    }
+}
+
+:host ::ng-deep .ant-select-selection__placeholder {
+    top: 62%;
+    
+}

@@ -1,0 +1,99 @@
+:host ::ng-deep .register-page {
+  
+  .ant-tabs {
+    width: 435px;
+    margin: 0 auto;
+    .ant-tabs-bar {
+      border-bottom: none;
+      .ant-tabs-nav {
+        .ant-tabs-tab {
+          color: #999;
+          font-size: 16px;
+          margin-right: 16px;
+          &.ant-tabs-tab-active {
+            color: #024BD2;
+            font-weight: bold;
+          }
+        }
+        .ant-tabs-ink-bar {
+          background-color: #024BD2;
+        }
+      }
+    }
+    .ant-tabs-content {
+      .ant-form-item {
+        display: flex;
+        &.ant-form-item-with-help {
+          margin-bottom: 10px;
+        }
+        &.no-margin {
+          margin-bottom: 0;
+        }
+        .ant-form-item-control {
+          &:focus {
+            border: none;
+          }
+        }
+        .ant-form-item-label {
+          line-height: 45px;
+          &.justify-align {
+            text-align-last: justify;
+            -moz-text-align-last: justify;
+          }
+          &.moz-class {
+            letter-spacing: 10px;
+          }
+          
+        }
+        .ant-input {
+          height: 45px;
+          &::placeholder {
+            font-size: 12px;
+            color: #CACACA;
+          }
+        }
+        .ant-btn {
+          height: 45px;
+          color: #fff;
+          background:#024BD2;
+          border: none;
+          letter-spacing: 2px;
+          &:hover {
+            background: #1766FA;
+          }
+          &.submit {
+            width: 100%;
+            font-size: 18px;
+          }
+           
+        }
+        .ant-radio-group {
+          display: flex;
+          align-items: center;
+        }
+        .ant-select-selection {
+          height: 45px;
+        }
+        .ant-checkbox-wrapper {
+          color: #999;
+          .ant-checkbox-checked .ant-checkbox-inner {
+            background-color: #024BD2;
+            border-color: #024BD2;
+          }
+          .protocol {
+            color: #024BD2;
+          }
+        }
+        .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+          border-color: #024BD2;
+        }
+      }
+      .tip {
+        color: #F65414;
+        font-size: 12px;
+        margin: 6px 0 16px;
+        padding-left: 16.66666667%;
+      }
+    }
+  }
+}

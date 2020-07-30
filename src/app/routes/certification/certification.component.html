@@ -1,0 +1,101 @@
+<div class="page-content">
+
+  <div class="section">
+    <h2 class="section-title">认证报名通道</h2>
+    <div class="courses-box" style="justify-content: space-around;">
+      <div class="course entry-box" *ngFor="let item of dataList;let i = index">
+        <a *ngIf="item.linkUrl" href="{{ item.linkUrl }}" target="_blank">
+          <img style="width: 90px;height: 90px;"
+              *ngIf="item.remark && item.remark !== null && item.remark !=='';else errorImg"
+              src="{{imgPrefix + item.remark}}">
+            <ng-template #errorImg>
+              <img *ngIf="item.title === 'BIM-CIM大赛'" src="/assets/images/certification/bim-cim-90.png">
+              <img *ngIf="item.title === 'Atudesk认证'" src="/assets/images/certification/atudesk-90.png">
+            </ng-template>
+            <div class="course-title">{{item.title}}</div>
+        </a>
+        <a *ngIf="!item.linkUrl" (click)="openRegister(item)" href="javaScript:void(0)">
+          <img style="width: 90px;height: 90px;"
+              *ngIf="item.remark && item.remark !== null && item.remark !=='';else errorImg"
+              src="{{imgPrefix + item.remark}}">
+            <ng-template #errorImg>
+              <img *ngIf="item.title === 'BIM-CIM大赛'" src="/assets/images/certification/bim-cim-90.png">
+              <img *ngIf="item.title === 'Atudesk认证'" src="/assets/images/certification/atudesk-90.png">
+            </ng-template>
+          <div class="course-title">{{item.title}}</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">THS-BIM认证</h2>
+    <a class="sub-title underline" target="_blank" href="#">THS-BIM认证考试访问入口</a>
+    <div class="courses-box">
+      <div class="course" *ngFor="let item of thsBimList;let i = index">
+        <img src="{{ item.src }}" >
+        <div class="name"></div>
+      </div>
+      <div class="course" style="width: 265px;padding-top: 15px;text-align: left;">
+        <h3>认证对象：</h3>
+        <div class="explain">普通高等院校建设工程类相关专业的学生建筑类相关从业人员</div>
+        <h3>主办单位：</h3>
+        <div class="explain">中国建设教育协会深圳市斯维尔科技股份有限公司</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">欧特克ATC（CAD及Revit）认证</h2>
+    <div class="sub-title-box">
+      <a class="sub-title" target="_blank" href="https://www.adsk-certification.cn/">欧特克在线考试网址登录入口</a>
+      <a class="sub-title" target="_blank" href="https://www.adsk-certification.cn/certificate_search/user_cert.php">欧特克认证证书查询访问入口</a>
+    </div>
+    <div class="cnb-box">
+      <div class="cnb highlight">
+        <span>通过率95%</span>
+        <span>业绩第五名</span>
+      </div>
+      <div class="cnb" style="width: 230px;">
+        <span>Revit及CAD工程师认证共4000余人 认证通过总人数3816人</span>
+        <span>欧特克中国区 ATC 130家</span>
+      </div>
+      <div class="cnb">
+        <span>斯维尔ATC授权牌</span>
+        <span>ATC站点名称：深圳市斯维尔科技有限公司</span>
+      </div>
+      <div class="cnb">
+        <span>站点授权牌（含机构名称及地址）</span>
+        <span>地址：深圳市南山区科技园北区清华信息港研发大厦B座12楼</span>
+      </div>
+    </div>
+    <div class="courses-box">
+      <div class="course" *ngFor="let item of atcList;let i = index" style="margin-bottom: 35px;">
+        <img src="{{ item.src }}" >
+        <div class="name">{{ item.name }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">BIM-CIM大赛</h2>
+    <div class="courses-box bim-cim">
+      <div class="course">
+        <img src="/assets/images/certification/BIM-CIM-LOGO.png" >
+      </div>
+      <div class="course">
+        <h3>主办单位：</h3>
+        <div class="explain">中国建设教育协会</div>
+      </div>
+      <div class="course">
+        <h3>指导单位：</h3>
+        <div class="explain">住建部工程管理和工程造价学科专业指导委员会<br>全国住房和城乡建设职业教育教学指导委员会</div>
+      </div>
+      <div class="course">
+        <h3>承办单位：</h3>
+        <div class="explain">深圳市斯维尔科技股份有限公司<br>总决赛承办院校</div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,214 @@
+<nz-tabset>
+  <nz-tab nzTitle="资料设置">
+    <div class="data-set-box clearfix">
+      <div style="width: 60%;float: left;">
+        <form nz-form [formGroup]="form" role="form" style="margin-left: 5%;">
+          <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+          <nz-form-item>
+            <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="24"  nzFor="nickname" >
+              昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <input formControlName="nickname" nz-input placeholder="请填写您的昵称" readonly >
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="phonenum-box">
+            <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="24" nzRequired nzFor="mobile">手机号码</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              当前手机号<input formControlName="mobile" readonly nz-input class="phonenum">
+              <button nz-button nzType="primary" style="float: right;">更换手机号</button>
+            </nz-form-control>
+            <div class="tip">该信息不对外公开，仅供优质课程活动提醒与账号安全。</div> 
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="name">真实姓名</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <input formControlName="name" nz-input placeholder="用于认证证书名称">
+              <nz-form-explain *ngIf="form.get('name').dirty&&form.get('name').errors">
+                请填写您的真实姓名
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item style="display: flex;align-items: center">
+            <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="24">
+              性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别&nbsp;</nz-form-label>
+            <nz-radio-group formControlName="sex">
+              <label nz-radio nzValue="1">男</label>
+              <label nz-radio nzValue="2">女</label>
+              <nz-form-explain style="color: red;" *ngIf="form.get('sex').dirty&&form.get('sex').errors">
+                请填写您的性别
+              </nz-form-explain>
+            </nz-radio-group>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>出生日期</nz-form-label>
+            <nz-date-picker formControlName="birthday"></nz-date-picker> 
+            <nz-form-explain style="color: red;" *ngIf="form.get('birthday').dirty&&form.get('birthday').errors">
+              请填写您的出生日期
+            </nz-form-explain>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="idCard">身份证号</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <input formControlName="idCard" nz-input placeholder="请填写您的身份证号">
+              <nz-form-explain *ngIf="form.get('idCard').dirty&&form.get('idCard').errors">
+                请填写您的身份证号
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="profession">我的专业</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <input formControlName="profession" nz-input placeholder="请填写专业">
+              <!-- <nz-form-explain style="color: red;" *ngIf="!profession">
+                请填写专业
+              </nz-form-explain> -->
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="extraProfession">额外学习</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <input formControlName="extraProfession" nz-input placeholder="请填写额外学习">
+              <nz-form-explain style="color: red;"
+                *ngIf="form.get('extraProfession').dirty&&form.get('extraProfession').errors">
+                请填写额外想学习
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item *ngIf="college && college !== null && college !== ''"> 
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>省市院校</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <ths-colleges-select (selectFinish)="selectFinish($event)" [names]="schools" [isShowLable]='false'
+              [nzInputSpan]=24></ths-colleges-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item  > 
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>学历</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <nz-radio-group formControlName="education">
+                <label nz-radio nzValue="1">博士</label>
+                <label nz-radio nzValue="2">研究生</label>
+                <label nz-radio nzValue="3">本科</label>
+                <label nz-radio nzValue="4">专科</label>
+                <label nz-radio nzValue="5">高中</label>
+                <label nz-radio nzValue="6">初中</label>
+                <label nz-radio nzValue="7">小学</label>
+                <label nz-radio nzValue="8">其他</label>
+                <nz-form-explain style="color: red;" *ngIf="form.get('education').dirty&&form.get('education').errors">
+                  请选择您的学历
+                </nz-form-explain>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item  >
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>职业</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <nz-radio-group formControlName="career">
+                <label nz-radio nzValue="1">学生</label>
+                <label nz-radio nzValue="2">在职</label>
+                <label nz-radio nzValue="3">其他</label>
+                <nz-form-explain style="color: red;" *ngIf="form.get('career').dirty&&form.get('career').errors">
+                  请选择您的职业
+                </nz-form-explain>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="signature">个性签名</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <input formControlName="signature" nz-input placeholder="请填写个性签名">
+              <!--  <div *ngIf="formErrors.signature" class="showerr alert alert-danger" >{{ formErrors.signature }}</div> -->
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="honor">个人简介</nz-form-label>
+            <nz-form-control [nzSm]="19" [nzXs]="24">
+              <textarea formControlName="remark" nz-input rows="8"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+
+
+          <nz-form-item>
+            <button nz-button nzType="primary" (click)="submit()" type="submit" class="submit">
+              <span>保存</span>
+            </button>
+          </nz-form-item>
+        </form>
+      </div>
+      <div style="float: right;width: 39%;">
+        <div class="data-set-right">
+          <div style="width: 100%;text-align: center;">
+            <nz-avatar nzSize="large" *ngIf="headImgBase64 != ''"
+              [nzSrc]="this.sanitizer.bypassSecurityTrustResourceUrl(headImgBase64)"></nz-avatar>
+          </div>
+          <div style="width: 100%;text-align: center;margin-top: 20px;">
+            <nz-upload [nzAction]="uploadAddress"  [nzBeforeUpload]="beforeUpload"
+              [nzData]="headFileParam" (nzChange)="handleUploadChange($event)" [nzShowUploadList]="false" >
+              <button nz-button nzType="primary">头像修改</button>
+            </nz-upload>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="账号设置">
+    <div class="account-set-box">
+      <div class="section">
+        <div class="item">
+          <div class="flex-item">
+            <span class="label">登录密码</span>
+            <span class="tip">密码由大写字母、小写字母、数字、特殊字符中任意三种组成，长度为 8-32 位</span>
+          </div>
+          <span class="btn">修改</span>
+        </div>
+        <div class="item">
+          <div class="flex-item">
+            <span class="label">邮箱账号</span>
+            <span class="tip">邮箱账号{{ isBind ? '已' : '未' }}绑定</span>
+          </div>
+          <span class="btn" [ngClass]="{ 'unbind': isBind }">{{ isBind ? '解绑' : '绑定' }}</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="title">第三方账号绑定:</div>
+        <div class="third-party-box">
+          <div class="item">
+            <div class="flex-item">
+              <img src="/assets/icons/wx-2x.png" class="icon">
+              <span class="label">微信</span>
+            </div>
+            <span class="tip">{{ isBind ? '已' : '未' }}绑定</span>
+            <span class="btn" [ngClass]="{ 'unbind': isBind }">{{ isBind ? '解绑' : '绑定' }}</span>
+          </div>
+          <div class="item">
+            <div class="flex-item">
+              <img src="/assets/icons/QQ-2x.png" class="icon">
+              <span class="label QQ">QQ</span>
+            </div>
+            <span class="tip">{{ isBind ? '已' : '未' }}绑定</span>
+            <span class="btn" [ngClass]="{ 'unbind': isBind }">{{ isBind ? '解绑' : '绑定' }}</span>
+          </div>
+          <div class="item">
+            <div class="flex-item">
+              <img src="/assets/icons/wb-2x.png" class="icon">
+              <span class="label">微博</span>
+            </div>
+            <span class="tip">{{ isBind ? '已' : '未' }}绑定</span>
+            <span class="btn" [ngClass]="{ 'unbind': isBind }">{{ isBind ? '解绑' : '绑定' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="title">订阅智慧云推送的精彩内容:</div>
+        <div class="subscription-box">
+          <label nz-checkbox nzValue="1" [ngModel]="true">课程更新提醒，第一时间跟上学习进度。</label>
+          <label nz-checkbox nzValue="2">新课上架提醒，好课不容错过！</label>
+          <label nz-checkbox nzValue="3">作业考试认证提醒，完成课程要求。</label>
+          <label nz-checkbox nzValue="4">更具个人操作行行为，自动触发邮件状态提醒（如找回密码等）。</label>
+        </div>
+      </div>
+    </div>
+  </nz-tab>
+</nz-tabset>

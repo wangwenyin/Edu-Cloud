@@ -1,0 +1,63 @@
+<div class="my-course-detail">
+  <div class="back-box clearfix">
+    <div class="goback" (click)="backPage()">返回</div>
+  </div>
+  <div class="detail-box">
+    <div class="score-list">
+      <nz-tabset>
+        <nz-tab nzTitle="作业成绩">
+          <nz-table #borderedTable [nzData]="dataList"   nzShowPagination="false">
+       <thead>
+         <tr>
+          <th nzWidth="25%">作业名称</th>
+           <th nzWidth="25%">所属课时</th>
+           <th nzWidth="15%">作业开始时间</th>
+           <th nzWidth="10%">是否提交</th>
+           <th nzWidth="10%">作业成绩</th>
+           <th nzWidth="15%">操作</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngFor="let data of borderedTable.data">
+           <td>{{data.homework_name}}</td>
+           <td>{{data.name}}</td>
+           <td>{{data.start_hm_time}}</td>
+           <td>{{data.is_submit=='1' ? '已提交' : '未提交'}}</td>
+           <td>{{data.total_get_score}}</td>
+           <td><a style="color: blue;" href="#/admin/student/my-course/homeworkDetail?homeworkId={{data.edu_homework_id}}&courseId={{data.edu_course_id}}
+             &studentId={{this.studentId}}&courseTypeId={{this.courseTypeId}}&classifyId={{this.classifyId}}">详情 </a></td>
+         </tr>
+       </tbody>
+     </nz-table> 
+     <br>
+        <nz-pagination [(nzPageIndex)]="page" [nzTotal]="total" (nzPageIndexChange)="pageIndexChange()" [nzPageSize]= "size" nzShowQuickJumper></nz-pagination>
+     </nz-tab>
+      <nz-tab nzTitle="考试成绩">
+        <nz-table #borderedTable1 [nzData]="courseDataList"   nzShowPagination="false">
+          <thead>
+            <tr>
+             <th nzWidth="30%">考试名称</th>
+             <th nzWidth="20%">考试开始时间</th>
+              <th nzWidth="15%">是否提交</th>
+              <th nzWidth="15%">考试成绩</th>
+              <th nzWidth="20%">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of borderedTable1.data">
+              <td>{{data.examName}}</td>
+              <td>{{data.startExamTime}}</td>
+              <td>{{data.isSubmit=='1' ? '已提交' : '未提交'}}</td>
+              <td>{{data.totalGetScore}}</td>
+              <td><a style="color: blue;" href="#/admin/student/my-course/examDetail?examId={{data.eduExamId}}&courseId={{data.eduCourseId}}
+                &studentId={{this.studentId}}&courseTypeId={{this.courseTypeId}}&classifyId={{this.classifyId}}" >详情 </a></td>
+            </tr>
+          </tbody>
+        </nz-table> 
+        <br>
+           <nz-pagination [(nzPageIndex)]="coursePage" [nzTotal]="courseTotal" (nzPageIndexChange)="coursePageIndexChange()" [nzPageSize]= "courseSize" nzShowQuickJumper></nz-pagination>
+      </nz-tab>
+     </nz-tabset>
+  </div>
+</div>
+

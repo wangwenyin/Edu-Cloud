@@ -1,0 +1,146 @@
+<div class="modal-header">
+  <div class="modal-title">{{isAdd ? '添加' : '编辑'}}题目</div>
+</div>
+<div class="modal-content">
+  <form nz-form [formGroup]="form">
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="isAllowExtract">是否抽取</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <label nz-checkbox formControlName="isAllowExtract"></label>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="subjectType">题目类型</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-select formControlName="subjectType" nzPlaceHolder="请选择" (ngModelChange) ="subjectTypeChange($event)">
+          <nz-option *ngFor="let i of subjectType;" [nzLabel]="i.itemText" [nzValue]="i.itemValue1"></nz-option>
+        </nz-select> 
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="eduCourseId">所属课程</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-select formControlName="eduCourseId" nzPlaceHolder="-------请选择课程-------" (ngModelChange)="provinceChange($event)">
+          <nz-option *ngFor="let i of courseList;" [nzLabel]="i.courseName" [nzValue]="i.id"></nz-option>
+        </nz-select> 
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="eduCatalogId">所属课时</nz-form-label>
+      <nz-form-control nzSpan="20">
+         <nz-select formControlName="eduCatalogId" nzPlaceHolder="-------请选择课时-------" [nzDisabled]='disabledList[0]'>
+          <nz-option *ngFor="let i of catalogList;" [nzLabel]="i.name" [nzValue]="i.id"></nz-option>
+        </nz-select> 
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="subjectDifficulty">题目难度</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-select formControlName="subjectDifficulty" nzPlaceHolder="请选择">
+          <nz-option *ngFor="let i of subjectDifficulty;" [nzLabel]="i.itemText" [nzValue]="i.itemValue1"></nz-option>
+        </nz-select> 
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="subjectSupplyer">提供人</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input formControlName="subjectSupplyer" placeholder="请填写题目提供人" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm" *ngIf="isAdd !== true">
+      <nz-form-label nzSpan="4" nzFor="fileId">附件</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-upload
+          [nzAction]="uploadAddress"
+          [nzData]	= "fileParam" 
+          (nzChange)="handleUploadChange($event)" 
+          [nzBeforeUpload]="beforeUpload"
+          >
+          <button nz-button>
+            <i nz-icon type="upload"></i><span>选择文件</span>
+          </button>
+          <a style="margin-left: 20px;" *ngIf="fileId !== '' && fileId !== null" [href]="downloadAddress">查看文件</a>
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+    
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="subjectTitle">题目</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <!-- <input nz-input formControlName="subjectTitle" placeholder="请输入题目" /> -->
+        <textarea formControlName="subjectTitle" style="height: 100px;" nz-input rows="2" placeholder="请输入题目"></textarea>
+
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzFor="subjectDescription">题目解析</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <!-- <input nz-input formControlName="subjectDescription" placeholder="请输入题目相关描述内容" /> -->
+        <textarea formControlName="subjectDescription" style="height: 100px;" nz-input rows="3" placeholder="请输入题目解析内容"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    
+    <nz-form-item *ngIf="!isNeedOpt" style="display: block;" class="option-judge">
+      <nz-form-label nzSpan="4" >选项设置</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-radio-group [(ngModel)]="judgeValue" [ngModelOptions]="{standalone: true}">
+          <label nz-radio nzValue="对">正确</label>
+          <label nz-radio nzValue="错">错误</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <ng-container *ngIf="isNeedOpt">
+
+      <!--单选-->
+      <nz-form-item *ngIf="selectSubjectType === '0'" style="display: block;" class="option-opt">
+        <nz-form-label [nzXs]="4" [nzSm]="4">选项设置</nz-form-label>
+        <nz-form-control nzSpan="20">
+          <nz-radio-group [(ngModel)]="singeValue" [ngModelOptions]="{standalone: true}">
+            <ng-container *ngFor="let item of options;let i = index" >
+            <label nz-radio   [nzValue] = "item.optionPrefixContent" >{{ item.optionPrefixContent }}
+            </label>
+            <input nz-input style="width: 75%; margin-right:8px;margin-bottom: 10px;" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.optionContent"  placeholder="请输入选项内容">
+            <i nz-icon type="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i)">—</i>
+          </ng-container>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!--多选-->
+      <nz-form-item *ngIf="selectSubjectType === '1'"  style="display: block;" class="option-opt">
+        <nz-form-label [nzXs]="4" [nzSm]="4" >选项设置</nz-form-label>
+        <nz-form-control nzSpan="20" >
+          <ng-container *ngFor="let item of options;let i = index">
+            <label [(ngModel)]="item.checked" [ngStyle]="{'margin-left': i === 0 ? '8px' : '8px'}" nz-checkbox [ngModelOptions]="{standalone: true}"   style="padding-bottom: 10px" [nzValue] = "item.optionPrefixContent" >
+              {{ item.optionPrefixContent }}
+            </label>
+            <input nz-input style="width: 75%; margin-right:8px" [(ngModel)]="item.optionContent"  [ngModelOptions]="{standalone: true}"  placeholder="请输入选项内容">
+            <i nz-icon type="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i)">—</i>
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item style="display: block;" class="option-opt">
+        <nz-form-control [nzXs]="{span:24,offset:0}" [nzSm]="{span:20,offset:4}">
+          <button nz-button class="add-option" nzType="dashed" style="width:30%" (click)="addField($event)"><i nz-icon type="plus"></i> 添加选项</button>
+        </nz-form-control>
+      </nz-form-item>
+
+    </ng-container>
+    
+  </form>
+</div>
+<div class="modal-footer">
+  <button nz-button nzType="primary" type="submit" [nzLoading]="loading"  (click)="submit()">生成题目</button>
+</div>

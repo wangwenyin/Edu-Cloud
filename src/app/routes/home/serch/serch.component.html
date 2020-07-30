@@ -1,0 +1,29 @@
+
+<div class="course-list-box">
+  <div class="classified-course-box">
+    <nz-table [nzData]="result"  [nzBordered]="false" [nzFrontPagination]='false' [nzShowPagination]='false'>
+      <div class="course-list">
+        <div class="item" *ngFor="let item of result">
+          <a href="#/course/detail?courseId={{item.id}}">
+            <div class="course-img">
+              <img *ngIf="item.remark !== null && item.remark !=='';else errorImg" src="{{imgSrc + item.remark}}"></div>
+            <ng-template #errorImg>
+              <img src="../../../../assets/images/u131.png">
+            </ng-template>
+            <div class="brief-info">
+              <div class="course-name">{{ item.courseName }}</div>
+              <div class="info">
+                <span class="learn-num">{{ item.subscibeCount }}</span>
+                <span class="update-status" *ngIf="item.updateSection==null">暂无更新</span>
+                <span class="update-status" *ngIf="item.updateSection!=null">更新课程第{{ item.updateSection }}章</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </nz-table>
+    <nz-pagination [nzPageIndex]="pageIndex" [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize]="size"
+      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+      [nzHideOnSinglePage]="false" nzShowQuickJumper></nz-pagination>
+  </div>
+</div>

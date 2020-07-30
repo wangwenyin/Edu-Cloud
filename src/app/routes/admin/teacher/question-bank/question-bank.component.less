@@ -1,0 +1,140 @@
+:host ::ng-deep {
+    .question-bank {
+        display: flex;
+        .ant-tree {
+            background-color: #FAFAFA;
+            width: 240px;
+            height: 100%;
+            max-height: 675px;
+            overflow: auto;
+            .ant-tree-node-content-wrapper {
+                .ant-tree-title {
+                    color: #333;
+                    font-size: 16px;
+                }
+            }
+            .ant-tree-child-tree {
+                .ant-tree-node-content-wrapper {
+                    &.ant-tree-node-selected {
+                        background: rgba(225,235,255,1);
+                    }
+                    .ant-tree-title {
+                        color: #666;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        .right-box {
+            flex: 1;
+            margin-left: 20px;
+            .toolbar {
+                display: flex;
+                justify-content: flex-end;
+                .ant-btn {
+                    padding-left: 30px;
+                    padding-right: 10px;
+                    background-repeat: no-repeat;
+                    background-position: 10px center;
+                    &.add {
+                        background-image: url(/assets/icons/add-16x16.png);
+                    }
+                    &.edit {
+                        background-image: url(/assets/icons/edit.png);
+                    }
+                    &.del {
+                        background-image: url(/assets/icons/del-16x16.png);
+                    }
+                    &.import {
+                        background-image: url(/assets/icons/import.png);
+                    }
+                    &.export {
+                        background-image: url(/assets/icons/export.png);
+                    }
+                    &.enclosure {
+                        background-image: url(/assets/icons/enclosure.png);
+                    }
+                    &.set {
+                        background-image: url(/assets/icons/set.png);
+                    }
+                    &:hover, &:focus {
+                        color: #fff;
+                        background-color: #024BD2;
+                        &.add {
+                            background-image: url(/assets/icons/add-16x16-h.png);
+                        }
+                        &.edit {
+                            background-image: url(/assets/icons/edit-h.png);
+                        }
+                        &.del {
+                            background-image: url(/assets/icons/del-16x16-h.png);
+                        }
+                        &.import {
+                            background-image: url(/assets/icons/import-h.png);
+                        }
+                        &.export {
+                            background-image: url(/assets/icons/export-h.png);
+                        }
+                        &.enclosure {
+                            background-image: url(/assets/icons/enclosure-h.png);
+                        }
+                        &.set {
+                            background-image: url(/assets/icons/set-h.png);
+                        }
+                    }
+                }
+            }
+            .question-list{
+                padding-left: 30px;
+                padding-right: 10px;
+                .question {
+                    color: #333;
+                    .subject-title {
+                        .ant-tag-blue {
+                            color: #014BD1;
+                            font-size: 12px;
+                            background: rgba(225,235,255,1);
+                            border: 0;
+                        }
+                    }
+                    .subject-option {
+                        .prefix {
+                            display: inline-block;
+                            vertical-align: middle;
+                            width:22px;
+                            height:22px;
+                            margin-right: 6px;
+                            line-height: 22px;
+                            text-align: center;
+                            color: #666;
+                            border:1px solid rgba(205,205,205,1);
+                            border-radius:50%;
+                            &.selected {
+                                background:rgba(2,75,210,1);
+                                color: #fff;
+                                border: 0;
+                            }
+                        }
+                    }
+                    .que-info {
+                        float: left;
+                        width: 100%;
+                        color: #999999;
+                        font-size: 12px;
+                        height: 30px;
+                        line-height: 30px;
+                        margin-top: 10px;
+                        padding-left: 10px;
+                        padding-right: 20px;
+                        background: #FAFAFA url(/assets/icons/double-arrow-gray.png) no-repeat 99% center;
+                        .val {
+                            color: #666;
+                            margin: 0 15px 0 8px;
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+}

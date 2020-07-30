@@ -1,0 +1,127 @@
+.page-content {
+    .section {
+      padding: 20px 0;
+      color: #333;
+      &:last-child {
+        padding-bottom: 0;
+      }
+      &.diff {
+        padding: 20px 0;
+        background: #FAFAFA;
+      }
+      .section-title {
+        margin-bottom: 35px;
+        font-size: 26px;
+        font-weight: bold;
+      }
+      .sub-title {
+        display: inline-block;
+        padding-left: 35px;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #024BD2;
+        background: url(/assets/icons/entry.png) no-repeat left center;
+        position: relative;
+        &.underline::after {
+          position: absolute;
+          left: 35px;
+          right: 0;
+          bottom: 0;
+          height: 1px;
+          background: #024BD2;
+          content: '';
+        }
+      }
+      .sub-title-box {
+        display: flex;
+        justify-content: space-around;
+        padding: 0 5%;
+      }
+      .cnb-box {
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        .cnb {
+          &.highlight {
+            color: #024BD2;
+            margin-right: 30px;
+          }
+          &:nth-child(2) {
+            margin-right: 50px;
+          }
+          &:nth-child(3) {
+            margin-right: 92px;
+          }
+          span {
+            display: block;
+            &:first-child {
+              height: 50px;
+            }
+          }
+        }
+      }
+      .courses-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        text-align: center;
+        .course {
+          &.entry-box {
+            a {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 400px;
+              height: 208px;
+              &:hover {
+                box-shadow:0px 0px 10px 0px rgba(0, 0, 0, 0.18);
+                border-radius:6px;
+              }
+            }
+            &:last-child {
+              .course-title {
+                margin-top: 10px;
+              }
+            }
+          }
+          .course-title {
+            font-size: 20px;
+            font-weight:500;
+            margin: 22px 0;
+          }
+          img {
+            margin: 0 auto;
+          }
+          .name {
+            color: #333;
+            margin-top: 20px;
+          }
+          h3 {
+            color: #333;
+            font-weight: bold;
+          }
+          .explain {
+            margin-top: 10px;
+            margin-bottom: 45px;
+          }
+        }
+        &.bim-cim {
+          padding: 0 52px;
+          text-align: left;
+          .course {
+            padding-top: 35px;
+            &:first-child {
+              padding-top: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  :host ::ng-deep {
+    .ant-table-tbody > tr:hover > td {
+      background: transparent;
+    }
+  }

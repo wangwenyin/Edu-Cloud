@@ -1,0 +1,25 @@
+<div class="edit-course-hour" *ngIf="!isShowDetail">
+  <ul class="course-hour-list">
+    <li class="list-item" *ngFor="let item of courseHourList; let i=index">
+      <div class="course-hour">
+        <div class="course-hour-name">
+          <label class="label">课时{{ i+1 }}：</label>
+          <!-- <a [routerLink]="['/admin/teacher/my-course/answerDetail']" [queryParams]="{courseId: courseId,catalogId: item.id,catalogName : item.name}" *ngIf="item.remark !== '0'" [ngClass]="{ 'readonly': !item.isEdit }" style="padding: 0;"  >{{item.name}}<span style="color: #F65414;">（新增{{item.remark}}条）</span></a>
+          <a [routerLink]="['/admin/teacher/my-course/answerDetail']" [queryParams]="{courseId: courseId,catalogId: item.id,catalogName : item.name}"  *ngIf="item.remark === '0'" [ngClass]="{ 'readonly': !item.isEdit }" style="padding: 0;"  >{{item.name}}<span style="color: #999999;">（暂无）</span></a> -->
+          <a (click)="selectCourseCatalog(item)"  *ngIf="item.remark !== '0'" [ngClass]="{ 'readonly': !item.isEdit }" style="padding: 0;"  >{{item.name}}<span style="color: #F65414;">（新增{{item.remark}}条）</span></a>
+          <a (click)="selectCourseCatalog(item)"  *ngIf="item.remark === '0'" [ngClass]="{ 'readonly': !item.isEdit }" style="padding: 0;"  >{{item.name}}<span style="color: #999999;">（暂无）</span></a>
+
+      
+        </div>
+        <div class="operate-bar">
+          <!-- <span class="toggle" [ngClass]="{'arrow-down': curIndex === i}" (click)="toggle(i)" ></span> -->
+          <span style="font-size: 12px;">{{item.createdDate |date:"yyyy-MM-dd"}}</span>
+        </div>
+      </div>
+      <!-- <ul *ngIf="curIndex === i"  class="course-resource">
+      </ul> -->
+    </li>
+  </ul>
+</div>
+
+<app-answer-details *ngIf="isShowDetail" (openAnware) = 'openAnware()'  [courseId]='courseId' [catalogId] = 'catalogId' [catalogName] = 'catalogName'></app-answer-details>

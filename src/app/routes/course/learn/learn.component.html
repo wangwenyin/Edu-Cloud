@@ -1,0 +1,181 @@
+<div class="course-learn">
+  <div class="my-header">
+    <a [routerLink]="['/course/detail']" [queryParams]="{courseId: courseInfo.id,index:2}" class="goback">返回课程</a>
+    <div class="course-hour-name">
+      <span class="sys-name">{{courseInfo.courseName}}.</span><span>{{typeName}}</span>
+    </div>
+  </div>
+  <div class="main-learn-box">
+    <nz-tabset [nzTabPosition]="'left'" [nzType]="'line'" [(nzSelectedIndex)]="currentTab">
+      <nz-tab *ngFor="let tab of mainTabs;let i = index" [nzTitle]="titleTemplate">
+        <ng-template #titleTemplate>
+          <div class="tab-name">{{ tab.name }}</div>
+        </ng-template>
+        <div class="tab-content">
+
+          <div *ngIf="i === 0" style="width: 100%;height: 870px;">
+
+
+            <!-- <video id='my-video' class='video-js' controls preload='auto' width='640' height='264'
+              poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
+                <source src='http://192.168.0.50:9480/thsedu-xq/api/edu-courses/view/151c1e87-1444-4ceb-b0b0-b861dc0888d4' type='video/mp4'>
+                <p class='vjs-no-js'>
+                  To view this video please enable JavaScript, and consider upgrading to a web browser that
+                  <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+                </p>
+              </video> -->
+
+
+            <video id="video" controls="controls" class="course-video" style="width: 100%;" *ngIf="tab.url !== ''"
+              [src]="tab.url" type='video/mp4' initial-time="0" autoplay="false" muted direction="0">
+              <!-- <source  [src] = "tab.url" type='video/mp4' /> -->
+            </video>
+          </div>
+
+          <div *ngIf="i === 1" style="width: 100%;height: 870px; overflow-x: auto;">
+            <pdf-viewer *ngIf="mainTabs[1].url !== ''" [src]='mainTabs[1].url' zoom="1" original-size="true"
+              style="display: block;width: 100%;height: 870px;">
+            </pdf-viewer>
+          </div>
+
+          <div id="wdDiv" *ngIf="i === 2" style="width: 100%;height: 870px; overflow-x: auto;">
+            <pdf-viewer id="wd" *ngIf="mainTabs[2].url !== ''" [src]='mainTabs[2].url' zoom="1" original-size="true"
+              style="display: block;width: 100%;height: 870px;">
+            </pdf-viewer>
+          </div>
+
+          <div class="sidebar">
+            <div class="lecturer-box">
+              <div class="avatar">
+                <img src="/assets/images/QQ.png" />
+              </div>
+              <div class="lecturer-info">
+                <div class="name">讲师：{{ courseInfo.teacherName }}</div>
+                <div class="about-lecturer">
+                  <div *ngIf="!isFollow || isFollow === null || isFollow === '' ||isFollow === false"
+                    (click)="addFollowTeacher()" class="attention box">关注</div>
+                  <div *ngIf="isFollow === true" (click)="removeFollowTeacher()" class="attention box">取消关注</div>
+                  <div class="comment box" (click)="openEvaluateModal()">评价</div>
+                </div>
+              </div>
+            </div>
+            <div class="course-name">{{ courseInfo.courseName }}</div>
+            <ul class="menubar">
+              <li class="list-item" *ngFor="let item of dataSet;let i=index" [ngClass]="{ 'active': activeIndex === i }"
+                (click)="selectItem(i)">
+                <!-- 课时{{ i+1 }}：{{ item.name }} <span class="duration">({{ item.duration }})</span> -->
+                {{ item.name }} <span class="duration">({{item.duration}})</span><span
+                  *ngIf="item.isTrial === '1'">(可试看)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+
+  <div class="sub-container width_1200">
+    <nz-tabset>
+      <nz-tab nzTitle="课程答疑">
+        <div class="ask-and-answer">
+          <div class="reply-box">
+            <form nz-form [formGroup]="form">
+              <nz-form-item class="mb-sm">
+                <nz-form-control>
+                  <textarea formControlName="description" placeholder="请输入提问/留言内容"></textarea>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+            <div class="btn-box">
+              <div class="reply-btn" (click)="_submit()">提问/留言</div>
+            </div>
+          </div>
+          <ul class="comment-list" *ngFor="let item of questionList;let i = index">
+            <li class="list-item">
+              <div class="user-avatar">
+                <!-- <img *ngIf="item.headImg !== null && item.headImg !=='';else errorImg"  [src]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)"
+                   /> -->
+                   <ths-head-img [value] = "item.headImg"  [size]="60" [sex]="item.sex" [type]='item.entityType'></ths-head-img>
+
+              </div>
+           
+              <div class="comment-box">
+                <div class="username">{{ item.personname }}</div>
+                <div class="user-comments">
+                  <p class="main-comment">{{ item.description}}</p>
+                  <ul *ngFor="let subItem of item.reply;let j = index" class="reply-list">
+                    <li class="sub-item">
+                      <div class="reply-info">
+                        <div class="replier">
+                          <span *ngIf="j === 0" style="color:#666;">
+                            【最新回答】
+                          </span>
+                          <span>{{ subItem.personName }}</span><span
+                            class="role">{{subItem.entityType === '1'?'师':((subItem.entityType === '2' || subItem.entityType === '0') ?'学':'')}}</span>
+                        </div>
+                        <div class="reply-content">{{ subItem.description }}</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="bottom-bar">
+                  <div class="comment-time">
+                    <span
+                      class="datetime">{{ item.publish_time |date:"yyyy-MM-dd HH:MM"}}&nbsp;({{item.course_catalog_name}})</span>
+                  </div>
+                  <div class="comment-btns">
+                    <span *ngIf="item.likePoints" (click)="removeLikePoint(item)"
+                      class="_dianzan">{{ item.like_points === '' || item.like_points === null ? 0: item.like_points }}</span>
+                    <span *ngIf="!item.likePoints" (click)="addLikePoint(item)"
+                      class="dianzan">{{ item.like_points === '' || item.like_points === null ? 0: item.like_points }}</span>
+                    <span class="reply"
+                      (click)="slideToggleReplyBox(i)">{{ item.replyNum === '' || item.replyNum === null ? 0: item.replyNum }}</span>
+                  </div>
+                </div>
+                <div id="reply-box-{{i}}" class="reply-box">
+                  <form nz-form [formGroup]="forms">
+                    <nz-form-item class="mb-sm">
+                      <nz-form-control>
+                        <textarea formControlName="description" placeholder="请输入提问/留言内容"></textarea>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </form>
+                  <div class="btn-box">
+                    <div class="reply-btn" (click)="reply(item)">回复</div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <nz-pagination [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize]="size"
+            (nzPageIndexChange)="pageIndexChange()" nzShowQuickJumper></nz-pagination>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="课件下载">
+        <ul class="resource-download">
+          <li class="list-item" *ngFor="let item of resourceList">
+            <div class="resource-name"
+              [ngClass]="{'video': item.type==='video', 'ppt': item.type==='ppt', 'doc': item.type==='doc'}">
+              {{ item.name }}
+            </div>
+            <div class="resource-type">
+              {{ item.type==='video' ? '视频文件' : (item.type==='ppt' ? 'PPT文件' : 'word文件') }}
+            </div>
+            <div class="resource-size">大小：{{ item.size }}</div>
+            <!-- <a *ngIf="item.isShow" download="" [href]="item.url" class="download-btn" nz-button type="default">下载</a> -->
+          </li>
+        </ul>
+      </nz-tab>
+      <nz-tab nzTitle="作业" *ngIf="isHasHomework === true">
+        <app-learn-homeworks [homeworkList] = "homeworkList"></app-learn-homeworks>
+      </nz-tab>
+      <nz-tab nzTitle="考试" *ngIf="isHasExam === true">
+        <app-learn-exam [examList] = "examList"></app-learn-exam>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+
+<ng-template #errorImg>
+  <img src="../assets/images/avatar.png">
+</ng-template> 

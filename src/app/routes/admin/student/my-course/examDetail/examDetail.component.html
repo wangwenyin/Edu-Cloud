@@ -1,0 +1,124 @@
+<div class="question-box">
+  <div class="my-course-detail">
+     <div class="back-box clearfix">
+        <div class="goback" (click)="backPage()">返回</div>
+     </div>
+  </div>
+  <div class="radioList" style="width: 100%;" *ngIf="radioList.length > 0">
+    <div class="type-title">单选题共{{ radioList.length }}道题</div>
+    <div>
+      <div style="padding-bottom: 10px;" *ngFor="let item of radioList;let i = index">
+        <div style="padding-bottom: 20px;padding-top: 20px;">
+          {{i + 1}}.<span class="tag">单选题</span>({{item.score}}分)&nbsp;{{item.subjectTitle}}
+        </div>
+        <div *ngIf="code !== '3'">
+          <nz-radio-group [(ngModel)]="radioAnswer[i].answer" [nzDisabled]="disabled" (ngModelChange)="updatePageAnswer()"	>
+            <span *ngFor="let option of item.subjectOptions">
+              <label nz-radio nzValue="{{option.prefix}}">{{option.prefix}}&nbsp;.&nbsp;{{option.content}}</label>
+            </span>
+          </nz-radio-group>
+        </div>
+        <div *ngIf="code === '3'">
+          <div class="view-answer" *ngFor="let option of item.subjectOptions">
+            <div class="prefix" [ngClass]="{ 'right': option.prefix==item.rightAnswer, 'wrong': option.prefix==radioAnswer[i].answer&&radioAnswer[i].answer !== item.rightAnswer}" >{{option.prefix}}</div><div class="value">{{option.content}}</div>
+          </div>
+
+          <div class="answer-parse-box">
+            <div class="answer-box" [ngClass]="{ 'expand': isExpand }">
+              <div class="answer">
+                <span class="right">正确答案：<span>{{ item.rightAnswer }}</span></span>
+                <span *ngIf="radioAnswer[i].answer !== item.rightAnswer"  class="your">你的答案是：<span>{{ radioAnswer[i].answer }}</span></span>
+              </div>
+              <div class="showmore" [ngClass]="{ 'expand': isExpand }"  (click)="showmore($event)">
+                <img src="/assets/icons/double-arrow-gray.png">
+              </div>
+            </div>
+            <div class="parse-box clearfix" [ngClass]="{ 'expand': radioAnswer[i].answer !== item.rightAnswer }">
+              <div class="title">解析</div>
+              <div class="parse-content">
+                北宋时，宋真宗派人到福建取得占城稻三万斛，令江淮两浙诸路种植，后扩大到北方诸路；宋仁宗时，大、小麦被推广到广南东路惠州等地。南宋时，“四川田土，无不种麦”。这说明宋代
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="multipleList" style="width: 100%;" *ngIf="multipleList.length > 0">
+    <div class="type-title">多选题共{{ multipleList.length }}道题</div>
+    <div>
+      <div style="padding-bottom: 10px;" *ngFor="let item of multipleList;let i = index">
+        <div style="padding-bottom: 20px;padding-top: 20px;">
+          {{i + 1}}.<span class="tag">多选题</span>({{item.score}}分)&nbsp;{{item.subjectTitle}}
+        </div>
+        <div *ngIf="code !== '3'" >
+          <nz-checkbox-group [(ngModel)]="multipleAnswer[i]" (ngModelChange)="updatePageAnswer()">
+          </nz-checkbox-group>
+        </div>
+        <div *ngIf="code == '3'">
+          <div class="view-answer" *ngFor="let subItem of multipleAnswer[i]">
+            <div class="prefix" [ngClass]="{ 'right': item.rightAnswer.includes(subItem.value), 'wrong': !item.rightAnswer.includes(subItem.value) && subItem.checked }" >{{ subItem.value }}</div><div class="value">{{ subItem.label }}</div>
+          </div>
+
+          <div class="answer-parse-box">
+            <div class="answer-box" [ngClass]="{ 'expand': isExpand }">
+              <div class="answer">
+                <span class="right">正确答案：<span>{{ item.rightAnswer }}</span></span>
+                <span *ngIf="multipleAnswer[i][0].answer !== item.rightAnswer"  class="your">你的答案是：<span>{{ multipleAnswer[i][0].answer }}</span></span>
+              </div>
+              <div class="showmore" [ngClass]="{ 'expand': isExpand }" (click)="showmore($event)" >
+                <img src="/assets/icons/double-arrow-gray.png">
+              </div>
+            </div>
+            <div class="parse-box clearfix" [ngClass]="{ 'expand': multipleAnswer[i][0].answer !== item.rightAnswer }">
+              <div class="title">解析</div>
+              <div class="parse-content">
+                北宋时，宋真宗派人到福建取得占城稻三万斛，令江淮两浙诸路种植，后扩大到北方诸路；宋仁宗时，大、小麦被推广到广南东路惠州等地。南宋时，“四川田土，无不种麦”。这说明宋代
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="judgmentList" style="width: 100%;" *ngIf="judgmentList.length > 0">
+    <div class="type-title">判断题共{{ judgmentList.length }}道题</div>
+    <div>
+      <div style="padding-bottom: 10px;"
+        *ngFor="let item of judgmentList;let i = index">
+        <div style="padding-bottom: 20px;padding-top: 20px;">
+          {{i + 1}}.<span class="tag">判断题</span>({{item.score}}分)&nbsp;{{item.subjectTitle}}
+        </div>
+        <div>
+          <nz-radio-group [(ngModel)]="judgmentAnswer[i].answer" [nzDisabled]="disabled" (ngModelChange)="updatePageAnswer()">
+            <label [ngClass]="{ 'right': item.rightAnswer=='对', 'wrong': judgmentAnswer[i].answer!==item.rightAnswer && judgmentAnswer[i].answer=='对' }" nz-radio nzValue="对">&nbsp;对</label>
+            <label [ngClass]="{ 'right': item.rightAnswer=='错', 'wrong': judgmentAnswer[i].answer!==item.rightAnswer && judgmentAnswer[i].answer=='错' }" nz-radio nzValue="错">&nbsp;错</label>
+          </nz-radio-group>
+        </div>
+        <div *ngIf="code === '3'" class="answer-parse-box">
+          <div class="answer-box" [ngClass]="{ 'expand': isExpand }">
+            <div class="answer">
+              <span class="right">正确答案：<span>{{ item.rightAnswer }}</span></span>
+              <span *ngIf="judgmentAnswer[i].answer !== item.rightAnswer"  class="your">你的答案是：<span>{{ judgmentAnswer[i].answer }}</span></span>
+            </div>
+            <div class="showmore" [ngClass]="{ 'expand': isExpand }" (click)="showmore($event)" >
+              <img src="/assets/icons/double-arrow-gray.png">
+            </div>
+          </div>
+          <div class="parse-box clearfix" [ngClass]="{ 'expand': judgmentAnswer[i].answer !== item.rightAnswer }">
+            <div class="title">解析</div>
+            <div class="parse-content">
+              北宋时，宋真宗派人到福建取得占城稻三万斛，令江淮两浙诸路种植，后扩大到北方诸路；宋仁宗时，大、小麦被推广到广南东路惠州等地。南宋时，“四川田土，无不种麦”。这说明宋代
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="disabled === false">
+    <div *ngIf="code !== '3'" (click)="submit()"
+      style="width: 180px;border-radius:4px;cursor: pointer;height: 45px; margin: 60px auto 0; line-height: 45px; text-align: center; font-size: 20px;color: #fff;background: rgba(2,75,210,1);">
+      提交答案</div>
+  </div>
+</div>

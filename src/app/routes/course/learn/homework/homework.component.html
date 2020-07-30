@@ -1,0 +1,44 @@
+<div class="homework" style="margin-bottom: 50px;" *ngFor="let item of homeworkList">
+  <div class="homework-info">
+    <div *ngIf="item.remark === '-1'" class="explain-box">
+      <div class="explain">
+        <div class="title">作业说明</div>
+        <div class="explain-item">
+          <span>题型：</span><span>{{item.type}}</span>
+        </div>
+        <div class="explain-item">
+          <span>答题说明：</span><span>填空题：题目中所有填空都答对得分；<br>选择题：单选题中，多选或者不选不得分，多选提中，选错少选不得分；<br>判断题：判断对错，判断正确得分；</span>
+        </div>
+        <div class="explain-item">
+          <span>分数：</span><span>提交系统自动评分。</span>
+        </div>
+      </div>
+      <div class="questions">
+        <div class="title">题目</div>
+        <div class="score-box">
+          <div class="score">
+            <span *ngFor="let childItem of item.eduHomeworkTypeDTOList">
+              <span
+                *ngIf="childItem.subjectQuantity> 0">{{childItem.subjectType === '0' ? '单选' : (childItem.subjectType === '1' ? '多选' : '判断')}}题{{childItem.subjectQuantity}}道，总共{{childItem.totalScore}}分；<br></span>
+            </span>
+  
+            作业总分{{item.totalScore}}分；<br>
+          </div>
+        </div>
+        <div class="tip">注意：点击开始测试，即开始测试时间倒计时，倒计时停止，做题时间结束。</div>
+      </div>
+    </div>
+    <div *ngIf="item.remark !== '-1'" class="score-box_view">
+      <div class="my-score">我的得分：<span><i class="value">{{item.remark}}
+      </i>分</span></div>
+    </div>
+  </div>
+
+  <div *ngIf="item.isShowBiginBtn && item.remark === '-1'" class="bigin" (click)="openHomework(item,true)">开始测试</div>
+  <div *ngIf="item.isShowBiginBtn && item.remark !== '-1'" class="bigin" (click)="openHomework(item,false)">查看作业</div>
+  <app-learn-homework-paper [homeworkId] = "item.id" (submitFinish) = "updateHomework($event)" *ngIf="item.isOpenHomework === true"></app-learn-homework-paper>
+
+  <!-- <div *ngIf="!item.isShowBiginBtn" class="count-down">倒计时：{{ test_time }}</div> -->
+  <!-- <app-learn-homeworks (submitFinish)="updateHomework($event)" [homeworkId]="item.id" -->
+    <!-- *ngIf="!item.isShowBiginBtn"></app-learn-homeworks> -->
+</div>

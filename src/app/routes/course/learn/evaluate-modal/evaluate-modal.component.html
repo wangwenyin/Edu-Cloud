@@ -1,0 +1,34 @@
+<div class="evaluate-box">
+  <div class="my-header">对《{{ courseName }}》的课程评价</div>
+  <!-- <div class="rate-box box">
+    <div class="title">星级评价</div>
+    <nz-rate [ngModel]="2.5" nzAllowHalf></nz-rate>
+  </div>
+  <div class="comment-box box">
+    <div class="title">您的评语</div>
+    <textarea placeholder="请输入对老师的评价，至少输入15个字"></textarea>
+    <div class="btn-box">
+      <div class="submit">提交</div>
+    </div>
+  </div> -->
+
+  <form nz-form [formGroup]="form">
+    <nz-form-item class="mb-sm">
+      <div class="rate-box box">
+        <div class="title">星级评价</div>
+        <nz-rate [ngModel]="2.5" nzAllowHalf formControlName="appraiseGrade"></nz-rate>
+      </div>
+    </nz-form-item>
+    <nz-form-item class="mb-sm">
+      <div class="comment-box box">
+        <div class="title">您的评语</div>
+        <nz-form-control >
+          <textarea formControlName="appraiseContent" placeholder="请输入对老师的评价，至少输入15个字"></textarea>
+        </nz-form-control><br/>
+        <div class="btn-box">
+          <div class="submit" (click)="_submit()">提交</div>
+        </div>
+      </div>
+    </nz-form-item>
+  </form>
+</div>

@@ -1,0 +1,116 @@
+.user-center {
+  .user-info-box {
+    display: flex;
+    justify-content: space-between;
+    min-height: 165px;
+    padding: 20px 10px 15px;
+    background:linear-gradient(0deg,rgba(244,248,255,1) 36%,rgba(255,255,255,1) 100%);
+    border-radius:8px;
+    .left {
+      position: relative;
+      flex: 1.5;
+      display: flex;
+      align-items: center;
+      padding-right: 12%;
+      .user-avatar {
+        width: 114px;
+        height: 114px;
+        margin-right: 12px;
+        border-radius: 50%;
+      }
+      .user-info {
+        .name-box {
+          .name {
+              margin-right: 6px;
+              color: #333;
+              font-size: 18px;
+              font-weight: bold;
+          }
+          .companion-days {
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 15px;
+            font-size: 12px;
+            color: #024BD2;
+            background-image: url('/assets/icons/companion.png');
+            background-repeat: no-repeat;
+            background-position: left center;
+          }
+        }
+        .vip {
+          margin: 5px 0;
+          padding-left: 18px;
+          font-size: 12px;
+          color: #F65414;
+          background-image: url('/assets/icons/VIP.png');
+          background-repeat: no-repeat;
+          background-position: left center;
+        }
+        .slogan {
+          font-size: 12px;
+          color: #999;
+        }
+        .achievement-box {
+          display: flex;
+          margin-top: 20px;
+          .box {
+            margin-right: 30px;
+            padding-left: 30px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            span {
+              color: #F65414;
+            }
+            &.comments {
+              background-image: url('/assets/icons/comment.png');
+            }
+            &.likes {
+              background-image: url('/assets/icons/like.png');
+            }
+            &.students {
+              background-image: url('/assets/icons/student.png');
+            }
+          }
+        }
+      }
+      &::after {
+        position: absolute;
+        top: 50%;
+        right: 12%;
+        transform: translateY(-50%);
+        content: '';
+        width:1px;
+        height: 80%;
+        background:rgba(2,75,210,0.08);
+      }
+    }
+    .right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+      .view-detail {
+        width:150px;
+        height:40px;
+        line-height: 40px;
+        margin: 10px auto 0;
+        text-align: center;
+        color: #fff;
+        background:rgba(2,75,210,1);
+        border-radius:4px;
+        cursor: pointer;
+      }
+      img {
+        margin: 0 auto 8px;
+      }
+      span {
+        color: #F65414;
+      }
+    }
+  }
+  .user-center-page {
+    margin-top: 20px;
+    margin-left: 155px;
+  }
+}

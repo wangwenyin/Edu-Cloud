@@ -1,0 +1,517 @@
+<div class="register-page">
+  <nz-tabset nz-size="small">
+    <nz-tab nzTitle="学生注册" (nzSelect)= "switch(0)">
+      <form nz-form [formGroup]="form" role="form">
+        <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="nickname">昵称</nz-form-label>
+          <nz-form-control  [nzSm]="19" [nzXs]="24">
+            <input (ngModelChange)="accountValidator()" formControlName="nickname" nz-input placeholder="请填写您的昵称,可用于登录账号"> 
+            <nz-form-explain *ngIf="form.get('nickname').dirty&&form.get('nickname').errors">
+              请填写您的昵称
+            </nz-form-explain>
+            <nz-form-explain  *ngIf="hasAccount">此昵称已被注册</nz-form-explain>
+          </nz-form-control>
+         
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="realname">您的姓名</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="realname" nz-input placeholder="请填写您的真实姓名">
+            <nz-form-explain *ngIf="form.get('realname').dirty&&form.get('realname').errors">
+              请填写您的真实姓名
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired>性别</nz-form-label>
+          <nz-radio-group formControlName="radioValue">
+            <label nz-radio nzValue="1">男</label>
+            <label nz-radio nzValue="2">女</label>
+            <nz-form-explain *ngIf="form.get('radioValue').dirty&&form.get('radioValue').errors">
+              请填写您的性别
+            </nz-form-explain>
+          </nz-radio-group>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>出生日期</nz-form-label>
+          <nz-date-picker formControlName="birthdate"></nz-date-picker>
+          <nz-form-explain *ngIf="form.get('birthdate').dirty&&form.get('birthdate').errors">
+            请填写您的出生日期
+          </nz-form-explain>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="idNum">身份证号</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="idNum" nz-input placeholder="请填写您的身份证号">
+            <nz-form-explain *ngIf="form.get('idNum').dirty&&form.get('idNum').errors">
+              请填写您的身份证号
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>省市院校</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24" (click)="changeIsFirst()">
+             <ths-colleges-select   [isShowLable] = 'false' [nzInputSpan] = 24  (selectFinish) = "selectFinish($event)"  ></ths-colleges-select>
+             <nz-form-explain *ngIf="(!college || college === null || college === '' ) && isFirst === false">
+              请填写省市院校
+            </nz-form-explain>
+          </nz-form-control>  
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzFor="stuNum">&nbsp;学&nbsp;号</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="stuNum" nz-input placeholder="请填写您的学号">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="email">电子邮箱</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input formControlName="email" placeholder="邮箱">
+            <ng-container *ngIf="email.dirty && email.errors">
+              <nz-form-explain *ngIf="email.errors?.required">请输入邮箱地址！</nz-form-explain>
+              <nz-form-explain *ngIf="email.errors?.email">邮箱地址格式错误！</nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="major">我的专业</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="major" nz-input placeholder="请填写您的专业">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="no-margin">
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="minor">额外学习</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input  formControlName="minor" nz-input placeholder="请填写您的额外学习专业">
+          </nz-form-control>
+        </nz-form-item>
+        <div class="tip">（填写并完成额外专业学习将有助于增加您的学习报告评分）</div>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="mobile">手机</nz-form-label>
+          <nz-form-control style="width: 142px">
+            <input nz-input formControlName="mobile" placeholder="请输入有效手机号">
+            <nz-form-explain *ngIf="mobile.dirty && mobile.errors">请输入有效手机号！</nz-form-explain>
+          </nz-form-control>
+          <nz-form-control style="width: 94px;margin-left: 10px;">
+            <input nz-input formControlName="captcha" placeholder="验证码">
+            <nz-form-explain *ngIf="captcha.dirty && captcha.errors">请输入验证码！</nz-form-explain>
+          </nz-form-control>
+          <button style="width: 106px;margin-left: 10px;" [ngClass]="{disabledBg: count}" nz-button (click)="getCaptcha()" [disabled]="count">{{ count ? count + 's' : '获取验证码' }}</button>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <!-- <nz-popover [nzPlacement]="'right'" [nzTrigger]="'focus'" [(nzVisible)]="visible" nzOverlayClassName="register-password-cdk"
+              [nzOverlayStyle]="{'width.px': 240}"> -->
+              <input nz-input type="password" formControlName="password" placeholder="至少8位密码，区分大小写">
+              <nz-form-explain *ngIf="password.dirty && password.errors">密码长度为8-32位</nz-form-explain>
+              <ng-template #nzTemplate>
+                <div style="padding: 4px 0;">
+                  <ng-container [ngSwitch]="status">
+                    <div *ngSwitchCase="'ok'" class="success">强度：强</div>
+                    <div *ngSwitchCase="'pass'" class="warning">强度：中</div>
+                    <div *ngSwitchDefault class="error">强度：太短</div>
+                  </ng-container>
+                  <div class="progress-{{status}}">
+                    <nz-progress [nzPercent]="progress" [nzStatus]="passwordProgressMap[status]" [nzStrokeWidth]="6" [nzShowInfo]="false"></nz-progress>
+                  </div>
+                  <p class="mt-sm">请至少输入 8 个字符。请不要使用容易被猜到的密码。</p>
+                </div>
+              </ng-template>
+            <!-- </nz-popover> -->
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="no-margin">
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="confirm">确认密码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input type="password" formControlName="confirm" placeholder="确认密码">
+            <ng-container *ngIf="confirm.dirty && confirm.errors">
+              <nz-form-explain *ngIf="confirm.errors?.required">请确认密码！</nz-form-explain>
+              <nz-form-explain *ngIf="confirm.errors?.equar">两次输入的密码不匹配！</nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        <div class="tip">密码长度为8-32位</div>
+        <nz-form-item>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+          <label nz-checkbox formControlName="remember">同意教育云</label><a class="protocol" (click)="handleNavigate()">《注册协议》</a>
+         </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <button nz-button nzType="primary" (click) = "submit()" type="submit" [nzLoading]="loading" class="submit">
+            <span>立即注册</span>
+          </button>
+        </nz-form-item>
+      </form>
+    </nz-tab>
+    <nz-tab nzTitle="老师注册" (nzSelect)= "switch(1)">
+      <form nz-form [formGroup]="form"  role="form">
+        <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="nickname">昵称</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input (ngModelChange)="accountValidator()" formControlName="nickname" nz-input placeholder="请填写您的昵称">
+            <nz-form-explain  *ngIf="hasAccount">此昵称已被注册</nz-form-explain>
+            <nz-form-explain *ngIf="form.get('nickname').dirty&&form.get('nickname').errors">
+              请填写您的昵称
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="realname">您的姓名</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="realname" nz-input placeholder="请填写您的真实姓名">
+            <nz-form-explain *ngIf="form.get('realname').dirty&&form.get('realname').errors">
+              请填写您的真实姓名
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired>性别</nz-form-label>
+          <nz-radio-group formControlName="radioValue">
+            <label nz-radio nzValue="1">男</label>
+            <label nz-radio nzValue="2">女</label>
+            <nz-form-explain *ngIf="form.get('radioValue').dirty&&form.get('radioValue').errors">
+              请填写您的性别
+            </nz-form-explain>
+          </nz-radio-group>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>出生日期</nz-form-label>
+          <nz-date-picker formControlName="birthdate"></nz-date-picker>
+          <nz-form-explain *ngIf="form.get('birthdate').dirty&&form.get('birthdate').errors">
+            请填写您的出生日期
+          </nz-form-explain>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="idNum">身份证号</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="idNum" nz-input placeholder="请填写您的身份证号">
+            <nz-form-explain *ngIf="form.get('idNum').dirty&&form.get('idNum').errors">
+              请填写您的身份证号
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="idNum">证件号码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input placeholder="请输入您的教师资格证号码">
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <!-- <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="12">学校</nz-form-label>
+          <button style="width: 105px" nz-button nzType="primary">选择学校</button> -->
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>省市院校</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24" (click)="changeIsFirst()">
+             <ths-colleges-select  (selectFinish) = "selectFinish($event)"   [isShowLable] = 'false' [nzInputSpan] = 24   ></ths-colleges-select>
+             <nz-form-explain *ngIf="(!college || college === null || college === '') && isFirst === false">
+              请填写省市院校
+            </nz-form-explain>
+          </nz-form-control>  
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="24">城市</nz-form-label>
+          <nz-select formControlName="selectedProvince" (ngModelChange)="provinceChange($event)">
+            <nz-option *ngFor="let p of provinceData" [nzValue]="p" [nzLabel]="p"></nz-option>
+          </nz-select>
+          <nz-select style="margin-left: 10px;" formControlName="selectedCity">
+            <nz-option *ngFor="let c of cityData[selectedProvince]" [nzValue]="c" [nzLabel]="c"></nz-option>
+          </nz-select>
+        </nz-form-item> -->
+        <nz-form-item>
+          <!-- <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="schoolNum">学校工号</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input placeholder="请填写您的学校工号">
+          </nz-form-control> -->
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired>学历</nz-form-label>
+          <nz-radio-group formControlName="education">
+            <label nz-radio nzValue="1">专科</label>
+            <label nz-radio nzValue="2">本科</label>
+            <!-- <label nz-radio nzValue="3">研究生</label> -->
+            <label nz-radio nzValue="4">硕士</label>
+            <label nz-radio nzValue="5">博士</label>
+            <nz-form-explain *ngIf="!hasEducation">
+              请填写学历
+            </nz-form-explain>
+          </nz-radio-group>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="email">电子邮箱</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input formControlName="email" placeholder="邮箱">
+            <ng-container *ngIf="email.dirty && email.errors">
+              <nz-form-explain *ngIf="email.errors?.required">请输入邮箱地址！</nz-form-explain>
+              <nz-form-explain *ngIf="email.errors?.email">邮箱地址格式错误！</nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="teacherProfession">所授专业</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="teacherProfession" nz-input placeholder="请填写所授专业">
+            <nz-form-explain *ngIf="!hasTeacherProfession">
+              请填写所授专业
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="24" nzRequired>职业类别</nz-form-label>
+          <nz-radio-group formControlName="jobCategory" style="display: block;">
+            <label nz-radio nzValue="1">职员</label>
+            <label nz-radio nzValue="2">自由工作者</label>
+            <label nz-radio nzValue="3">技术工</label>
+            <label nz-radio nzValue="4">IT人员</label>
+            <label nz-radio nzValue="5">企业管理</label>
+            <label nz-radio nzValue="6">其他</label>
+            <nz-form-explain *ngIf="!hasJobCategory">
+              请填写职业类别
+            </nz-form-explain>
+          </nz-radio-group>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="mobile">手机</nz-form-label>
+          <nz-form-control style="width: 142px">
+            <input nz-input formControlName="mobile" placeholder="请输入有效手机号">
+            <nz-form-explain *ngIf="mobile.dirty && mobile.errors">请输入有效手机号！</nz-form-explain>
+          </nz-form-control>
+          <nz-form-control style="width: 94px;margin-left: 10px;">
+            <input nz-input formControlName="captcha" placeholder="验证码">
+            <nz-form-explain *ngIf="captcha.dirty && captcha.errors">请输入验证码！</nz-form-explain>
+          </nz-form-control>
+          <button style="width: 106px;margin-left: 10px;" [ngClass]="{disabledBg: count}" nz-button (click)="getCaptcha()" [disabled]="count">{{ count ? count + 's' : '获取验证码' }}</button>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <!-- <nz-popover [nzPlacement]="'right'" [nzTrigger]="'focus'" [(nzVisible)]="visible" nzOverlayClassName="register-password-cdk"
+              [nzOverlayStyle]="{'width.px': 240}"> -->
+              <input nz-input type="password" formControlName="password" placeholder="至少8位密码，区分大小写">
+              <nz-form-explain *ngIf="password.dirty && password.errors">密码长度为8-32位</nz-form-explain>
+              <ng-template #nzTemplate>
+                <div style="padding: 4px 0;">
+                  <ng-container [ngSwitch]="status">
+                    <div *ngSwitchCase="'ok'" class="success">强度：强</div>
+                    <div *ngSwitchCase="'pass'" class="warning">强度：中</div>
+                    <div *ngSwitchDefault class="error">强度：太短</div>
+                  </ng-container>
+                  <div class="progress-{{status}}">
+                    <nz-progress [nzPercent]="progress" [nzStatus]="passwordProgressMap[status]" [nzStrokeWidth]="6" [nzShowInfo]="false"></nz-progress>
+                  </div>
+                  <p class="mt-sm">请至少输入 8 个字符。请不要使用容易被猜到的密码。</p>
+                </div>
+              </ng-template>
+            <!-- </nz-popover> -->
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="no-margin">
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="confirm">确认密码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input type="password" formControlName="confirm" placeholder="确认密码">
+            <ng-container *ngIf="confirm.dirty && confirm.errors">
+              <nz-form-explain *ngIf="confirm.errors?.required">请确认密码！</nz-form-explain>
+              <nz-form-explain *ngIf="confirm.errors?.equar">两次输入的密码不匹配！</nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        <div class="tip">密码长度为8-32位</div>
+        <nz-form-item>
+          <label nz-checkbox formControlName="remember">同意教育云</label><a class="protocol" (click)="handleNavigate()">《注册协议》</a>
+        </nz-form-item>
+        <nz-form-item>
+          <button nz-button nzType="primary" (click) = "submit()"  type="submit" [nzLoading]="loading" class="submit">
+            <span>立即注册</span>
+          </button>
+        </nz-form-item>
+      </form>
+    </nz-tab>
+    <nz-tab nzTitle="其他" (nzSelect)= "switch(2)">
+      <form nz-form [formGroup]="form"  role="form">
+        <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="nickname">昵称</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input (ngModelChange)="accountValidator()" formControlName="nickname" nz-input placeholder="请填写您的昵称">
+            <nz-form-explain  *ngIf="hasAccount">此昵称已被注册</nz-form-explain>
+            <nz-form-explain *ngIf="form.get('nickname').dirty&&form.get('nickname').errors">
+              请填写您的昵称
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="realname">您的姓名</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="realname" nz-input placeholder="请填写您的真实姓名">
+            <nz-form-explain *ngIf="form.get('realname').dirty&&form.get('realname').errors">
+              请填写您的真实姓名
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired>性别</nz-form-label>
+          <nz-radio-group formControlName="radioValue">
+            <label nz-radio nzValue="1">男</label>
+            <label nz-radio nzValue="2">女</label>
+            <nz-form-explain *ngIf="form.get('radioValue').dirty&&form.get('radioValue').errors">
+              请填写您的性别
+            </nz-form-explain>
+          </nz-radio-group>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>出生日期</nz-form-label>
+          <nz-date-picker formControlName="birthdate"></nz-date-picker>
+          <nz-form-explain *ngIf="form.get('birthdate').dirty&&form.get('birthdate').errors">
+            请填写您的出生日期
+          </nz-form-explain>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="idNum">身份证号</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="idNum" nz-input placeholder="请填写您的身份证号">
+            <nz-form-explain *ngIf="form.get('idNum').dirty&&form.get('idNum').errors">
+              请填写您的身份证号
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="idNum">证件号码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input placeholder="请输入您的教师资格证号码">
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <!-- <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="12">学校</nz-form-label>
+          <button style="width: 105px" nz-button nzType="primary">选择学校</button> -->
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>省市院校</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+             <ths-colleges-select  (selectFinish) = "selectFinish($event)"   [isShowLable] = 'false' [nzInputSpan] = 24   ></ths-colleges-select>
+             <nz-form-explain *ngIf="(!college || college === null || college === '') && isFirst === false">
+              请填写省市院校
+            </nz-form-explain>
+          </nz-form-control>  
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="24">城市</nz-form-label>
+          <nz-select formControlName="selectedProvince" (ngModelChange)="provinceChange($event)">
+            <nz-option *ngFor="let p of provinceData" [nzValue]="p" [nzLabel]="p"></nz-option>
+          </nz-select>
+          <nz-select style="margin-left: 10px;" formControlName="selectedCity">
+            <nz-option *ngFor="let c of cityData[selectedProvince]" [nzValue]="c" [nzLabel]="c"></nz-option>
+          </nz-select>
+        </nz-form-item> -->
+        <nz-form-item>
+          <!-- <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="schoolNum">学校工号</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input placeholder="请填写您的学校工号">
+          </nz-form-control> -->
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired>学历</nz-form-label>
+          <nz-radio-group formControlName="education">
+            <label nz-radio nzValue="1">专科</label>
+            <label nz-radio nzValue="2">本科</label>
+            <!-- <label nz-radio nzValue="3">研究生</label> -->
+            <label nz-radio nzValue="4">硕士</label>
+            <label nz-radio nzValue="5">博士</label>
+            <nz-form-explain *ngIf="!hasEducation">
+              请填写学历
+            </nz-form-explain>
+          </nz-radio-group>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="email">电子邮箱</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input formControlName="email" placeholder="邮箱">
+            <ng-container *ngIf="email.dirty && email.errors">
+              <nz-form-explain *ngIf="email.errors?.required">请输入邮箱地址！</nz-form-explain>
+              <nz-form-explain *ngIf="email.errors?.email">邮箱地址格式错误！</nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="teacherProfession">专业</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input formControlName="teacherProfession" nz-input placeholder="请填写专业">
+            <nz-form-explain  *ngIf="!hasTeacherProfession">
+              请填写专业
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align" [nzSm]="4" [nzXs]="24" nzRequired>职业类别</nz-form-label>
+          <nz-radio-group formControlName="jobCategory" style="display: block;">
+            <label nz-radio nzValue="1">职员</label>
+            <label nz-radio nzValue="2">自由工作者</label>
+            <label nz-radio nzValue="3">技术工</label>
+            <label nz-radio nzValue="4">IT人员</label>
+            <label nz-radio nzValue="5">企业管理</label>
+            <label nz-radio nzValue="6">其他</label>
+            <nz-form-explain *ngIf="!hasJobCategory">
+              请填写职业类别
+            </nz-form-explain>
+          </nz-radio-group>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="mobile">手机</nz-form-label>
+          <nz-form-control style="width: 142px">
+            <input nz-input formControlName="mobile" placeholder="请输入有效手机号">
+            <nz-form-explain *ngIf="mobile.dirty && mobile.errors">请输入有效手机号！</nz-form-explain>
+          </nz-form-control>
+          <nz-form-control style="width: 94px;margin-left: 10px;">
+            <input nz-input formControlName="captcha" placeholder="验证码">
+            <nz-form-explain *ngIf="captcha.dirty && captcha.errors">请输入验证码！</nz-form-explain>
+          </nz-form-control>
+          <button style="width: 106px;margin-left: 10px;" [ngClass]="{disabledBg: count}" nz-button (click)="getCaptcha()" [disabled]="count">{{ count ? count + 's' : '获取验证码' }}</button>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class="justify-align moz-class" [nzSm]="4" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <!-- <nz-popover [nzPlacement]="'right'" [nzTrigger]="'focus'" [(nzVisible)]="visible" nzOverlayClassName="register-password-cdk"
+              [nzOverlayStyle]="{'width.px': 240}"> -->
+              <input nz-input type="password" formControlName="password" placeholder="至少8位密码，区分大小写">
+              <nz-form-explain *ngIf="password.dirty && password.errors">密码长度为8-32位</nz-form-explain>
+              <ng-template #nzTemplate>
+                <div style="padding: 4px 0;">
+                  <ng-container [ngSwitch]="status">
+                    <div *ngSwitchCase="'ok'" class="success">强度：强</div>
+                    <div *ngSwitchCase="'pass'" class="warning">强度：中</div>
+                    <div *ngSwitchDefault class="error">强度：太短</div>
+                  </ng-container>
+                  <div class="progress-{{status}}">
+                    <nz-progress [nzPercent]="progress" [nzStatus]="passwordProgressMap[status]" [nzStrokeWidth]="6" [nzShowInfo]="false"></nz-progress>
+                  </div>
+                  <p class="mt-sm">请至少输入 8 个字符。请不要使用容易被猜到的密码。</p>
+                </div>
+              </ng-template>
+            <!-- </nz-popover> -->
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="no-margin">
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="confirm">确认密码</nz-form-label>
+          <nz-form-control [nzSm]="19" [nzXs]="24">
+            <input nz-input type="password" formControlName="confirm" placeholder="确认密码">
+            <ng-container *ngIf="confirm.dirty && confirm.errors">
+              <nz-form-explain *ngIf="confirm.errors?.required">请确认密码！</nz-form-explain>
+              <nz-form-explain *ngIf="confirm.errors?.equar">两次输入的密码不匹配！</nz-form-explain>
+            </ng-container>
+          </nz-form-control>
+        </nz-form-item>
+        <div class="tip">密码长度为8-32位</div>
+        <nz-form-item>
+          <label nz-checkbox formControlName="remember">同意教育云</label><a class="protocol" (click)="handleNavigate()">《注册协议》</a>
+        </nz-form-item>
+        <nz-form-item>
+          <button (click) = "submit()" nz-button nzType="primary" type="submit" [nzLoading]="loading" class="submit">
+            <span>立即注册</span>
+          </button>
+        </nz-form-item>
+      </form>
+    </nz-tab>
+
+  </nz-tabset>
+</div>
+
+
+<!-- <nz-modal [(nzVisible)]="isVisible" nzWidth="80%" nzTitle="注册协议" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<app-register-protocol></app-register-protocol>
+</nz-modal> -->
+
+

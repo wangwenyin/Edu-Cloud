@@ -1,0 +1,84 @@
+<div class="edit-course-hour">
+  <ul class="course-hour-list">
+    <li class="list-item" *ngFor="let item of courseHourList; let i=index">
+      <div class="course-hour">
+        <div class="course-hour-name">
+          <label class="label">课时{{ i+1 }}：</label>
+          <input [ngClass]="{ 'readonly': !item.isEdit }" style="padding: 0;"  nz-input placeholder="请输入课时名称" [(ngModel)]="item.name" [readonly]="!item.isEdit">
+        </div>
+        <div class="operate-bar">
+          <span class="save operate" (click) = "save(i)">保存</span>
+          <span class="edit operate" (click) = "edit(i)">编辑</span>
+          <span class="del operate" (click) = "delete(i)">删除</span>
+          <span class="toggle" [ngClass]="{'arrow-down': curIndex === i}" (click)="toggle(i)" ></span>
+        </div>
+      </div>
+      <ul *ngIf="curIndex === i"  class="course-resource">
+        <li *ngIf="item.video" class="video">
+          <div class="left">
+            <label nz-radio></label>
+            <div class="resource-name">
+              <input [ngClass]="{ 'readonly': !item.isEdit }" nz-input  [(ngModel)]="item.video.fileName"  [readonly]="!item.isEdit">
+              <!-- {{ item.video.fileName }} -->
+            </div>
+          </div>
+          <div class="resource-type">视频文件</div>
+          <div class="resource-size">大小：{{ item.video.fileSizeForRead }}</div>
+          <div class="upload-time">{{ item.video.createdDate }}</div>
+          <nz-upload 
+          [nzAction] ="uploadAddress"  
+          (nzChange)="handleUploadChange($event)"    
+          [nzData]	= "fileParam" 
+          [nzBeforeUpload]="beforeUpload">
+            <button nz-button (click)= "changeUploadType('2')">
+              <span>选择文件</span>
+            </button>
+          </nz-upload>
+        </li>
+        <li *ngIf="item.ppt" class="ppt">
+          <div class="left">
+            <label nz-radio></label>
+            <div class="resource-name">
+              <input [ngClass]="{ 'readonly': !item.isEdit }" nz-input  [(ngModel)]="item.ppt.fileName"  [readonly]="!item.isEdit">
+              <!-- {{ item.ppt.fileName }} -->
+            </div>
+          </div>
+          <div class="resource-type">ppt文件</div>
+          <div class="resource-size">大小：{{ item.ppt.fileSizeForRead }}</div>
+          <div class="upload-time">{{ item.ppt.createdDate }}</div>
+          <nz-upload 
+          [nzAction]="uploadAddress"
+          (nzChange)="handleUploadChange($event)"    
+          [nzData]	= "fileParam" 
+          [nzBeforeUpload]="beforeUpload">
+            <button nz-button (click)= "changeUploadType('1')">
+              <span>选择文件</span>
+            </button>
+          </nz-upload>
+        </li>
+        <li *ngIf="item.doc" class="doc">
+          <div class="left">
+            <label nz-radio></label>
+            <div class="resource-name">
+              <input [ngClass]="{ 'readonly': !item.isEdit }" nz-input  [(ngModel)]="item.doc.fileName"  [readonly]="!item.isEdit">
+              <!-- {{ item.doc.fileName }} -->
+            </div>
+          </div>
+          <div class="resource-type">文档文件</div>
+          <div class="resource-size">大小：{{ item.doc.fileSizeForRead }}</div>
+          <div class="upload-time">{{ item.doc.createdDate }}</div>
+          <nz-upload 
+          [nzAction]="uploadAddress"
+          (nzChange)="handleUploadChange($event)"    
+          [nzData]	= "fileParam" 
+          [nzBeforeUpload]="beforeUpload">
+            <button nz-button (click)= "changeUploadType('0')">
+              <span>选择文件</span>
+            </button>
+          </nz-upload>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="add" (click)="addCourseHour()" >添加课时</div>
+</div>

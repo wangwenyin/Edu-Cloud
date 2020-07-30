@@ -1,0 +1,71 @@
+
+:host ::ng-deep .ant-layout {
+  background: #fff;
+  layout-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+  }
+  .prj-banner {
+    position: relative;
+    .prj-name {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      z-index: 999;
+    }
+    .ant-carousel {
+      .slick-slider {
+        height: 580px;
+        overflow: hidden;
+        img {
+          width: 100%;
+        }
+      }
+      .slick-dots {
+        display: flex;
+        justify-content: center;
+        height: 12px;
+        padding-right: 5px;
+        li {
+            margin: 0 5px;
+            button {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                opacity: .8; 
+            }
+            &.slick-active {
+                button {
+                    width: 12px;
+                    background: #024BD2;
+                }
+            }
+        }
+    }
+    }
+  }
+  .ant-layout-content {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 25px 0 70px 0;
+  }
+  .ant-back-top {
+    height: 50px;
+    width: 50px;
+    right: 0;
+    bottom: 140px;
+    .ant-back-top-content {
+      height: 100%;
+      width: 100%;
+      border-radius: 0;
+      background: url(/assets/images/gotop.png) no-repeat center / cover;
+      .ant-back-top-icon {
+        display: none;
+      }
+    }
+  }
+}

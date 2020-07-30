@@ -1,0 +1,98 @@
+<div class="page-content">
+    <!-- <div class="section" *ngFor="let item of dataSet">
+        <div class="section-title"> 
+            <span>{{item.name}}</span>
+            <a class="more" [routerLink]="['/course/list']">查看更多</a>
+        </div>
+        <div class="course-list">
+            <div class="item" *ngFor="let data of ItemTypeListArray[i];"> 
+                <div class="course-img"><img [src]="item.src"></div>
+                <div class="brief-info">
+                    <div class="course-name">{{ data.courseName }}</div>
+                    <div class="info">
+                        <span class="learn-num">{{ data.subscibeCount }}</span>
+                        <span class="update-status">更新课程第{{ data.updateSection }}章</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <nz-table [nzData]="dataSet" [nzBordered]="false" [nzFrontPagination]='false' [nzShowPagination]='false'>
+        <tr *ngFor="let data of dataSet;let i = index">
+            <td style="padding: 0;border-bottom-style:none">
+                <div class="section" [ngClass]="{'diff': i%2==1}" [ngStyle]="i%2==1 ? getStyle() : ''">
+                    <div class="section-inner width_1200"
+                        *ngIf=" ItemTypeListArray[i]!=null && ItemTypeListArray[i].length >0">
+                        <div class="section-title">
+                            <span>{{data.name}}</span>
+                            <a class="more" href="#/course/list?typeid={{data.id}}&typename={{data.name}}">查看更多</a>
+                        </div>
+                        <div class="course-list">
+                            <div class="item" *ngFor="let subdata of ItemTypeListArray[i];let j = index">
+                                <a href="#/course/detail?courseId={{subdata.id}}">
+                                    <!-- <div class="course-img"><img src="{{imagePrefix + subdata.cover}}"></div> -->
+                                    <div class="course-img">
+                                        <img *ngIf="subdata.remark !== null && subdata.remark !=='';else errorImg"
+                                            [src]="imagePrefix + subdata.remark">
+                                        <ng-template #errorImg>
+                                            <img src="../../../../assets/images/u131.png">
+                                        </ng-template>
+                                    </div>
+                                    <div class="brief-info">
+                                        <div class="course-name">{{ subdata.courseName }}</div>
+                                        <div class="info">
+                                            <span class="learn-num">{{ subdata.subscibeCount }}</span>
+                                            <!-- <span class="update-status">更新课程第{{ subdata.updateSection }}章</span> -->
+                                            <span class="update-status" *ngIf="subdata.updateSection==null">暂无更新</span>
+                                            <span class="update-status"
+                                                *ngIf="subdata.updateSection!=null">更新课程第{{ subdata.updateSection }}章</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </nz-table>
+    <!-- 此栏需要全宽度的背景色 -->
+    <!-- <div class="section diff" [ngStyle]="getStyle()">
+        <div class="section-inner width_1200">
+            <div class="section-title">
+                <span>专业课程</span>
+                <a class="more" [routerLink]="['/course/list']">查看更多</a>
+            </div>
+            <div class="course-list">
+                <div class="item" *ngFor="let item of courseList">
+                    <div class="course-img"><img [src]="item.src"></div>
+                    <div class="brief-info">
+                        <div class="course-name">{{ item.courseName }}</div>
+                        <div class="info">
+                            <span class="learn-num">{{ item.learnNum }}</span>
+                            <span class="update-status">更新课程第{{ item.updateStatus }}章</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="section">
+        <div class="section-title">
+            <span>教学课程</span>
+            <a class="more" [routerLink]="['/course/list']">查看更多</a>
+        </div>
+        <div class="course-list">
+            <div class="item" *ngFor="let item of courseList">
+                <div class="course-img"><img [src]="item.src"></div>
+                <div class="brief-info">
+                    <div class="course-name">{{ item.courseName }}</div>
+                    <div class="info">
+                        <span class="learn-num">{{ item.learnNum }}</span>
+                        <span class="update-status">更新课程第{{ item.updateStatus }}章</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>

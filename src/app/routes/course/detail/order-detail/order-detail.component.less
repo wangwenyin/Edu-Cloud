@@ -1,0 +1,93 @@
+.modal-header {
+    .modal-title {
+        font-weight: normal;
+    }
+}
+:host ::ng-deep .modal-content {
+    h2 {
+        color: #333;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+    .course-info-box {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        margin-bottom: 60px;
+        .label {
+            margin-bottom: 25px;
+        }
+        .value {
+            display: flex;
+            color: #333;
+        }
+        .course-info {
+            .value {
+                .course-img {
+                    width:138px;
+                    height:72px;
+                    margin-right: 10px;
+                }
+                .course-detail-info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    .teacher, .class-hour {
+                        color: #666;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+    .pay-mode-box {
+        .pay-mode {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            line-height: 24px;
+            background: #fafafa;
+            .mode-name {
+                height: 24px;
+                padding-left: 34px;
+                color: #333;
+                background-repeat: no-repeat;
+                background-position: left center;
+                background-size: 26px;
+                &.wx {
+                    background-image: url(/assets/icons/wxpay.png);
+                }
+                &.ali {
+                    background-image: url(/assets/icons/alipay.png);
+                }
+            }
+            .ant-radio-wrapper {
+                margin-right: 10px;
+                > span:not(.ant-radio) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+.modal-footer {
+    padding: 24px;
+    .need-pay {
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 15px;
+        .total-amount {
+            color: #F65414;
+            font-size: 20px;
+        }
+    }
+    .ant-btn.pay-now {
+        width:177px;
+        height:45px;
+        font-size: 18px;
+        background:rgba(246,84,20,1);
+        border-radius:4px;
+        border: none;
+    }
+}

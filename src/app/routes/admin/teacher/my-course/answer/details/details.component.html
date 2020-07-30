@@ -1,0 +1,53 @@
+<nz-breadcrumb nzSeparator=">">
+  <nz-breadcrumb-item><a (click)="this.openAnware.emit()"  style="color: #024BD2;">课程答疑</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item>{{ catalogName }}</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="ask-and-answer">
+  <ul class="comment-list" *ngFor="let item of questionList;let i = index">
+    <li class="list-item" >
+      <div class="user-avatar">
+        <img  *ngIf="item.headImg != ''" [src]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)"
+        onerror="this.src='../assets/images/avatar.png'"/>
+      </div>
+      <div class="comment-box">
+        <div class="username">{{ item.personname }}</div>
+        <div class="user-comments">
+          <p class="main-comment">{{ item.description}}</p>
+          <ul  *ngFor="let subItem of item.reply" class="reply-list">
+            <li class="sub-item" >
+              <div class="reply-info">
+                <div class="replier">
+                  <span>{{ subItem.personName }}</span><span class="role">{{subItem.entityType === '1'?'师':((subItem.entityType === '2' || subItem.entityType === '0') ?'学':'')}}</span>
+                </div>
+                <div class="reply-content">{{ subItem.description }}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="bottom-bar">
+          <div class="comment-time">
+            <span class="datetime">{{ item.publish_time |date:"yyyy-MM-dd HH:MM"}}&nbsp;({{item.course_catalog_name}})</span>
+          </div>
+          <div class="comment-btns">
+            <span *ngIf="item.likePoints" (click)="removeLikePoint(item)" class="_dianzan">{{ item.like_points === '' || item.like_points === null ? 0: item.like_points }}</span>
+            <span *ngIf="!item.likePoints" (click)="addLikePoint(item)" class="dianzan">{{ item.like_points === '' || item.like_points === null ? 0: item.like_points }}</span>
+            <span class="reply" (click)="slideToggleReplyBox(i)" >{{ item.replyNum === '' || item.replyNum === null ? 0: item.replyNum }}</span>
+          </div>
+        </div>
+        <div id="reply-box-{{i}}" class="reply-box">
+          <form nz-form [formGroup]="forms">
+            <nz-form-item class="mb-sm">
+              <nz-form-control>
+                <textarea formControlName="description"  placeholder="请输入回复内容"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+            <div class="btn-box">
+              <div class="reply-btn" (click)="reply(item)">回复</div>
+            </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <nz-pagination  [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize] = "size"  (nzPageIndexChange)="pageIndexChange()" nzShowQuickJumper></nz-pagination>
+</div>

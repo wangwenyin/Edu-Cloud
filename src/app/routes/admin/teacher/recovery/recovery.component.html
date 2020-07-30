@@ -1,0 +1,51 @@
+<nz-tabset>
+  <nz-tab nzTitle="课程">
+    <div *ngIf="featureCourseList.length;else nodata"  class="feature-course">
+        <ul class="course-list clearfix">
+            <!-- <li class="add-course-box" (click)="nextPage()">
+                <div class="add-course-inner"></div>
+            </li> -->
+            <li *ngFor="let item of featureCourseList" >
+                <img [src]="item.courseCoverUrl" />
+                <div class="bottom">
+                    <div class="course-name">{{ item.courseName }}</div>
+                    <div class="operate-bar">
+                        <div class="edit" (click)="showModal(item.id,'0')">恢复</div>
+                        <div class="publish" (click)="showModal(item.id,'1')">删除</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <nz-pagination [(nzPageIndex)]="page" [nzPageSize]="(size)" [nzTotal]="total" (nzPageIndexChange)="nextPage()" nzShowQuickJumper></nz-pagination>
+    </div>
+    <ng-template #nodata >
+        <app-no-data></app-no-data>
+    </ng-template> 
+  </nz-tab>
+
+  <nz-tab nzTitle="题目">
+      <app-question-bank [isRecovery] = 'true'></app-question-bank>
+    <!-- <div *ngIf="subjectList.length;else nodata"  class="feature-course">
+        <ul class="course-list clearfix">
+            <li *ngFor="let item of subjectList" >
+                <img [src]="item.courseCoverUrl" />
+                <div class="bottom">
+                    <div class="course-name">{{ item.courseName }}</div>
+                    <div class="operate-bar">
+                        <div class="edit" (click)="showModal(item.id,'0')">恢复</div>
+                        <div class="publish" (click)="showModal(item.id,'1')">删除</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <nz-pagination [(nzPageIndex)]="page" [nzPageSize]="(size)" [nzTotal]="total" (nzPageIndexChange)="nextPage()" nzShowQuickJumper></nz-pagination>
+    </div> -->
+    <!-- <ng-template #nodata >
+        <app-no-data></app-no-data>
+    </ng-template> -->
+  </nz-tab>
+</nz-tabset>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="title" class="common-modal-style" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <p>确定要{{title}}吗？</p>
+</nz-modal>

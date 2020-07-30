@@ -1,0 +1,75 @@
+<div class="modal-header">
+  <div class="modal-title">作业预览</div>
+</div>
+<div class="modal-content">
+ 
+ <div>
+  <h1 style="text-align:center">{{homeworkName}}</h1><br>
+  <h3 style="text-align:center">时间：{{homeworkHours}}分钟 &nbsp;&nbsp;&nbsp;分数：{{totalScore}}分</h3>
+ </div>
+
+
+
+  <div class="set-question-box">
+    <nz-table #homeworkType [nzData]="homeworkTypeAndOptions" [nzFrontPagination]="false" [nzShowPagination]="false">
+      <tbody *ngFor="let data of homeworkType.data let i=index">
+          <tr >
+            <td style="border-bottom:0px;font-size: 18px;font-weight:600">
+              <span *ngIf="i=='0'">一、</span>
+              <span *ngIf="i=='1'">二、</span>
+              <span *ngIf="i=='2'">三、</span>
+              <span *ngIf="data.type=='0'">单选题</span>
+              <span *ngIf="data.type=='1'">多选题</span>
+              <span *ngIf="data.type=='2'">判断题</span>
+              </td>
+          </tr>
+          <tr >
+            <td style="border-bottom:0px">
+            <nz-table [nzData]="data.typedata" [nzFrontPagination]="false" [nzShowPagination]="false">
+              <tbody *ngFor="let subject of data.typedata let j=index">
+                <tr>
+                  <td style="border-bottom:0px;">
+                    <span>{{j+1}}、</span>  
+                    <span>{{subject.subject_title}}</span>
+                    <span>（{{subject.score}}分） </span>
+                    <span>（ &nbsp; &nbsp; ） </span>
+                  </td>
+                </tr>
+                <!-- <ng-template ngFor let-data [ngForOf]="subject.subject_option">
+                  <tr >
+                    <td>
+                      <span></span>
+                    </td>
+                  </tr>
+                </ng-template> -->
+              <!--  <tr>
+                  <td>
+                    <span>
+                      {{subject.subject_options}}
+                    </span>
+                  </td>
+                </tr>  -->
+                <tr *ngIf="subject.subject_options !==''">
+                  <td style="border-bottom:0px">
+                    <nz-table [nzData]="subject.subject_options" [nzFrontPagination]="false" [nzShowPagination]="false" >
+                      <tbody *ngFor="let options of subject.subject_options let k=index">
+                        <tr >
+                          <td style="border-bottom:0px;">
+                            {{options}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </nz-table>
+                  </td>
+                </tr> 
+              </tbody>
+            </nz-table>
+           </td>
+          </tr>
+      </tbody>
+    </nz-table>
+</div>
+<div class="modal-footer" style="text-align:center">
+  <a id="download" style="display: none;" download="作业下载">下载</a>
+  <button  nz-button nzType="primary"  type="submit"  (click)="downloadHomework()">下载作业</button>
+</div>

@@ -1,0 +1,17 @@
+<simple-table #st 
+[data]="list" 
+[columns]="columns" 
+[showTotal]="true" 
+[total]="total"  
+[zeroIndexedOnPage]="true"  
+[frontPagination]="false" 
+[showPagination]="true"
+(change)="paginationChange($event)" 
+(filterChange)="filterChange($event)" 
+(sortChange)="sortChange($event)"  
+(checkboxChange)="checkboxChange($event)"
+(rowDblClick)="rowDblClick($event)"
+(rowClick)="rowClick($event)"
+(radioChange)="radioChange($event)"
+>
+</simple-table>

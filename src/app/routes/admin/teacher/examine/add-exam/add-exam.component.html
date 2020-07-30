@@ -1,0 +1,119 @@
+<div class="modal-header">
+  <div class="modal-title">{{isAdd ? '添加' : '编辑'}}考试</div>
+</div>
+<div class="modal-content">
+  <form nz-form [formGroup]="form">
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="eduCourseId">所属课程</nz-form-label>
+      <nz-form-control nzSpan="20">
+         <nz-select formControlName="eduCourseId" nzPlaceHolder="请选择" (ngModelChange)="courseChange($event)">
+          <nz-option *ngFor="let i of courseList;" [nzLabel]="i.name" [nzValue]="i.value"></nz-option>
+        </nz-select> 
+        
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4"nzRequired nzFor="examTitle">考试名称</nz-form-label>
+      <nz-form-control nzSpan="20">
+       <!--  <nz-select formControlName="examName" nzPlaceHolder="请选择">
+          <nz-option *ngFor="let i of examNameList;" [nzLabel]="i.name" [nzValue]="i.value"></nz-option>
+        </nz-select> -->
+        <input nz-input formControlName="examTitle" placeholder="请填写考试名称" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4"nzRequired nzFor="examTimeLength">考试时长</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input formControlName="examTimeLength" type="number" placeholder="请填写考试时长"  onkeyup="this.value=this.value.replace(/\D|^0/g,'')" 
+        onafterpaste="this.value=this.value.replace(/\D|^0/g,'')" />
+        <div class="unit">分钟</div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="totalScore">总分</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input formControlName="totalScore" type="number" placeholder="请输入总分" />
+        <div class="unit">分</div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="isOk">是否有效</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-radio-group formControlName="isOk">
+          <label nz-radio  nzValue="1">有效</label>
+          <label nz-radio nzValue="2">关闭</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="isPublic">是否开放</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-radio-group formControlName="isPublic">
+          <label nz-radio  nzValue="1">是</label>
+          <label nz-radio nzValue="0">否</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div class="set-question-box">
+    <div class="title">手动配题</div>
+    <nz-table #manualType [nzData]="manualTypeDataSet" [nzFrontPagination]="false">
+      <thead>
+        <tr>
+          <th nzWidth="75px">题型</th>
+          <th>单道分数</th>
+          <th>数量</th>
+          <th>抽取</th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let data of manualType.data">
+          <td>
+            <span *ngIf="data.subject_type=='0'">单选题</span>
+            <span *ngIf="data.subject_type=='1'">多选题</span>
+            <span *ngIf="data.subject_type=='2'">判断题</span>
+          </td>
+          <td><input nz-input type="number" placeholder="请设置分数" [(ngModel)]="data.score" /></td>
+          <td><input nz-input type="number" placeholder="请设置数量" [(ngModel)]="data.quantity" /></td>
+          <td>
+            <button nz-button nzType="default" (click)="openSelectSubjectModal(data)">{{ haveSelected ? '重新选择' : '选择' }}</button>
+          </td>
+        </tr> 
+      </tbody>
+    </nz-table>
+    <div class="set-question-box">
+      <div class="title">自动配题</div>
+      <nz-table #autoType [nzData]="autoTypeDataSet" [nzFrontPagination]="false">
+        <thead>
+          <tr>
+            <th nzWidth="75px">题型</th>
+            <th>单道分数</th>
+            <th>数量</th>
+            <th>自动抽取</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of autoType.data">
+            <td>
+              <span *ngIf="data.subject_type=='0'">单选题</span>
+              <span *ngIf="data.subject_type=='1'">多选题</span>
+              <span *ngIf="data.subject_type=='2'">判断题</span>
+
+            </td>
+            <td><input nz-input type="number" placeholder="请设置分数" [(ngModel)]="data.score" /></td>
+            <td><input nz-input type="number" placeholder="请设置数量" [(ngModel)]="data.quantity" /></td>
+            <td>
+              <button nz-button nzType="default" (click)="autoSelectSubjectModal(data)">{{ haveSelected ? '重新抽取' : '抽取' }}</button>
+            </td>
+          </tr> 
+        </tbody>
+      </nz-table>
+  </div>
+</div>
+<div class="modal-footer">
+  <button nz-button nzType="primary" type="submit" [nzLoading]="loading"  (click)="submit()">生成试卷</button>
+</div>

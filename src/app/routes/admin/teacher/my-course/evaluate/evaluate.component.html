@@ -1,0 +1,38 @@
+<nz-list style="background: white;"
+[nzDataSource]="data"
+[nzItemLayout]="'vertical'"
+[nzRenderItem]="item"
+[nzLoading]	 = "isLoading"
+[nzPagination]="pagination"
+>
+<ng-template #item let-item>
+  <nz-list-item [nzContent]="item.appraiseTime" [nzExtra]="extra">
+    <ths-head-img [value] = "item.headImg"  [size]="40" [sex]="item.sex" [type]='item.entityType'></ths-head-img>
+
+    <!-- <img *ngIf="item.headImg !== null"  [src]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)"  style="float: left;width: 40px;height: 40px;border-radius: 50%;"> -->
+    <!-- <nz-avatar *ngIf="item.headImg !== null" nzIcon="anticon anticon-user" [nzSize]="'large'" [nzSrc]="this.sanitizer.bypassSecurityTrustResourceUrl(item.headImg)"  style="float: left;">
+    </nz-avatar> -->
+    <!-- <nz-avatar *ngIf="item.headImg === null" nzIcon="anticon anticon-user" [nzSize]="'large'" src="../../../../../../assets/images/avatar.png"  style="float: left;">
+    </nz-avatar> -->
+    <!-- <img  *ngIf="item.headImg === null"   src="../../../../../../assets/images/avatar.png"  style="float: left;width: 40px;height: 40px;border-radius: 50%;"> -->
+
+    <nz-list-item-meta style="margin-left: 50px;"
+      [nzTitle]="nzTitle"
+      [nzDescription]="item.appraiseContent">
+      <ng-template #nzTitle>
+        <a href="{{item.href}}" class="entity-name">{{item.entityName}}</a>
+          <nz-rate [ngModel]='item.appraiseGrade' nzDisabled style="margin-left: 10px;"></nz-rate>
+      </ng-template>
+    </nz-list-item-meta>
+  </nz-list-item>
+</ng-template>
+<!-- <ng-template #footer>
+   <div><b>ant design</b> footer part</div> 
+</ng-template> -->
+<ng-template #pagination>
+  <nz-pagination  [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize] =5	(nzPageIndexChange)="loadData()" style="margin-bottom: 20px;"></nz-pagination>
+</ng-template>
+</nz-list>
+
+
+

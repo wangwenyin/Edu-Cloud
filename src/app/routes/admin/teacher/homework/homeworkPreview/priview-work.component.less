@@ -1,0 +1,53 @@
+:host ::ng-deep .modal-content {
+    padding: 0 15%;
+    .ant-form {
+        .ant-form-item {
+            .ant-form-item-control {
+                .ant-input, .ant-btn {
+                    height: 40px;
+                }
+                .ant-select-selection--single {
+                    min-height: 40px;
+                }
+                .ant-input {
+                    padding-right: 50px;
+                }
+                .unit {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 100%;
+                    line-height: 100%;
+                    padding: 0 10px;
+                }
+            }
+        }
+    }
+    .set-question-box {
+        margin-top: 30px;
+        .title {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+            padding: 4px;
+            text-align: center;
+        }
+        .ant-table-pagination.ant-pagination {
+            display: none;
+        }
+    }
+}
+
+:host ::ng-deep .modal-footer {
+    padding-bottom: 20px;
+    border-top: none;
+    .ant-btn {
+        display: block;
+        width: 180px;
+        height: 40px;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,70 @@
+<div class="user-center">
+  <div class="user-info-box">
+    <div class="left">
+      <!-- <img class="user-avatar" *ngIf="isHasHeadImg" [src]="this.sanitizer.bypassSecurityTrustResourceUrl(headImg)">
+      <img class="user-avatar" *ngIf="!isHasHeadImg" src="/assets/images/avatar.png"> -->
+      <ths-head-img   [value] = "headImg" [size]="114"  [useToken] = "true"></ths-head-img>
+
+      <div class="user-info">
+        <div class="name-box">
+          <span class="name">{{entity.name}}</span>
+          <span class="companion-days">{{registerNum}}天</span>
+        </div>
+        <div class="vip">2019-02-06到期</div>
+        <div class="slogan" *ngIf="!entity.signature || entity.signature === null">座右铭：ta很神秘，什么都没有留下。</div>
+        <div class="slogan" *ngIf="entity.signature && entity.signature !== null ">座右铭：{{entity.signature}}</div>
+        <div class="achievement-box">
+          <div class="comments box" *ngIf="isTeacher">参与讨论<span>({{!entity.discussion || entity.discussion === '' ? '0' : entity.discussion}})</span></div>
+          <div class="comments box" *ngIf="isStudent">参与讨论<span>({{!studentDiscussion || studentDiscussion ? '0' : studentDiscussion}})</span></div>
+          <div class="likes box">获得点赞<span>({{!entity.likePoints || entity.likePoints === '' ? '0' : entity.likePoints}})</span></div>
+          <div class="students box" *ngIf="isTeacher">学生人数<span>({{!entity.studentNum || entity.studentNum === '' ? '0' : entity.studentNum}})</span></div>
+          <div class="students box" *ngIf="isStudent">学习时长<span>({{entity.learningTime}})</span></div>
+        </div>
+      </div>
+    </div>
+    <ul class="right" *ngIf="isTeacher">
+      <a (click)="clickMyMsg()" [routerLink]="['teacher/news']">
+        <li><img src="/assets/images/letter.png">
+          <div>未读信件<span>({{messageNum}})</span></div>
+        </li>
+      </a>
+      <!-- <li><img src="/assets/images/announcement.png">
+        <div>通知公告<span>(2)</span></div>
+      </li>
+      <li><img src="/assets/images/homework2.png">
+        <div>待批作业<span>(2)</span></div>
+      </li>
+      <li><img src="/assets/images/homework1.png">
+        <div>待批考试<span>(2)</span></div>
+      </li> -->
+    </ul>
+    <ul class="right" *ngIf="isStudent">
+      <li>
+        <div echarts id="radarChart" [options]="radarChartOption" style="width: 280px;height:220px;"></div>
+        <div class="view-detail">查看完整分析图</div>
+      </li>
+    </ul>
+  </div>
+  <div class="user-center-page" style="min-height: 600px;">
+    <router-outlet></router-outlet>
+  </div>
+
+
+  <!-- <div class="tab-content" style="margin-left: 155px;margin-top: 20px;min-height: 600px;">
+    返回
+    <div style="float: right;margin-top: 10px;margin-right: 10px;">
+      <button nz-button (click) = "changePage(1)" nzType="primary">班级成员</button>
+      <button nz-button (click) = "changePage(2)" nzType="default">课程评价</button>
+      <button nz-button (click) = "changePage(3)" nzType="default">课程信息</button>
+      <button nz-button (click) = "changePage(4)" nzType="default">课程编辑</button>
+    </div>
+
+    <div style="width: 100%;margin-top: 40px;">
+        <app-course-class    *ngIf="currentPageIndex === 1"></app-course-class>
+        <app-course-evaluate *ngIf="currentPageIndex === 2"></app-course-evaluate>
+        <app-course-information *ngIf="currentPageIndex === 3"></app-course-information>
+    </div>
+
+  </div> -->
+
+</div>

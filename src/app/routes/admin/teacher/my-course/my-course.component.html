@@ -1,0 +1,72 @@
+<nz-tabset [(nzSelectedIndex)] = "currentIndex" (nzSelectedIndexChange) = "selectedIndexChange()">
+  <nz-tab [nzTitle]="titles[0].title">
+    <div class="feature-course">
+        <ul class="course-list clearfix">
+            <li class="add-course-box" (click)="showModal()">
+                <div class="add-course-inner"></div>
+            </li>
+            <li *ngFor="let item of CourseList[0]" >
+                <img [src]="item.courseCoverUrl" />
+                <div class="bottom">
+                    <div class="course-name">{{ item.courseName }}</div>
+                    <div class="operate-bar">
+                        <div class="edit" [routerLink]="['/admin/teacher/my-course/class']" [queryParams]="{id: item.id,courseTypeId: titles[0].courseTypeId,classifyId:titles[0].classifyId}">编辑</div>
+                        <div *ngIf="item.isPublish !== '1'" class="publish" (click)="publishCourse(item)">发布</div>
+                        <div *ngIf="item.isPublish === '1'" class="del" (click)="deleteCourse(item.id)">删除</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <nz-pagination [(nzPageIndex)]="page" [nzTotal]="totals[0]" (nzPageIndexChange)="pageIndexChange()" [nzPageSize]= "size" nzShowQuickJumper></nz-pagination>
+    </div>
+  </nz-tab>
+  <nz-tab [nzTitle]="titles[1].title">
+    <div class="feature-course">
+      <ul class="course-list clearfix">
+          <li class="add-course-box" (click)="showModal()">
+              <div class="add-course-inner"></div>
+          </li>
+          <li *ngFor="let item of CourseList[1]" >
+              <img [src]="item.courseCoverUrl" />
+              <div class="bottom">
+                  <div class="course-name">{{ item.courseName }}</div>
+                  <div class="operate-bar">
+                      <div class="edit" [routerLink]="['/admin/teacher/my-course/class']" [queryParams]="{id: item.id,courseTypeId: titles[1].courseTypeId,classifyId:titles[1].classifyId}">编辑</div>
+                      <div *ngIf="item.isPublish !== '1'" class="publish" (click)="publishCourse(item)">发布</div>
+                      <div *ngIf="item.isPublish === '1'" class="del" (click)="deleteCourse(item.id)">删除</div>
+                  </div>
+              </div>
+          </li>
+      </ul>
+      <nz-pagination [(nzPageIndex)]="page" [nzTotal]="totals[1]" (nzPageIndexChange)="pageIndexChange()" [nzPageSize]= "size" nzShowQuickJumper></nz-pagination>
+  </div>
+  </nz-tab>
+  <nz-tab [nzTitle]="titles[2].title">
+    <div class="feature-course">
+      <ul class="course-list clearfix">
+          <li class="add-course-box" (click)="showModal()">
+              <div class="add-course-inner"></div>
+          </li>
+          <li *ngFor="let item of CourseList[2]" >
+              <img [src]="item.courseCoverUrl" />
+              <div class="bottom">
+                  <div class="course-name">{{ item.courseName }}</div>
+                  <div class="operate-bar">
+                      <div class="edit" [routerLink]="['/admin/teacher/my-course/class']" [queryParams]="{id: item.id,courseTypeId: titles[2].courseTypeId,classifyId:titles[2].classifyId}">编辑</div>
+                      <div *ngIf="item.isPublish !== '1'" class="publish" (click)="publishCourse(item)">发布</div>
+                      <div *ngIf="item.isPublish === '1'" class="del" (click)="deleteCourse(item.id)">删除</div>
+                  </div>
+              </div>
+          </li>
+      </ul>
+      <nz-pagination [(nzPageIndex)]="page" [nzTotal]="totals[2]" (nzPageIndexChange)="pageIndexChange()" [nzPageSize]= "size" nzShowQuickJumper></nz-pagination>
+  </div>
+  </nz-tab>
+</nz-tabset>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="增加课程" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <label>课程名称</label>
+    <input nz-input style="margin-top: 10px;" placeholder="课程名称" [(ngModel)]="addCourseName">
+  </nz-modal>
+
+  

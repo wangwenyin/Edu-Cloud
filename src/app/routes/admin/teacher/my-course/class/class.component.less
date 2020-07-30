@@ -1,0 +1,110 @@
+:host ::ng-deep .my-class {
+
+  .tab-header {
+    display: flex;
+    justify-content: space-between;
+
+    .goback {
+      line-height: 36px;
+      padding-left: 23px;
+      font-size: 12px;
+      color: #999;
+      background-image: url(/assets/icons/goback.png);
+      background-repeat: no-repeat;
+      background-position: left center;
+      cursor: pointer;
+    }
+
+    .tab-btns {
+      .ant-btn {
+        width: 98px;
+        height: 36px;
+        padding-left: 30px;
+        margin-left: 20px;
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        border: 1px solid rgba(153, 153, 153, 1);
+
+        &:first-child {
+          margin-left: 0;
+          background-image: url(/assets/icons/info.png);
+
+          &.active {
+            background-image: url(/assets/icons/info-h.png);
+          }
+        }
+
+        &:nth-child(2) {
+          background-image: url(/assets/icons/edit.png);
+
+          &.active {
+            background-image: url(/assets/icons/edit-h.png);
+          }
+         
+        }
+        &:nth-child(3) {
+          background-image: url(/assets/icons/question.png);
+
+          &.active {
+            background-image: url(/assets/icons/question-h.png);
+          }
+        }
+
+        &:nth-child(4) {
+          background-image: url(/assets/icons/group.png);
+
+          &.active {
+            background-image: url(/assets/icons/group-h.png);
+          }
+        }
+
+        &:last-child {
+          background-image: url(/assets/icons/evaluate.png);
+
+           &.active {
+             background-image: url(/assets/icons/evaluate-h.png);
+           }
+        }
+
+        &.active {
+          color: #fff;
+          background-color: rgba(2, 75, 210, 1);
+          border: none;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    margin-top: 20px;
+    .table-header {
+      width: 100%;
+      height:35px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      background:rgba(250,250,250,1);
+      .sts-info {
+        width: 400px;
+      }
+      .scores {
+        flex: 1;
+      }
+    }
+    .ant-table {
+      .ant-table-body {
+        th, td {
+          padding: 7px;
+          text-align: center;
+        }
+        .ant-table-thead {
+          
+        }
+      }
+      
+    }
+  }
+}

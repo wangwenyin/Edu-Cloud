@@ -1,0 +1,17 @@
+<nz-layout class="default-layout">
+    <layout-header></layout-header>
+    <div class="prj-banner">
+        <img class="prj-name" src="/assets/images/prj-name.png">
+        <nz-carousel nzAutoPlay [nzEffect]="'fade'">
+            <div nz-carousel-content *ngFor="let item of bannerList">
+                <a [href]="'http://'+item.linkUrl"><img src="{{imagePrefix + item.remark}}"></a>
+            </div>
+        </nz-carousel>
+    </div>
+    <nz-content>
+        <router-outlet></router-outlet>
+    </nz-content>
+    <!-- 返回顶部按钮 -->
+    <nz-back-top></nz-back-top>
+    <layout-footer></layout-footer>
+</nz-layout>

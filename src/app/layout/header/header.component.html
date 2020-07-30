@@ -1,0 +1,72 @@
+<nz-header>
+    <div class="header-inner">
+        <div class="header-left">
+            <div class="logo">
+                <img src="/assets/images/logo-jyy.png" />
+            </div>
+            <ul nz-menu [nzMode]="'horizontal'">
+                <!-- <li nz-menu-item [nzSelected]="true"><a [routerLink]="['/home']">首页</a></li> -->
+                <li nz-menu-item [nzSelected]="index === '1'&&!isVisiteAdmin&&!isVisiteRegister" ><a  [routerLink]="['/home']">首页</a></li>
+                <li nz-menu-item [nzSelected]="index === '2'&&!isVisiteAdmin&&!isVisiteRegister"><a [routerLink]="['/course']">课程</a></li>
+                <li nz-menu-item [nzSelected]="index === '3'&&!isVisiteAdmin&&!isVisiteRegister"><a [routerLink]="['/certification']">认证</a></li>
+                <li nz-menu-item [nzSelected]="index === '4'&&!isVisiteAdmin&&!isVisiteRegister" > <a [routerLink]="['/resource']">资源</a></li>
+                <li nz-menu-item [nzSelected]="index === '5'&&!isVisiteAdmin&&!isVisiteRegister"><a [routerLink]="['/']">VR平台</a></li>
+                <li nz-menu-item [nzSelected]="index === '6'&&!isVisiteAdmin&&!isVisiteRegister"><a [routerLink]="['/']">成为VIP</a></li>
+                <li nz-menu-item><a [routerLink]="['/']">更多</a></li>
+            </ul>
+            <form nz-form [formGroup]="form" role="form">
+                <div class="search-box">
+                    <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+                        <input type="text" formControlName="txtSearch"  nz-input placeholder="输入搜索关键字,点击搜索">
+                    </nz-input-group>
+                    <ng-template #suffixIconButton>
+                        <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon type="search" ui-sref-opts="{reload:true}"></i></button>
+                    </ng-template>
+                </div>
+            </form>
+        </div>
+        <ul class="header-right">
+            <li *ngIf="!isLogin"><a href="javascript:void(0)" class="login" (click)="openLoginModal()">登录</a></li>
+            <li *ngIf="!isLogin" [ngClass]="{'selected': isVisiteRegister}" ><a [routerLink]="['/passport/register']" class="register">注册</a></li>
+            <li *ngIf="isLogin" class="my-center">
+                <nz-dropdown>
+                    <a nz-dropdown class="common-arrow-down">
+                      <div class="user-avatar-box">
+                        <img src="/assets/images/avatar-default{{ isLogin ? '-h' : ''}}.png" />
+                      </div>
+                    </a>
+                    <ul nz-menu nzSelectable>
+                      <li nz-menu-item>
+                        <a *ngIf="isStudent" [routerLink]="['/admin/student']">个人中心</a>
+                        <a *ngIf="isTeacher" [routerLink]="['/admin/teacher']">个人中心</a>
+                        <a *ngIf="!isTeacher && !isStudent" [routerLink]="['/admin']">个人中心</a>
+                      </li>
+                      <li nz-menu-item>
+                        <a  [routerLink]="['/home']" (click) = "loginOut()">退出登录</a>
+                      </li>
+                    </ul>
+                </nz-dropdown>
+            </li>
+            <li class="mobile">
+                <nz-dropdown>
+                    <a nz-dropdown class="common-arrow-down"></a>
+                    <ul nz-menu nzSelectable>
+                        <li nz-menu-item>
+                            <div class="app-download-box">
+                                <div class="qr-code">
+                                    <img src="/assets/images/qr-code.png" />
+                                    <span>扫描二维码下载APP</span>
+                                </div>
+                                <div class="download-btns">
+                                    <div class="btn android">Android 下载</div>
+                                    <div class="btn ios">IOS 下载</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nz-dropdown>
+            </li>
+            <li class="notify" (click)="openMyMsg()"></li>
+        </ul>
+    </div>
+</nz-header>

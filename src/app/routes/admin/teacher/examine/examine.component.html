@@ -1,0 +1,35 @@
+<div class="toolbar">
+  <button class="add" nz-button nzType="default" (click)="openAddAxamModal()" >添加</button>
+  <button class="edit" nz-button nzType="default" (click)="openEditExamModal()">编辑</button>
+  <button class="del" nz-button nzType="default" (click)="deletExam()">删除</button>
+  <button class="preview" nz-button nzType="default" (click)="priviewExamModal()">预览</button>
+</div>
+<nz-table #rowSelectionTable [nzData]="dataSet"   nzShowPagination="false" >
+  <thead>
+    <tr>
+      <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="checkAll($event)"></th>
+     <!--  <th>序号</th> -->
+      <th>考试名称</th>
+      <th>所属课程</th>
+      <th>是否有效</th>
+      <th>考试时间</th> 
+      <th>考试分数值</th>
+      <th>题目数量</th>
+    </tr>
+  </thead> 
+  <tbody>
+    <tr *ngFor="let data of dataSet">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+      <!-- <td>{{data.id}}</td> -->
+      <td>{{data.exam_title}}</td>
+      <td>{{data.course_name}}</td>
+      <td>{{data.is_ok=='1' ? '有效' : '关闭'}}</td>
+      <td>{{data.exam_time_length}}分钟</td>
+      <td>{{data.total_score}}</td>
+      <td>{{data.subject_count}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+<br>
+<nz-pagination [(nzPageIndex)]="page" [nzTotal]="total" (nzPageIndexChange)="pageIndexChange()" [nzPageSize]= "size" nzShowQuickJumper></nz-pagination>

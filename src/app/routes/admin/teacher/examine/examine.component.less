@@ -1,0 +1,45 @@
+:host ::ng-deep {
+    .toolbar {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+        .ant-btn {
+            padding-left: 30px;
+            padding-right: 10px;
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            &.add {
+                background-image: url(/assets/icons/add-16x16.png);
+            }
+            &.edit {
+                background-image: url(/assets/icons/edit.png);
+            }
+            &.del {
+                background-image: url(/assets/icons/del-16x16.png);
+            }
+            &.preview {
+                background-image: url(/assets/icons/view.png);
+            }
+            &:hover, &:focus {
+                color: #fff;
+                background-color: #024BD2;
+                &.add {
+                    background-image: url(/assets/icons/add-16x16-h.png);
+                }
+                &.edit {
+                    background-image: url(/assets/icons/edit-h.png);
+                }
+                &.del {
+                    background-image: url(/assets/icons/del-16x16-h.png);
+                }
+                &.preview {
+                    background-image: url(/assets/icons/view-h.png);
+                }
+            }
+        }
+    }
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+        padding: 8px;
+        text-align: center;
+    }
+}

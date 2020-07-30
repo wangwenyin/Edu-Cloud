@@ -1,0 +1,121 @@
+<div class="question-bank">
+  <nz-tree #nzTree [(ngModel)]="parentNode" [nzAsyncData]="true" (nzExpandChange)="expandAction($event)"
+    (nzClick)="loadQuestionList($event)">
+  </nz-tree>
+
+  <div class="right-box" style="margin-bottom: 20px;">
+    <div class="toolbar">
+
+      <button *ngIf="isRecovery" class="add" nz-button nzType="default" (click)="deleteQuestion('0')">恢复</button>
+      <button *ngIf="isRecovery" class="del" nz-button nzType="default" (click)="deleteQuestion('1')">彻底删除</button>
+      <button *ngIf="!isRecovery" class="add" nz-button nzType="default" (click)="openAddQuestionModal()">添加</button>
+      <button *ngIf="!isRecovery" class="edit" nz-button nzType="default" (click)="openEditQuestionModal()">编辑</button>
+      <button *ngIf="!isRecovery" class="del" nz-button nzType="default" (click)="deleteQuestion('2')">删除</button>
+      <button *ngIf="!isRecovery" class="import" nz-button nzType="default" (click)="openUploadnModal()">导入题目</button>
+      <button *ngIf="!isRecovery" class="export" nz-button nzType="default" (click)="openExportModal()">导出题目</button>
+      <button *ngIf="!isRecovery" class="enclosure" nz-button nzType="default">附件检查</button>
+      <button *ngIf="!isRecovery" class="set" nz-button nzType="default" (click)="openBatchSet()">批量设置</button>
+      <a id="download" style="display: none;" download="题库导出.xlsx">下载</a>
+    </div>
+    <div class="question-list" *ngIf="questionList.length;else nodata">
+      <label
+        style="display: block;border-bottom: 1px solid #EEEEEE;font-size: 12px;margin-bottom: 10px;padding-bottom: 10px;margin-top: 10px;"
+        nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
+        勾选全部题目
+      </label>
+      <div class="question" style="float: left;;margin-bottom: 30px;" *ngFor="let question of questionList">
+        <div style="width: 100%;float: left;">
+          <div style="float: left;margin-top: 2px;">
+            <label nz-checkbox [(ngModel)]="question.checked">{{ question.num }}.</label>
+          </div>
+          <div style="float: left;width: 93%;">
+            <div class="subject-title" style="font-weight: 400;line-height: 24px;">
+              <nz-tag [nzColor]="'blue'" *ngIf="question.subjectType === '0'">单选题</nz-tag>
+              <nz-tag [nzColor]="'blue'" *ngIf="question.subjectType === '1'">多选题</nz-tag>
+              <nz-tag [nzColor]="'blue'" *ngIf="question.subjectType === '2'">判断题</nz-tag>
+              {{ question.subjectTitle }}
+            </div>
+            <div class="option" *ngFor="let option of question.options" style="margin-top: 10px;margin-bottom: 10px;">
+              <span class="subject-option">
+                <span *ngIf="option.subjectType !== '2'">
+                  <span *ngIf="option.isRightAnswer === '1'" class="prefix" [ngClass]="{ 'selected': option.isRightAnswer === '1'}"> {{ option.optionPrefixContent }}</span>
+                  <span *ngIf="option.isRightAnswer !== '1'" class="prefix"> {{ option.optionPrefixContent }}</span>
+                </span>
+
+                <span *ngIf="option.subjectType === '2'">
+                  <span *ngIf="option.isRightAnswer === '1'" style="color: #024BD2;">
+                    {{ option.optionContent }}
+                  </span>
+                  <span *ngIf="option.isRightAnswer !== '1'">
+                    {{ option.optionContent }}
+                  </span>
+                </span>
+                <span *ngIf="option.subjectType !== '2'">
+                  {{ option.optionContent }}
+                </span>
+
+
+                <!-- <span *ngIf="option.isRightAnswer === '1'&& option.subjectType === '3'">  {{ option.optionContent }}</span>
+                  <span *ngIf="option.isRightAnswer !== '1'&& option.subjectType === '3'"> {{ option.optionContent }}</span>
+                  -->
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="que-info">
+          题目{{ question.num }}相关信息：状态<span class="val">({{ (question.isPublic === '1') ? '开放':'私密'}})</span>
+          更新时间<span class="val">({{question.lastModifiedDate | date: 'yyyy-MM-dd'}})</span> 适用课程<span
+            class="val">({{questionCourse}})</span>
+          是否抽取<span class="val">({{(question.isAllowExtract === '1') ? '是':'否'}})</span> 来源<span
+            class="val">({{ (question.subjectSource === '1') ? '导入':'新增'}})</span>
+        </div>
+      </div>
+      <nz-pagination [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize]="size"
+        (nzPageIndexChange)="pageIndexChange()" nzShowQuickJumper>
+      </nz-pagination>
+    </div>
+    <ng-template #nodata>
+      <app-no-data></app-no-data>
+    </ng-template>
+
+  </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="'批量抽取'" class="common-modal-style" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
+  <label nz-checkbox [(ngModel)]="batchChecked">批量抽取</label>
+</nz-modal>
+
+
+
+<nz-modal [(nzVisible)]="uploadIsVisible" [nzTitle]="'导入题目'" class="common-modal-style" [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()">
+  <nz-upload [(nzFileList)]="excelFile" [nzBeforeUpload]="beforeUpload" [nzLimit]="1">
+    <button nz-button *ngIf="excelFile.length < 1">
+      <i nz-icon type="upload"></i><span>选择导入文件</span>
+    </button>
+  </nz-upload>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+    <button nz-button nzType="primary" (click)="handleUpload()" [nzLoading]="excelUploading">
+      {{ excelUploading ? '导入中' : '开始导入' }}</button>
+  </ng-template>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="exportIsVisible" [nzTitle]="'导出题目'" class="common-modal-style" [nzFooter]="exportFooter"
+  (nzOnCancel)="handleCancel()">
+  <div>
+    <p>选中左侧课程可导出课程全部题目</p>
+    <br>
+    <p>选中左侧课时可导出课时全部题目</p>
+    <br>
+    <p>如果有勾选题目默认导出勾选题目</p>
+  </div>
+
+  <ng-template #exportFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+    <button nz-button nzType="primary" (click)="export()" [nzLoading]="excelExporting">
+      {{ excelUploading ? '导出中' : '导出' }}</button>
+  </ng-template>
+</nz-modal>

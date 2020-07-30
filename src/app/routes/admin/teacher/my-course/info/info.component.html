@@ -1,0 +1,76 @@
+<div class="course-info">
+  <div class="main-info">
+    <div class="left">
+      <form nz-form [formGroup]="validateForm"  >
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="courseType">课程类别</nz-form-label>
+          <nz-form-control [nzSpan]="21">
+            <nz-select formControlName="courseType">
+              <nz-option  *ngFor="let item of courseType" [nzLabel]="item.itemText" [nzValue]="item.itemValue1"></nz-option>
+            </nz-select>
+            <!-- <input nz-input formControlName="courseType" type="text" id="courseType"> -->
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="courseName">课程名称</nz-form-label>
+          <nz-form-control [nzSpan]="21">
+            <input nz-input formControlName="courseName" type="text" id="courseName">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="teacherName">课程讲师</nz-form-label>
+          <nz-form-control [nzSpan]="21">
+            <input nz-input formControlName="teacherName" type="text" id="teacherName">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="totalHours">课时总数</nz-form-label>
+          <nz-form-control [nzSpan]="21">
+            <input nz-input formControlName="totalHours" type="text" id="totalHours">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="introduction">讲师介绍</nz-form-label>
+          <nz-form-control [nzSpan]="21">
+            <textarea formControlName="introduction" id="introduction" nz-input rows="3" placeholder="请输入讲师介绍信息"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngFor="let item of summarizeList;let i = index">
+          <nz-form-label [nzSpan]="3" nzFor="courseIntro1">课程概述</nz-form-label>
+          <nz-form-control [nzSpan]="21">
+            <textarea name="courseIntro1" id="courseIntro1" [(ngModel)]='contentList[i]' [ngModelOptions]="{standalone: true}" class="textarea" nz-input placeholder="请输入课程概述文字内容一"></textarea>
+          </nz-form-control>
+          <button nz-button style="float: right;"  nzType="default"  (click) = "deleteSummarize(i,$event);" >删除概述</button>
+        </nz-form-item>
+
+        <!-- <nz-form-item *ngFor="let item of summarizeList;let i = index" style="width: 100%;">
+          <nz-form-label [nzSpan]="3" nzRequired style="margin-right: 10px;">课程概述</nz-form-label>
+          <nz-form-control [nzSpan]="15" >
+            <textarea  nz-input rows="10" [(ngModel)]='contentList[i]' [ngModelOptions]="{standalone: true}"  placeholder="请输入课程概述"></textarea>
+          </nz-form-control>
+          <button nz-button nzType="default" (click) = "deleteSummarize(i)" >删除概述</button>
+        </nz-form-item> -->
+
+        <!-- <div   class="add-intro" (click) = "addSummarize()" >添加概述</div> -->
+        <button nz-button  class="add-intro" (click) = "addSummarize()" [nzLoading]="isAddLoading">添加概述</button>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3" nzFor="target">课程目标</nz-form-label>
+          <nz-form-control [nzSpan]="21">
+            <textarea formControlName="target" id="target" nz-input rows="4" placeholder="请输入课程目标内容"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+    <div class="right">
+      <div class="upload-box">
+        <ths-file-upload  [fileFk] = 'courseId' [fileListTitle] = "courseTitle" [fileCountLimit] = '1'></ths-file-upload>
+      </div>
+      
+     <div class="upload-box"  *ngFor="let item of summarizeList;let i = index;">
+         <ths-file-upload [fileFk] = 'idList[i]' [fileListTitle] = "summarizeTitle" [fileCountLimit] = '1'></ths-file-upload>
+      </div>
+     
+    </div>
+  </div>
+  <button nz-button nzType="primary" type="submit" (click) = "submitForm($event,validateForm.value)" [nzLoading]="loading" class="saveInfo">保存</button>
+</div>

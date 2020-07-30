@@ -1,0 +1,10 @@
+<img *ngIf="value && value !== '';else defaultHeadImg" 
+[ngStyle]="getStyle()"
+style="border-radius: 50%;float: left;" 
+[src]="this.sanitizer.bypassSecurityTrustResourceUrl(value)"
+>
+
+
+<ng-template #defaultHeadImg>
+    <img [ngStyle]="getStyle()"   style="border-radius: 50%;float: left;" [src]="getDefaultImgSrc()">
+</ng-template>

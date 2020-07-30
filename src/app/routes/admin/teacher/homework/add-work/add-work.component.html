@@ -1,0 +1,117 @@
+<div class="modal-header">
+  <div class="modal-title">{{isAdd ? '添加' : '编辑'}}作业</div>
+</div>
+<div class="modal-content">
+  <form nz-form [formGroup]="form" >
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4"nzRequired nzFor="eduCourseId">所属课程</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-select formControlName="eduCourseId" nzPlaceHolder="请选择" (ngModelChange)="courseChange($event)" >
+          <nz-option *ngFor="let i of courseList;" [nzLabel]="i.name" [nzValue]="i.value"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="eduCatalogId">所属课时</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-select formControlName="eduCatalogId" nzPlaceHolder="请选择" nzAllowClear='true' (ngModelChange)="catalogChange($event)">
+          <nz-option *ngFor="let i of catalogList;" [nzLabel]="i.name" [nzValue]="i.value"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="homeworkName">作业名称</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input formControlName="homeworkName" placeholder="请填写作业名称" />
+        <!-- <nz-form-explain *ngIf="validateForm.get('homeworkName').dirty && validateForm.get('homeworkName').errors">
+          <ng-container *ngIf="validateForm.get('homeworkName').hasError('required')">请填写作业名称</ng-container>
+        </nz-form-explain> -->
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="homeworkHours">作业时间</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <input nz-input type="number" formControlName="homeworkHours"  placeholder="请填写作业时间" onkeyup="this.value=this.value.replace(/\D|^0/g,'')" 
+         onafterpaste="this.value=this.value.replace(/\D|^0/g,'')"
+          max="1000"/>
+        <div class="unit">分钟</div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="totalScore">总分</nz-form-label>
+      <nz-form-control nzSpan="20">
+         <input nz-input type="number"   formControlName="totalScore" placeholder="请输入总分"  />
+        <div class="unit">分</div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="4" nzRequired nzFor="isOk">是否有效</nz-form-label>
+      <nz-form-control nzSpan="20">
+        <nz-radio-group formControlName="isOk">
+          <label nz-radio  nzValue="1">有效</label>
+          <label nz-radio nzValue="0">关闭</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div class="set-question-box">
+    <div class="title">手动配题</div>
+    <nz-table #manualTopic [nzData]="manualTypeDataSet" [nzFrontPagination]="false">
+      <thead>
+        <tr>
+          <th nzWidth="75px">题型</th>
+          <th>单道分数</th>
+          <th>数量</th>
+          <th>抽取</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of manualTopic.data">
+          <td>
+            <span *ngIf="data.subject_type=='0'">单选题</span>
+            <span *ngIf="data.subject_type=='1'">多选题</span>
+            <span *ngIf="data.subject_type=='2'">判断题</span>
+          </td>
+          <td><input nz-input type="number" placeholder="请设置分数" [(ngModel)]="data.score" /></td>
+          <td><input nz-input type="number" placeholder="请设置数量" [(ngModel)]="data.subject_quantity" /></td>
+          <td>
+            <button nz-button nzType="default" (click)="openSelectSubjectModal(data)" > 选择</button>
+          </td>
+        </tr> 
+      </tbody>
+    </nz-table>
+    <div class="set-question-box">
+      <div class="title">自动配题</div>
+      <nz-table #autoTopic [nzData]="autoTypeDataSet" [nzFrontPagination]="false">
+        <thead>
+          <tr>
+            <th nzWidth="75px">题型</th>
+            <th>单道分数</th>
+            <th>数量</th>
+            <th>自动抽取</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of autoTopic.data">
+            <td>
+              <span *ngIf="data.subject_type=='0'">单选题</span>
+              <span *ngIf="data.subject_type=='1'">多选题</span>
+              <span *ngIf="data.subject_type=='2'">判断题</span>
+            </td>
+            <td><input nz-input type="number" placeholder="请设置分数" [(ngModel)]="data.score" /></td>
+            <td><input nz-input type="number" placeholder="请设置数量" [(ngModel)]="data.subject_quantity" /></td>
+            <td>
+              <button nz-button nzType="default" (click)="autoSelectSubjectModal(data)">抽取</button>
+            </td>
+          </tr> 
+        </tbody>
+      </nz-table>
+  </div>
+</div>
+<div class="modal-footer">
+  <button nz-button nzType="primary" type="submit" [nzLoading]="loading" (click)="submit()">生成作业</button>
+</div>

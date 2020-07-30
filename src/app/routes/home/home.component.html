@@ -1,0 +1,121 @@
+<div class="page-content">
+  <div class="section">
+    <div class="section-title">教育云</div>
+    <div class="courses-box">
+      <div class="course" *ngFor="let item of dataSet">
+        <div class="img-box">
+          <img src="{{imagePrefix + item.imgurl}}"></div>
+        <div class="course-title">{{item.name}}</div>
+        <p>{{item.content}}</p>
+      </div>
+      <!-- <div class="course">
+        <div class="img-box"><img src="/assets/images/features.png"></div>
+        <div class="course-title">特色课程</div>
+        <p>由企业提供的特色课程学习平台，结合专业课程实现产学融合的教学体系。</p>
+      </div>
+      <div class="course">
+        <div class="img-box"><img src="/assets/images/professional.png"></div>
+        <div class="course-title">专业课程</div>
+        <p>由企业提供的特色课程学习平台，结合专业课程实现产学融合的教学体系。</p>
+      </div>
+      <div class="course">
+        <div class="img-box"><img src="/assets/images/teaching.png"></div>
+        <div class="course-title">教学课程</div>
+        <p>由企业提供的特色课程学习平台，结合专业课程实现产学融合的教学体系。</p>
+      </div>
+      <div class="course">
+        <div class="img-box"><img src="/assets/images/certification.png"></div>
+        <div class="course-title">认证课程</div>
+        <p>由企业提供的特色课程学习平台，结合专业课程实现产学融合的教学体系。</p>
+      </div> -->
+    </div>
+  </div>
+  <!-- 此栏需要全宽度的背景色 -->
+  <!-- <div class="section diff" [ngStyle]="getStyle()">
+    <div class="section-inner width_1200" *ngFor="let item of dataSet">
+      <div class="section-title" >{{item.name}}</div>
+      <div class="common-courses-box" *ngFor="let subdata of ItemTypeListArray;let j = index">
+        <div class="common-course">
+          <img  src="../../../../assets/images/u36.jpg">
+          <div class="desc">
+            <div class="desc-inner">
+              <div class="title">{{subdata.courseName }}</div>
+              <p>{{subdata.introduction }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>   -->
+  <nz-table [nzData]="dataSet" [nzBordered]="false" [nzFrontPagination]='false' [nzShowPagination]='false'>
+    <tr *ngFor="let data of dataSet;let i = index">
+      <td style="padding: 0;border-bottom-style:none">
+        <div class="section" [ngClass]="{'diff': i%2==0}" [ngStyle]="i%2==0 ? getStyle() : ''">
+          <div class="section-inner width_1200" *ngIf=" ItemTypeListArray[i]!=null && ItemTypeListArray[i].length >0">
+            <div class="section-title">{{data.name}}</div>
+            <div class="common-courses-box">
+              <div class="common-course" *ngFor="let subdata of ItemTypeListArray[i];let j = index">
+                <img *ngIf="subdata.remark !== null && subdata.remark !=='';else errorImg" [src]="imagePrefix + subdata.remark"> 
+                <ng-template #errorImg>
+                  <img  src="../../../../assets/images/u36.jpg">
+                </ng-template>
+                <a href="#/course/detail?courseId={{subdata.id}}">
+                  <div class="desc">
+                    <div class="desc-inner">
+                      <div class="title">{{ subdata.courseName }}</div>
+                      <!-- <p>{{ subdata.introduction }}</p> -->
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </nz-table>
+  <!--  <div class="section">
+    <div class="section-title">专业课程</div>
+    <div class="common-courses-box">
+      <div class="common-course" *ngFor="let item of featureCourseList">
+        <img [src]="item.src">
+        <div class="desc">
+          <div class="desc-inner">
+            <div class="title">{{ item.title }}</div>
+            <p>{{ item.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section diff" [ngStyle]="getStyle()">
+    <div class="section-inner width_1200">
+      <div class="section-title">教学课程</div>
+      <div class="common-courses-box">
+        <div class="common-course" *ngFor="let item of teachingCourseList">
+          <img [src]="item.src">
+          <div class="desc">
+            <div class="desc-inner">
+              <div class="title">{{ item.title }}</div>
+              <p>{{ item.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">考试认证</div>
+    <div class="common-courses-box">
+      <div class="common-course" *ngFor="let item of certificationList">
+        <img [src]="item.src">
+        <div class="desc">
+          <div class="desc-inner">
+            <div class="title">{{ item.title }}</div>
+            <p>{{ item.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>

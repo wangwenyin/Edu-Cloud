@@ -1,0 +1,359 @@
+:host ::ng-deep .course-detail {
+  margin-top: 60px;
+  padding-bottom: 80px;
+
+  .ant-breadcrumb {
+    margin: 20px 0;
+  }
+
+  .sale-box {
+    position: relative;
+    display: flex;
+    padding: 20px;
+    padding-right: 40px;
+    border: 1px solid rgba(238, 238, 238, 1);
+
+    .post-box {
+      position: relative;
+      margin-right: 10px;
+
+      img {
+        width: 602px;
+        height: 316px;
+      }
+
+      .play-btn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        width: 44px;
+        height: 44px;
+        background: url(/assets/icons/play.png) no-repeat center;
+        cursor: pointer;
+      }
+    }
+
+    .sale-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .sale-top {
+        .course-name {
+          color: #333;
+          font-size: 24px;
+          font-weight: bold;
+        }
+
+        .course-info {
+          margin-top: 4px;
+          margin-bottom: 20px;
+          color: #999;
+
+          span {
+            margin-left: 28px;
+
+            &:first-child {
+              margin-left: 0;
+            }
+          }
+        }
+
+        .price-box {
+          display: flex;
+          align-items: center;
+
+          .cur-price {
+            color: #F65414;
+            font-size: 16px;
+
+            span {
+              &:nth-child(2) {
+                margin: 0 10px 0 5px;
+                font-size: 26px;
+              }
+
+              &:last-child {
+                font-size: 12px;
+              }
+            }
+          }
+
+          .original-price {
+            position: relative;
+            margin-left: 20px;
+            color: #666;
+            font-size: 14rpx;
+
+            span:last-child {
+              font-size: 18px;
+              margin-left: 4px;
+            }
+
+            &::after {
+              position: absolute;
+              left: -5%;
+              right: -5%;
+              top: 50%;
+              transform: translateY(-50%);
+              content: '';
+              height: 1px;
+              background: #666;
+            }
+          }
+        }
+
+        .privilege {
+          color: #999;
+          font-size: 12px;
+          margin-top: 28px;
+        }
+      }
+
+      .sale-bottom {
+        display: flex;
+
+        .btn-box {
+          display: flex;
+        }
+
+        .btn {
+          width: 153px;
+          height: 45px;
+          margin-right: 20px;
+          line-height: 45px;
+          text-align: center;
+          font-size: 20px;
+          border-radius: 4px;
+          cursor: pointer;
+
+          &.free-btn {
+            color: #024BD2;
+            border: 1px solid rgba(2, 75, 210, 1);
+          }
+
+          &.buy-btn {
+            color: #fff;
+            background: rgba(254, 115, 60, 1);
+          }
+
+          &.study-btn {
+            color: #fff;
+            background: rgba(2, 75, 210, 1);
+          }
+        }
+
+        .collect-btn {
+          line-height: 45px;
+          padding-left: 30px;
+          font-size: 18px;
+          color: #666;
+          background-image: url(/assets/icons/collect.png);
+          background-repeat: no-repeat;
+          background-position: left center;
+
+          &.collected {
+            background-image: url(/assets/icons/collected.png);
+          }
+        }
+      }
+    }
+
+    .share {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 19px;
+      height: 19px;
+      background-image: url(/assets/icons/share.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+
+      &:hover {
+        background-image: url(/assets/icons/share-h.png);
+
+        .share-box {
+          display: block;
+        }
+      }
+
+      .share-box {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: -213px;
+
+        .share-inner-box {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 252px;
+          height: 64px;
+          margin-top: 20px;
+          padding: 0 19px;
+          background: rgba(255, 255, 255, 1);
+          box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.18);
+
+          .icon {
+            width: 38px;
+            height: 38px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            cursor: pointer;
+
+            &.wx-icon {
+              background-image: url(/assets/icons/wx.png);
+
+              &:hover {
+                background-image: url(/assets/icons/wx-h.png);
+              }
+            }
+
+            &.qq-icon {
+              background-image: url(/assets/icons/QQ.png);
+
+              &:hover {
+                background-image: url(/assets/icons/QQ-h.png);
+              }
+            }
+
+            &.wb-icon {
+              background-image: url(/assets/icons/wb.png);
+
+              &:hover {
+                background-image: url(/assets/icons/wb-h.png);
+              }
+            }
+
+            &.qz-icon {
+              background-image: url(/assets/icons/Qzone.png);
+
+              &:hover {
+                background-image: url(/assets/icons/Qzone-h.png);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ant-tabs {
+    margin-top: 10px;
+
+    .ant-tabs-bar {
+      margin: 0;
+      border-bottom: none;
+
+      .ant-tabs-nav {
+        .ant-tabs-tab {
+          color: #333;
+          padding: 12px 10px;
+          margin-right: 30px;
+          border: none;
+          border-bottom: 1px solid #eee;
+          border-radius: 0;
+
+          &.ant-tabs-tab-active {
+            color: #024BD2;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .ant-tabs-content {
+      .ant-tabs-tabpane {
+        .course-detail-info {
+          color: #666;
+
+          .sub-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 12px;
+          }
+
+          .course-intro,
+          .course-purpose {
+            display: flex;
+            line-height: 20px;
+            &.p2, &.p3 {
+              margin-top: 35px;
+              img {
+                width:475px;
+                height:265px;
+              }
+              .intro {
+                flex: 1;
+                display: flex;
+                align-items: center;
+              }
+            }
+            &.p2 {
+              img {
+                margin-right: 30px;
+              }
+            }
+            &.p3 {
+              img {
+                margin-left: 30px;
+              }
+            }
+          }
+
+          .lecturer-intro {
+            display: flex;
+
+            .img-box {
+              margin-right: 48px;
+
+              img {
+                width: 220px;
+                height: 308px;
+              }
+            }
+
+            .lecturer-info {
+              .name {
+                color: #333;
+                font-size: 20px;
+                font-weight: bold;
+              }
+
+              .lecturer-title {
+                color: #999;
+                font-size: 12px;
+                margin-top: 10px;
+                margin-bottom: 20px;
+              }
+
+              .detail-info-box {
+                width: 500px;
+                height: 227px;
+                padding: 30px 20px;
+                line-height: 30px;
+                text-indent: 2em;
+                border: 1px solid rgba(238, 238, 238, 1);
+                border-radius: 6px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.courseRemarklist{
+  height: 30px;
+  text-align: right;
+}
+.courseRemarklist .Updatetime{
+  font-style:normal; 
+  color: #999999; 
+}

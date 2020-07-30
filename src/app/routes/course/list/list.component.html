@@ -1,0 +1,72 @@
+<div class="course-list-box">
+    <div class="title">{{typeName}}
+        <nz-breadcrumb nzSeparator=">">
+            <nz-breadcrumb-item><a [routerLink]="['/course']">{{typeName}}</a></nz-breadcrumb-item>
+            <nz-breadcrumb-item>查看更多</nz-breadcrumb-item>
+            <nz-breadcrumb-item>{{tabName}}</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </div>
+    <!-- <div class="classify-box">
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
+            <nz-tab *ngFor="let item of courseTypelist" [nzTitle]="item.courseType" (nzSelect)="onTabSelect(item.courseType)">
+                <div class="sub-classify-wrapper" [ngStyle]="getStyle()" >
+                    <ul class="sub-classify-box">
+                        <li class="sub-item" [ngClass]="{active: i==0}" *ngFor="let subItem of courseTypeaylist;let i=index"
+                        (click)="onTabcousename(subItem.courseName)" >{{ subItem.courseName}}</li>
+                    </ul>
+                    
+                </div>
+                <div *ngIf="courseTypeaylist.length > 20" class="more" [ngClass]="{ 'arrow-up': isShowMore }"
+                    (click)="toggleShow()">{{isShowMore ? '收起' : '查看更多'}}</div>
+            </nz-tab>
+        </nz-tabset>
+    </div> -->
+    <div class="classified-course-box">
+        <nz-tabset [nzTabBarExtraContent]="extraTemplate">
+            <nz-tab *ngFor="let course of courseList" [nzTitle]="course.name" (nzClick)="tabTo(course)">
+                <div class="course-list">
+                    <div class="item" *ngFor="let item of CourseList">
+                        <a href="#/course/detail?courseId={{item.id}}">
+                            <div class="course-img">
+                                <img *ngIf="item.remark !== null && item.remark !=='';else errorImg"
+                                    src="{{imgSrc + item.remark}}"></div>
+                            <ng-template #errorImg>
+                                <img src="../../../../assets/images/u131.png">
+                            </ng-template>
+                            <div class="brief-info">
+                                <div class="course-name">{{ item.courseName }}</div>
+                                <div class="info">
+                                    <span class="learn-num">{{ item.subscibeCount }}</span>
+                                    <!-- <span class="update-status">更新课程第{{ item.updateSection }}章</span> -->
+                                    <span class="update-status" *ngIf="item.updateSection==null">暂无更新</span>
+                                    <span class="update-status"
+                                        *ngIf="item.updateSection!=null">更新课程第{{ item.updateSection }}章</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </nz-tab>
+        </nz-tabset>
+        <ng-template #extraTemplate>
+            <ul class="toolbar">
+                <li (click)="comprehensive()">综合排序</li>
+                <li (click)="Newest()">最近更新</li>
+                <li (click)="watch()">最多观看</li>
+                <li (click)="collection()">最多收藏</li>
+                <li>
+                    <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+                        <input type="text" [(ngModel)]="searchCourseName" nz-input placeholder="输入搜索课程关键字,点击搜索">
+                    </nz-input-group>
+                    <ng-template #suffixIconButton>
+                        <button nz-button nzType="primary" nzSearch (click)="_search()"><i nz-icon
+                                type="search"></i></button>
+                    </ng-template>
+                </li>
+            </ul>
+        </ng-template>
+        <nz-pagination [nzPageIndex]="pageIndex" [(nzPageIndex)]="page" [nzTotal]="total" [nzPageSize]="size"
+            (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+            [nzHideOnSinglePage]="false" nzShowQuickJumper></nz-pagination>
+    </div>
+</div>

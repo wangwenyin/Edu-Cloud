@@ -1,0 +1,8 @@
+<nz-select *ngIf="viewType === 0 || viewType === '0'" [nzAllowClear]="true" style="width: 100%" [(ngModel)]="value" [nzMode]="nzMode"
+[nzPlaceHolder]="nzPlaceHolder" [nzShowSearch]="nzShowSearch" (ngModelChange)="modelChange()" [nzDisabled]="nzDisabled">
+    <nz-option *ngFor="let option of optionList" [nzLabel]="option[labelProperty]" [nzValue]="option[valueProperty]"></nz-option>
+</nz-select>
+<nz-tree-select *ngIf="viewType === 1 || viewType === '1'" [nzAllowClear]="true" [nzDefaultExpandAll]="false" [nzNodes]="nodes" [(ngModel)]="value" [nzDropdownMatchSelectWidth]="true"
+    [nzMultiple]="nzMultiple" [nzShowSearch]="nzShowSearch" [nzDropdownStyle]="nzDropdownStyle" [nzPlaceHolder]="nzPlaceHolder" (ngModelChange)="modelChange()" (nzExpandChange)="onExpandChange($event)"
+    [nzDisabled]="nzDisabled" style="width: 100%">
+</nz-tree-select>
