@@ -398,6 +398,10 @@
   version "8.9.5"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-8.9.5.tgz#162b864bc70be077e6db212b322754917929e976"
 
+"@types/pdfjs-dist@^2.0.1":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@types/pdfjs-dist/-/pdfjs-dist-2.1.5.tgz#98d7c8796919828bbdcdf364ca6bf82105b9246e"
+
 "@types/q@^0.0.32":
   version "0.0.32"
   resolved "http://registry.npm.taobao.org/@types/q/download/@types/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
@@ -2386,6 +2390,12 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
+echarts@^4.1.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/echarts/-/echarts-4.9.0.tgz#a9b9baa03f03a2a731e6340c55befb57a9e1347d"
+  dependencies:
+    zrender "4.3.2"
+
 editorconfig-tools@^0.1.1:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/editorconfig-tools/download/editorconfig-tools-0.1.1.tgz#6c38af1a3e56efe10a4adf56613fed742801888b"
@@ -2628,9 +2638,9 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "http://registry.npm.taobao.org/etag/download/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
 
-eventemitter3@^3.0.0:
-  version "3.1.0"
-  resolved "http://registry.npm.taobao.org/eventemitter3/download/eventemitter3-3.1.0.tgz#090b4d6cdbd645ed10bf750d4b5407942d7ba163"
+eventemitter3@^4.0.0:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
 
 events@^1.0.0:
   version "1.1.1"
@@ -2991,10 +3001,8 @@ fobject@0.0.3:
     when "^3.0.1"
 
 follow-redirects@^1.0.0:
-  version "1.5.1"
-  resolved "http://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.5.1.tgz#67a8f14f5a1f67f962c2c46469c79eaec0a90291"
-  dependencies:
-    debug "^3.1.0"
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
 
 for-each@~0.3.3:
   version "0.3.3"
@@ -3584,10 +3592,10 @@ http-proxy-middleware@~0.18.0:
     micromatch "^3.1.9"
 
 http-proxy@^1.13.0, http-proxy@^1.16.2:
-  version "1.17.0"
-  resolved "http://registry.npm.taobao.org/http-proxy/download/http-proxy-1.17.0.tgz#7ad38494658f84605e2f6db4436df410f4e5be9a"
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.18.1.tgz#401541f0534884bbf95260334e72f88ee3976549"
   dependencies:
-    eventemitter3 "^3.0.0"
+    eventemitter3 "^4.0.0"
     follow-redirects "^1.0.0"
     requires-port "^1.0.0"
 
@@ -5143,6 +5151,14 @@ ng-zorro-antd@^1.4.1:
     "@angular/cdk" "^6.0.0"
     date-fns "^1.29.0"
 
+ng2-pdf-viewer@^5.3.0:
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/ng2-pdf-viewer/-/ng2-pdf-viewer-5.3.4.tgz#fef311fbdc7d03d3eb5394f866ac08c295d4bae9"
+  dependencies:
+    "@types/pdfjs-dist" "^2.0.1"
+    pdfjs-dist "^2.2.228"
+    tslib "^1.9.0"
+
 ngx-countdown@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/ngx-countdown/download/ngx-countdown-3.0.1.tgz#c3b367b454826f769513e2330cfa9709c7627c94"
@@ -5161,6 +5177,12 @@ ngx-countdown@^3.0.0:
     ngx-notify "^2.0.0"
     rxjs "^6.0.0"
     zone.js "^0.8.26"
+
+ngx-echarts@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-echarts/-/ngx-echarts-3.2.0.tgz#69bc37d9fc26156117c2c0bb9ba113822228dc43"
+  dependencies:
+    tslib "^1.9.0"
 
 ngx-highlight-js@^2.0.0:
   version "2.0.4"
@@ -5210,6 +5232,10 @@ ngx-ueditor@^2.1.0:
     ngx-highlight-js "^2.0.0"
     rxjs "^6.0.0"
     zone.js "^0.8.26"
+
+ngx-umeditor@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-umeditor/-/ngx-umeditor-2.0.2.tgz#bdb1bee7c79e138d2d7654a5aad61a77f1edbf93"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -5793,6 +5819,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+pdfjs-dist@^2.2.228, pdfjs-dist@^2.3.200:
+  version "2.4.456"
+  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.4.456.tgz#0eaad2906cda866bbb393e79a0e5b4e68bd75520"
+
 performance-now@^0.2.0:
   version "0.2.0"
   resolved "http://registry.npm.taobao.org/performance-now/download/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
@@ -6157,6 +6187,10 @@ q@^1.4.1:
 qjobs@^1.1.4:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/qjobs/download/qjobs-1.2.0.tgz#c45e9c61800bd087ef88d7e256423bdd49e5d071"
+
+qrious@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/qrious/-/qrious-4.0.2.tgz#09c4d4079d2b961617f62c69cff3b9bb66a39693"
 
 qs@6.5.1:
   version "6.5.1"
@@ -6597,7 +6631,7 @@ require-tree@^0.3.3:
 
 requires-port@^1.0.0:
   version "1.0.0"
-  resolved "http://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+  resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
@@ -8636,3 +8670,7 @@ yn@^2.0.0:
 zone.js@^0.8.26:
   version "0.8.26"
   resolved "http://registry.npm.taobao.org/zone.js/download/zone.js-0.8.26.tgz#7bdd72f7668c5a7ad6b118148b4ea39c59d08d2d"
+
+zrender@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/zrender/-/zrender-4.3.2.tgz#ec7432f9415c82c73584b6b7b8c47e1b016209c6"
