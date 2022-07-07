@@ -398,6 +398,12 @@
   version "8.9.5"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-8.9.5.tgz#162b864bc70be077e6db212b322754917929e976"
 
+"@types/pdfjs-dist@^2.0.1":
+  version "2.10.378"
+  resolved "https://registry.yarnpkg.com/@types/pdfjs-dist/-/pdfjs-dist-2.10.378.tgz#7f28ca75e43e88dd1d283f16c6786422df41063f"
+  dependencies:
+    pdfjs-dist "*"
+
 "@types/q@^0.0.32":
   version "0.0.32"
   resolved "http://registry.npm.taobao.org/@types/q/download/@types/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
@@ -2341,6 +2347,10 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
+dommatrix@^1.0.1:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/dommatrix/-/dommatrix-1.0.3.tgz#e7c18e8d6f3abdd1fef3dd4aa74c4d2e620a0525"
+
 domutils@1.1:
   version "1.1.6"
   resolved "http://registry.npm.taobao.org/domutils/download/domutils-1.1.6.tgz#bddc3de099b9a2efacc51c623f28f416ecc57485"
@@ -2385,6 +2395,12 @@ ecc-jsbn@~0.1.1:
   resolved "http://registry.npm.taobao.org/ecc-jsbn/download/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
   dependencies:
     jsbn "~0.1.0"
+
+echarts@^4.1.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/echarts/-/echarts-4.9.0.tgz#a9b9baa03f03a2a731e6340c55befb57a9e1347d"
+  dependencies:
+    zrender "4.3.2"
 
 editorconfig-tools@^0.1.1:
   version "0.1.1"
@@ -5050,9 +5066,9 @@ mockjs@^1.0.1-beta3:
   dependencies:
     commander "*"
 
-moment@^2.22.2:
-  version "2.22.2"
-  resolved "http://registry.npm.taobao.org/moment/download/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -5143,6 +5159,14 @@ ng-zorro-antd@^1.4.1:
     "@angular/cdk" "^6.0.0"
     date-fns "^1.29.0"
 
+ng2-pdf-viewer@^5.3.0:
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/ng2-pdf-viewer/-/ng2-pdf-viewer-5.3.4.tgz#fef311fbdc7d03d3eb5394f866ac08c295d4bae9"
+  dependencies:
+    "@types/pdfjs-dist" "^2.0.1"
+    pdfjs-dist "^2.2.228"
+    tslib "^1.9.0"
+
 ngx-countdown@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/ngx-countdown/download/ngx-countdown-3.0.1.tgz#c3b367b454826f769513e2330cfa9709c7627c94"
@@ -5161,6 +5185,12 @@ ngx-countdown@^3.0.0:
     ngx-notify "^2.0.0"
     rxjs "^6.0.0"
     zone.js "^0.8.26"
+
+ngx-echarts@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-echarts/-/ngx-echarts-3.2.0.tgz#69bc37d9fc26156117c2c0bb9ba113822228dc43"
+  dependencies:
+    tslib "^1.9.0"
 
 ngx-highlight-js@^2.0.0:
   version "2.0.4"
@@ -5210,6 +5240,10 @@ ngx-ueditor@^2.1.0:
     ngx-highlight-js "^2.0.0"
     rxjs "^6.0.0"
     zone.js "^0.8.26"
+
+ngx-umeditor@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-umeditor/-/ngx-umeditor-2.0.2.tgz#bdb1bee7c79e138d2d7654a5aad61a77f1edbf93"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -5793,6 +5827,13 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+pdfjs-dist@*, pdfjs-dist@^2.2.228, pdfjs-dist@^2.3.200:
+  version "2.14.305"
+  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.14.305.tgz#ed2ecb439ff8af5446c90a310ebd30bc1a91df62"
+  dependencies:
+    dommatrix "^1.0.1"
+    web-streams-polyfill "^3.2.1"
+
 performance-now@^0.2.0:
   version "0.2.0"
   resolved "http://registry.npm.taobao.org/performance-now/download/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
@@ -6157,6 +6198,10 @@ q@^1.4.1:
 qjobs@^1.1.4:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/qjobs/download/qjobs-1.2.0.tgz#c45e9c61800bd087ef88d7e256423bdd49e5d071"
+
+qrious@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/qrious/-/qrious-4.0.2.tgz#09c4d4079d2b961617f62c69cff3b9bb66a39693"
 
 qs@6.5.1:
   version "6.5.1"
@@ -8249,6 +8294,10 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+web-streams-polyfill@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz#71c2718c52b45fd49dbeee88634b3a60ceab42a6"
+
 webassemblyjs@1.4.3:
   version "1.4.3"
   resolved "http://registry.npm.taobao.org/webassemblyjs/download/webassemblyjs-1.4.3.tgz#0591893efb8fbde74498251cbe4b2d83df9239cb"
@@ -8636,3 +8685,7 @@ yn@^2.0.0:
 zone.js@^0.8.26:
   version "0.8.26"
   resolved "http://registry.npm.taobao.org/zone.js/download/zone.js-0.8.26.tgz#7bdd72f7668c5a7ad6b118148b4ea39c59d08d2d"
+
+zrender@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/zrender/-/zrender-4.3.2.tgz#ec7432f9415c82c73584b6b7b8c47e1b016209c6"
